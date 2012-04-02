@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Blank</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <link rel="stylesheet" href="/admin/resources/css/style.css" media="screen, projection" />
+        <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="screen" />
+        <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" />
+
+        <script src="/admin/resources/js/jquery.js"></script>
+        <script src="/admin/resources/js/jquery.cookie.js"></script>
+        <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+        <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+        <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.js"></script>
+
+        <script src="/admin/resources/plugins/jstree/_lib/jquery.hotkeys.js"></script>
+        <script src="/admin/resources/plugins/jstree/jquery.jstree.js"></script>
+
+        <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>
+
+        <script src="/admin/resources/js/core.js"></script>
+        <script src="/admin/structure/js/structure.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+
+            </div>
+
+            <div id="content">
+                <ul class="menu">
+                    <li><b>Страницы<i></i></b></li>
+                    <li><a href="/admin/_gallery">Галерея</a></li>
+                    <li><a href="/admin/_list">Новости</a></li>
+                    <li><a href="#">Блог</a></li>
+                    <li><a href="#">Поля</a></li>
+                    <li><a href="#">Дизайн</a></li>
+                    <li><a href="#">Настройка</a></li>
+                </ul>
+                <div class="black_linen_container bl_no_v_padding">
+                    <div class="structure">
+                        <div class="structure_left_col">
+                            <i class="vline"></i>
+                            <div class="tree_holder">
+                                <i id="active_tree_item_marker"></i>
+                                <ul class="tree" id="branch_1">
+                                    <li>
+                                        <i class="arrow"></i>
+                                        <a href="javascript:void(0)"><i class="item_icon regular"></i>Главная страница</a>
+                                        <ul id="branch_2">
+                                            <li><a href="javascript:void(0)"><i class="item_icon gallery"></i>Галерея</a></li>
+                                            <li>
+                                                <i class="arrow"></i>
+                                                <a href="javascript:void(0)"><i class="item_icon regular"></i>Новости</a>
+                                                <ul id="branch_3">
+                                                    <li>
+                                                        <i class="arrow"></i>
+                                                        <a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a>
+                                                        <ul>
+                                                            <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                            <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Блог</a></li>
+                                            <li class=""><a href="javascript:void(0)"><i class="item_icon regular"></i>Страница о компании</a></li>
+                                            <li>
+                                                <i class="arrow"></i>
+                                                <a href="javascript:void(0)"><i class="item_icon regular"></i>Каталог</a>
+                                                <ul id="branch_4">
+                                                    <li>
+                                                        <i class="arrow"></i>
+                                                        <a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a>
+                                                        <ul id="branch_5">
+                                                            <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                            <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <i class="arrow"></i>
+                                                <a href="javascript:void(0)"><i class="item_icon regular"></i>Галерея</a>
+                                                <ul id="branch_6">
+                                                    <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                    <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Первое</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="javascript:void(0)"><i class="item_icon regular"></i>Новости</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="structure_right_col">
+                            <div class="structure_item_content" style="opacity: 0">
+                                <h1>Редактирование узла</h1>
+
+                                <div class="form">
+                                    <form action="#" method="post">
+                                        <label>
+                                            Название<br>
+                                            <input type="text" class="text_field_black" />
+                                        </label>
+
+                                        <label>
+                                            Textarea
+                                            <textarea rows="20" id="textarea"></textarea>
+                                        </label>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="footer_inner">
+                &copy; 2012 Система управления сайтом «Редактор лайт»
+            </div>
+        </div>
+    </body>
+</html>

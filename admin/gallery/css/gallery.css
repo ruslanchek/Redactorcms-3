@@ -1,0 +1,199 @@
+#fileupload {
+    position: absolute;
+    top: -10000px;
+}
+
+/* Gallery */
+.gallery_pics {
+    padding: 20px 0 0;
+    position: relative;
+}
+
+.gallery_pics span.status {
+    display: block;
+    opacity: 0.7;
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/icons/common_icons.png);
+    background-position: 0 0px;
+}
+
+.gallery_pics .hidden span.status {
+    background-position: 0 -16px;
+}
+
+#item_ejector,
+#item_upload_area {
+    width: 100%;
+    height: 52px;
+    margin: 0;
+    position: absolute;
+    top: -51px;
+    left: 0;
+    z-index: 100;
+    border: 3px dashed #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    opacity: 0.6;
+    display: none;
+    text-shadow: none;
+    font-size: 18px;
+}
+
+#item_ejector span,
+#item_upload_area span {
+    display: block;
+    height: 52px;
+    width: 700px;
+    padding: 15px 0 0 95px;
+    margin: 0 auto;
+    line-height: 1.3em;
+    position: relative;
+}
+
+#item_ejector span i,
+#item_upload_area span i {
+    width: 30px;
+    height: 30px;
+    display: block;
+    background: url(../img/eject.png) no-repeat center;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    margin-top: -24px;
+    -webkit-border-radius: 17px;
+    -moz-border-radius: 17px;
+    border-radius: 17px;
+    border: 2px solid #fff;
+}
+
+#item_ejector_helper,
+#item_upload_helper {
+    width: 100%;
+    height: 0;
+    line-height: 0;
+}
+
+.gallery_pics .item.active>span.status {
+    opacity: 1;
+}
+
+.gallery_pics .item,
+.gallery_pics .album_item {
+    height: 120px;
+    position: relative;
+    width: 120px;
+    cursor: pointer;
+    float: left;
+    padding: 3px;
+    margin: 0 3% 20px 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 2px 3px 0 rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 2px 3px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 3px 0 rgba(0, 0, 0, 0.5);
+
+    background: #596a72 url(../../resources/img/bg/box_bg_gray.png) repeat-x top;
+    background-size: auto 100%;
+}
+
+.gallery_pics .item:hover,
+.gallery_pics .album_item:hover,
+.gallery_pics .album_item.over {
+    background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
+    background-size: auto 100%;
+}
+
+.gallery_pics .item.active,
+.gallery_pics .album_item:active {
+    background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
+    background-size: auto 100%;
+}
+
+.gallery_pics .wobble {
+    background: #f7b818 url(../../resources/img/bg/box_bg_yellow.png) repeat-x top;
+    background-size: auto 100%;
+}
+
+.gallery_pics .item i.preview {
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    height: 120px;
+    width: 120px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.gallery_pics .album_item i.preview {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: block;
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+.gallery_pics .item i.loading,
+.gallery_pics .album_item i.loading {
+    left: 11px;
+    top: 11px;
+}
+
+.gallery_pics .album_item span.counter {
+    display: block;
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    font-size: 25px;
+    line-height: 50px;
+    text-shadow: 0 -1px 0 #0f4e75;
+
+    background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
+    background-size: auto 100%;
+}
+
+.gallery_pics .item .x_button,
+.gallery_pics .album_item .x_button {
+    position: absolute;
+    top: -10px;
+    right: -12px;
+}
+
+#album_name_edit {
+    display: none;
+}
+
+#album_name_edit form {
+    display: inline;
+    margin: 0 0.15em;
+}
+
+#album_name_edit input {
+    padding: 0 0.2em;
+    font-size: 0.8em;
+    width: 50%;
+    display: inline;
+}
