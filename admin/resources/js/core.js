@@ -140,13 +140,11 @@ core.loading = {
     unsetLoading: function(name, micro){
         var $loading = $('i.loading[name="'+name+'"]');
 
-        if($loading.length > 0){
-            if(!micro){
-                this.stopAnimation(name);
-            };
-
-            $loading.remove();
+        if(!micro){
+            this.stopAnimation(name);
         };
+
+        $loading.remove();
     },
 
     animationIteration: function(name){
@@ -267,6 +265,10 @@ core.loading = {
         };
 
         return $loading;
+    }
+
+    setLoadingWithNotify: function(){
+
     }
 };
 
