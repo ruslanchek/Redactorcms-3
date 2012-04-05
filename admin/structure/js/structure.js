@@ -429,8 +429,7 @@ var structure = {
             data        : data,
             dataType    : 'json',
             beforeSend  : function(){
-                core.notify.showNotify('<h2>Сохранение</h2><div class="loading_area"></div>');
-                core.loading.setLoadingToElementByAppend('saveItemData', $('.notify .loading_area'));
+                core.loading.setLoadingWithNotify('saveItemData', false, 'Сохранение');
 
                 if(structure.save_item_request != null){
                     structure.save_item_request.abort();

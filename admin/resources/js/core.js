@@ -265,10 +265,11 @@ core.loading = {
         };
 
         return $loading;
-    }
+    },
 
-    setLoadingWithNotify: function(){
-
+    setLoadingWithNotify: function(name, micro, text){
+        core.notify.showNotify('<h2>'+text+'</h2><div class="loading_area"></div>');
+        this.setLoadingToElementByAppend(name, $('.notify .loading_area'), micro);
     }
 };
 
