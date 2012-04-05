@@ -70,6 +70,8 @@
                         $this->orderNode($_GET['id'], $_GET['order_params']);
                     }; break;
                 };
+
+                exit;
             };
 
             //$this->resetStructure();

@@ -451,7 +451,10 @@ var structure = {
                 $('#text_part').val(result.part);
 
                 structure.setMarkerToActivePosition();
-                core.notify.hideNotify();
+
+                setTimeout(function(){
+                    core.loading.unsetLoading();
+                }, 200);
             }
         });
     },

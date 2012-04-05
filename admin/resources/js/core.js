@@ -138,6 +138,10 @@ core.keyboard = {
 
 core.loading = {
     unsetLoading: function(name, micro){
+        if($('.notify .loading_area').html() != ''){
+            core.notify.hideNotify();
+        };
+
         var $loading = $('i.loading[name="'+name+'"]');
 
         if(!micro){

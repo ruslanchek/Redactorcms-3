@@ -29,6 +29,8 @@
                         $this->deleteImage($_GET['id']);
                     }; break;
                 };
+
+                exit;
             };
         }
 
