@@ -38,6 +38,7 @@ var gallery = {
                         $obj.removeClass('wobble').hide(250, 'easeOutQuad', function(){
                             $obj.remove();
                             gallery.reinitMode();
+                            $('#gallery_total').html(parseInt($('#gallery_total').html())-1);
                         });
                     }
                 });
@@ -57,9 +58,31 @@ var gallery = {
 
     deleteAll: function(){
         core.modal.showDialog({content: 'Удалить все картинки альбома?', action: function(){
-            $('.gallery_pics .items_holder .item').hide(250, 'easeOutQuad', function(){
-                $('.gallery_pics .items_holder .item').remove();
-                gallery.reinitMode();
+            gallery.delete_img_request = $.ajax({
+                url         : '/admin/gallery/?ajax&action=delete_all_images',
+                data        : {
+                    album_id: core.utilities.getParameterByName('album_id')
+                },
+                type        : 'GET',
+                beforeSend  : function(){
+                    if(gallery.delete_img_request != null){
+                        gallery.delete_img_request.abort();
+                    };
+
+                    core.loading.unsetLoading('deleteAllPic');
+                    core.loading.setLoadingToElementCenter('deleteAllPic', $('.black_linen_container'));
+                },
+                success     : function(){
+                    core.loading.unsetLoading('deleteAllPic');
+
+                    $('.gallery_pics .items_holder .item').hide(250, 'easeOutQuad', function(){
+                        $('.gallery_pics .items_holder .item').removeClass('wobble').hide(250, 'easeOutQuad', function(){
+                            $('.gallery_pics .items_holder .item').remove();
+                            gallery.reinitMode();
+                            $('#gallery_total').html(0);
+                        });
+                    });
+                }
             });
         }});
     },
@@ -466,7 +489,7 @@ var gallery = {
         });
     },
 
-    addQueue: function(data){
+    addUploadQueue: function(data){
         if(this.edit_request != null){
             this.edit_request.abort();
         };
@@ -492,7 +515,7 @@ var gallery = {
         });
     },
 
-    completeQueue: function(data){
+    completeUploadQueue: function(data){
         $.each(data.files, function(index, file){
             var $file = $.data(file);
 
@@ -521,15 +544,15 @@ var gallery = {
             sequentialUploads: true,
 
             change: function(e, data){
-                gallery.addQueue(data);
+                gallery.addUploadQueue(data);
             },
 
             drop: function(e, data){
-                gallery.addQueue(data);
+                gallery.addUploadQueue(data);
             },
 
             always: function(e, data){
-                gallery.completeQueue(data);
+                gallery.completeUploadQueue(data);
             }
         });
     },
