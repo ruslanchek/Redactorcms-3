@@ -54,6 +54,11 @@ var structure = {
                     id: 2,
                     name: 'Альбом',
                     action: 'get_albums'
+                },
+                {
+                    id: 3,
+                    name: 'Случайная фотография',
+                    action: false
                 }
             ]}
         ],
@@ -179,20 +184,25 @@ var structure = {
 
                             default : {
                                 if(result != null){
-                                    for(var i = 0, l = result.length; i < l; i++){
-                                        if(result[i].id == content_id){
-                                            selected = 'selected="selected"';
-                                        }else{
-                                            selected = '';
+                                    if(result.length > 0){
+                                        for(var i = 0, l = result.length; i < l; i++){
+                                            if(result[i].id == content_id){
+                                                selected = 'selected="selected"';
+                                            }else{
+                                                selected = '';
+                                            };
+
+                                            options += '<option '+selected+' value="'+result[i].id+'">'+result[i].name+'</option>';
                                         };
 
-                                        options += '<option '+selected+' value="'+result[i].id+'">'+result[i].name+'</option>';
+                                        html = '<select id="select_block_content_id">' + options + '</select>';
+
+                                        $('#select_block_content_id_placeholder').html(html);
+                                        $('#select_block_content_id_placeholder').parent().show();
+                                    }else{
+                                        $('#select_block_content_id_placeholder').html('<em class="gray">Нет объектов</em>');
+                                        $('#select_block_content_id_placeholder').parent().show();
                                     };
-
-                                    html = '<select id="select_block_content_id">' + options + '</select>';
-
-                                    $('#select_block_content_id_placeholder').html(html);
-                                    $('#select_block_content_id_placeholder').parent().show();
                                 }else{
                                     $('#select_block_content_id_placeholder').parent().hide();
                                 };

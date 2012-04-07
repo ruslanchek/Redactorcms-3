@@ -346,3 +346,5 @@ select.w100 { width: 99.8%; }
 .mono { font-family: monospace; }
 
 .align_center { text-align: center; }
+
+.gray { color: #777; }
