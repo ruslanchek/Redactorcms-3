@@ -13,9 +13,8 @@
         <script src="/admin/resources/js/jquery.js"></script>
         <script src="/admin/resources/js/jquery.cookie.js"></script>
         <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
-        {* <script src="/admin/resources/js/jquery.animate-enhanced.js"></script> *}
         <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-        <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.js"></script>
+        <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
         <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>
         <script src="/admin/resources/plugins/iphone_checkboxes/iphone-style-checkboxes.js"></script>
 

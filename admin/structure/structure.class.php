@@ -74,8 +74,14 @@
                 exit;
             };
 
-            //$this->resetStructure();
-            //$this->createRandomStructure(15);
+            /*
+                DO NOT UNCOMMENT, THIS IS A DEBUG METHODS,
+                IT WILL CLEAN YOUR STRUCTURE COMPLETELY,
+                AND CREATE A NEW RANDOM STRUCTURE
+
+                $this->resetStructure();
+                $this->createRandomStructure(15);
+            */
         }
 
         public function __destruct(){

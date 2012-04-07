@@ -6,7 +6,7 @@
             'host'  => 'localhost',
             'db'    => 'rdclite',
             'user'  => 'root',
-            'pass'  => ''
+            'pass'  => '123'
         );
     };
 ?>

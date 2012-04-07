@@ -574,6 +574,10 @@ var gallery = {
         $('.popup .dialog_button.cancel').live('click', function(){
             gallery.cancelItemEdit();
         });
+
+        $('#image_edit_form .show_pic').fancybox({
+            padding: 5
+        });
     },
 
     init: function(){

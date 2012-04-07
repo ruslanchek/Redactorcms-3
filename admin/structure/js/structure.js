@@ -149,7 +149,7 @@ var structure = {
                 html = new String(),
                 selected;
 
-            if(module_mode.action != false){
+            if(module_mode.action !== false){
                 $.ajax({
                     url         : '/admin/structure/?ajax&action='+module_mode.action,
                     type        : 'GET',
@@ -162,7 +162,7 @@ var structure = {
                         core.loading.unsetLoading('drawSelectContentId');
 
                         switch(module_mode.action){
-                            /*case 'get_albums' : {
+                            case 'get_albums' : {
                                 for(var i = 0, l = result.length; i < l; i++){
                                     if(result[i].id == content_id){
                                         selected = ' selected';
@@ -180,7 +180,7 @@ var structure = {
                                         '</div>';
 
                                 $('#select_block_content_id_placeholder').html(html);
-                            }; break;*/
+                            }; break;
 
                             default : {
                                 if(result != null){
@@ -463,7 +463,7 @@ var structure = {
                 structure.setMarkerToActivePosition();
 
                 setTimeout(function(){
-                    core.loading.unsetLoading();
+                    core.loading.unsetLoading('saveItemData');
                 }, 200);
             }
         });

@@ -139,7 +139,7 @@ core.keyboard = {
 core.loading = {
     unsetLoading: function(name, micro){
         if($('.notify .loading_area').html() != ''){
-            core.notify.hideNotify();
+            var kill_notify = true;
         };
 
         var $loading = $('i.loading[name="'+name+'"]');
@@ -149,6 +149,10 @@ core.loading = {
         };
 
         $loading.remove();
+
+        if(kill_notify){
+            core.notify.hideNotify();
+        };
     },
 
     animationIteration: function(name){
@@ -170,11 +174,13 @@ core.loading = {
         var $loading = $('i.loading[name="'+name+'"]');
 
         $loading.data('pos', 0);
-        
-        if($loading.data('animation_interval') != null){
+
+        if(typeof $loading.data('animation_interval') != 'undefined'){
             clearInterval($loading.data('animation_interval'));
         };
     },
+
+    //todo: побороть баг с многократным вызовом анимации
 
     startAnimation: function(name){
         var $loading = $('i.loading[name="'+name+'"]');
