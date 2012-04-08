@@ -25,8 +25,11 @@
                     }; break;
 
                     case 'delete_image' : {
-                        usleep(1000000);
                         $this->deleteImage($_GET['id']);
+                    }; break;
+
+                    case 'delete_all_images' : {
+                        $this->deleteAllImages($_GET['album_id']);
                     }; break;
                 };
 
@@ -44,10 +47,19 @@
             return strtolower($ext);
         }
 
+        private function deleteAllImages($album_id){
+            $images = $this->getImages($album_id);
+
+            foreach($images as $item){
+                $this->deleteImage($item['id']);
+            };
+        }
+
         private function deleteImage($id){
             $query = "
                 SELECT
-                    *
+                    `id`,
+                    `extension`
                 FROM
                     `gallery_images`
                 WHERE
@@ -56,13 +68,16 @@
 
             $result = $this->db->assocItem($query);
 
-            print_r($result);
-
             if(!empty($result)){
-                $file = $_SERVER['DOCUMENT_ROOT'].'/'.$result['id'].'.'.$result['extension'];
+                $file = $_SERVER['DOCUMENT_ROOT'].'/content/gallery/images/'.$result['id'].'.'.$result['extension'];
+                $thumbnail = $_SERVER['DOCUMENT_ROOT'].'/content/gallery/thumbnails/'.$result['id'].'.'.$result['extension'];
 
                 if(file_exists($file)){
                     unlink($file);
+                };
+
+                if(file_exists($thumbnail)){
+                    unlink($thumbnail);
                 };
 
                 $query = "
