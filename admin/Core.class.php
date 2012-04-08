@@ -25,7 +25,7 @@
         private static $objects = array();
 
         public function __construct(){
-            require_once($_SERVER['DOCUMENT_ROOT'].'/config.class.php');
+            require_once($_SERVER['DOCUMENT_ROOT'].'/Config.class.php');
             $this->config = new Config();
         }
 
@@ -70,7 +70,7 @@
                 $this->smarty->setTemplateDir($_SERVER['DOCUMENT_ROOT'].'/admin/templates');
                 $this->smarty->setCompileDir($_SERVER['DOCUMENT_ROOT'].'/admin/templates_c');
                 $this->smarty->setConfigDir($_SERVER['DOCUMENT_ROOT'].'/smarty/configs');
-                $this->smarty->setCacheDir($_SERVER['DOCUMENT_ROOT'].'/cache');
+                $this->smarty->setCacheDir($_SERVER['DOCUMENT_ROOT'].'/admin/cache');
 
                 $this->smarty->force_compile    = false;
                 $this->smarty->debugging        = false;

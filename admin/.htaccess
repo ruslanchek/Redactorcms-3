@@ -1,0 +1,13 @@
+php_value error_reporting 1
+
+AddDefaultCharset utf-8
+AddCharset utf-8 *
+
+<IfModule mod_charset.c>
+    CharsetSourceEnc utf-8
+    CharsetDefault utf-8
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine Off
+</IfModule>
