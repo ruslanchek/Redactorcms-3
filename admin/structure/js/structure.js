@@ -12,10 +12,10 @@ var structure = {
     blocksInput: {
         modules: [
             {id: 1, name : 'Страницы', modes: [
-                {   id: 1,
+                {
+                    id: 1,
                     name: 'HTML-страница',
-                    action: 'get_pages',
-                    main: true
+                    action: 'get_pages'
                 }
             ]},
 
@@ -36,14 +36,12 @@ var structure = {
                 {
                     id: 1,
                     name: 'Список линеек',
-                    action: false,
-                    main: true
+                    action: false
                 },
                 {
                     id: 2,
                     name: 'Линейка',
-                    action: 'get_news_section',
-                    main: true
+                    action: 'get_news_section'
                 }
             ]},
 
@@ -51,8 +49,7 @@ var structure = {
                 {
                     id: 1,
                     name: 'Вся галерея',
-                    action: false,
-                    main: true
+                    action: false
                 },
                 {
                     id: 2,
@@ -100,7 +97,7 @@ var structure = {
             $('#hidden_main_block').val(encodeURI(JSON.stringify(this.main_block_obj)));
         },
 
-        drawSelectModule: function(module){
+        drawSelectModule: function(module, block_id){
             var options = new String(),
                 selected;
 
@@ -124,7 +121,7 @@ var structure = {
             });
         },
 
-        drawSelectModuleMode: function(module, module_mode){
+        drawSelectModuleMode: function(module, module_mode, block_id){
             var options = new String(),
                 selected,
                 module = this.getblockModule(module);
@@ -229,7 +226,7 @@ var structure = {
                 this.main_block_obj.module_mode   = parseInt($('#select_block_module_mode').val());
                 this.main_block_obj.content_id    = parseInt($('#select_block_content_id').val());
 
-                block_data = this.blocks_obj[i];
+                block_data = this.main_block_obj;
 
                 var module      = this.getblockModule(block_data.module),
                     module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
@@ -237,8 +234,6 @@ var structure = {
                 $block_item = $('#blocks .item[rel="main"]');
                 $block_item.find('span.module_name').html(module.name);
                 $block_item.find('span.module_mode').html(module_mode.name);
-
-                //todo : не пашет главный блок!!!
 
                 $('#hidden_main_block').val(encodeURIComponent(JSON.stringify(this.main_block_obj)));
             }else{

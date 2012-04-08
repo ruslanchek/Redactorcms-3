@@ -1,3 +1,5 @@
+php_value error_reporting 1
+
 AddDefaultCharset utf-8
 AddCharset utf-8 *
 
@@ -5,3 +7,14 @@ AddCharset utf-8 *
     CharsetSourceEnc utf-8
     CharsetDefault utf-8
 </IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.*)$ /index.php [QSA,L]
+</IfModule>
+
+php_flag post_max_filesize 10M
+php_flag upload_max_filesize 10M
+
+php_value memory_limit 64M
