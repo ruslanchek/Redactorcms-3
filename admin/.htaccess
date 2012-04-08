@@ -9,5 +9,7 @@ AddCharset utf-8 *
 </IfModule>
 
 <IfModule mod_rewrite.c>
-	RewriteEngine Off
+	RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule	^admin/?$ /admin/$ [L]
 </IfModule>

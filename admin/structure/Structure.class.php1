@@ -260,16 +260,18 @@
 
             $result = $this->db->assocItem($query);
 
-            if($result['pid'] > 1){
+            if($result['pid'] >= 1){
                 $path .= $this->getNodePath($result['pid'], $path);
             }else{
                 $path .= '/';
             };
 
-            if($part){
-                $path .= $part.'/';
-            }else{
-                $path .= $result['part'].'/';
+            if($result['pid'] >= 1){
+                if($part){
+                    $path .= $part.'/';
+                }else{
+                    $path .= $result['part'].'/';
+                };
             };
 
             return $this->utils->removePathDoubleSlashes($path);

@@ -6,7 +6,6 @@
 
         public function __construct(){
             parent::__construct();
-
             $this->db_vars = $this->config->db_vars;
             $this->mySqlConnect();
         }

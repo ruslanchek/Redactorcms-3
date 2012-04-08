@@ -1,1 +1,1 @@
-sadasasd
+{$core->page|print_r}
