@@ -97,6 +97,7 @@ var structure = {
 
         setData: function(){
             $('#hidden_blocks').val(encodeURI(JSON.stringify(this.blocks_obj)));
+            $('#hidden_main_block').val(encodeURI(JSON.stringify(this.main_block_obj)));
         },
 
         drawSelectModule: function(module){
@@ -223,47 +224,66 @@ var structure = {
             var block_data,
                 new_block = false;
 
-            if(block_id == 'new'){
-                block_id     = structure.blocksInput.blocks_obj.length + 1;
-                new_block    = true;
+            if(block_id == 'main'){
+                this.main_block_obj.module        = parseInt($('#select_block_module').val());
+                this.main_block_obj.module_mode   = parseInt($('#select_block_module_mode').val());
+                this.main_block_obj.content_id    = parseInt($('#select_block_content_id').val());
 
-                this.blocks_obj.push({
-                    id            : block_id,
-                    module        : parseInt($('#select_block_module').val()),
-                    module_mode   : parseInt($('#select_block_module_mode').val()),
-                    content_id    : parseInt($('#select_block_content_id').val())
-                });
-            };
+                block_data = this.blocks_obj[i];
 
-            for(var i = 0, l = this.blocks_obj.length; i < l; i++){
-                if(this.blocks_obj[i].id == block_id){
-                    this.blocks_obj[i].module        = parseInt($('#select_block_module').val());
-                    this.blocks_obj[i].module_mode   = parseInt($('#select_block_module_mode').val());
-                    this.blocks_obj[i].content_id    = parseInt($('#select_block_content_id').val());
+                var module      = this.getblockModule(block_data.module),
+                    module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
 
-                    block_data = this.blocks_obj[i];
-                };
-            };
+                $block_item = $('#blocks .item[rel="main"]');
+                $block_item.find('span.module_name').html(module.name);
+                $block_item.find('span.module_mode').html(module_mode.name);
 
-            var module      = this.getblockModule(block_data.module),
-                module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
+                //todo : не пашет главный блок!!!
 
-            if(new_block){
-                var new_block_html = '<div class="item popup_effect" rel="' + block_id + '">' +
-                                        '<span class="num">' + block_id + '</span>' +
-                                        '<span class="module_name">' + module.name + '</span>' +
-                                        '<span class="module_mode">' + module_mode.name + '</span>' +
-                                    '</div>';
-
-                $('#blocks .item[rel="new"]').before(new_block_html);
+                $('#hidden_main_block').val(encodeURIComponent(JSON.stringify(this.main_block_obj)));
             }else{
-                var $block_item  = $('#blocks .item[rel="'+block_id+'"]');
+                if(block_id == 'new'){
+                    block_id     = structure.blocksInput.blocks_obj.length + 1;
+                    new_block    = true;
 
-                $block_item.find('.module_name').html(module.name);
-                $block_item.find('.module_mode').html(module_mode.name);
+                    this.blocks_obj.push({
+                        id            : block_id,
+                        module        : parseInt($('#select_block_module').val()),
+                        module_mode   : parseInt($('#select_block_module_mode').val()),
+                        content_id    : parseInt($('#select_block_content_id').val())
+                    });
+                };
+
+                for(var i = 0, l = this.blocks_obj.length; i < l; i++){
+                    if(this.blocks_obj[i].id == block_id){
+                        this.blocks_obj[i].module        = parseInt($('#select_block_module').val());
+                        this.blocks_obj[i].module_mode   = parseInt($('#select_block_module_mode').val());
+                        this.blocks_obj[i].content_id    = parseInt($('#select_block_content_id').val());
+
+                        block_data = this.blocks_obj[i];
+                    };
+                };
+
+                var module      = this.getblockModule(block_data.module),
+                    module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
+
+                if(new_block){
+                    var new_block_html = '<div class="item popup_effect" rel="' + block_id + '">' +
+                                            '<span class="num">' + block_id + '</span>' +
+                                            '<span class="module_name">' + module.name + '</span>' +
+                                            '<span class="module_mode">' + module_mode.name + '</span>' +
+                                        '</div>';
+
+                    $('#blocks .item[rel="new"]').before(new_block_html);
+                }else{
+                    var $block_item  = $('#blocks .item[rel="'+block_id+'"]');
+
+                    $block_item.find('span.module_name').html(module.name);
+                    $block_item.find('span.module_mode').html(module_mode.name);
+                };
+
+                $('#hidden_blocks').val(encodeURIComponent(JSON.stringify(this.blocks_obj)));
             };
-
-            $('#hidden_blocks').val(encodeURIComponent(JSON.stringify(this.blocks_obj)));
         },
 
         editblock: function($item_obj){
@@ -275,8 +295,8 @@ var structure = {
                 content_id;
 
             switch(block_id){
-                case 'new' : {
-                    header = 'Новый блок №' + (this.blocks_obj.length+1);
+                case 'main' : {
+                    header = 'Настройка основного блока';
                     module = 1;
                     module_mode = 1;
                     content_id  = 0;
@@ -288,18 +308,13 @@ var structure = {
                     module_mode = 1;
                     content_id  = 0;
                 }; break;
-            };
 
-            if(block_id == 'new'){
-                header = 'Новый блок №' + (this.blocks_obj.length+1);
-                module = 1;
-                module_mode = 1;
-                content_id  = 0;
-            }else{
-                header = 'Настройка блока №'+block_id;
-                module = block_data.module;
-                module_mode = block_data.module_mode;
-                content_id  = block_data.content_id;
+                default : {
+                    header = 'Настройка блока №'+block_id;
+                    module = block_data.module;
+                    module_mode = block_data.module_mode;
+                    content_id  = block_data.content_id;
+                }; break;
             };
 
             var content =   '<h2>'+header+'</h2>' +
