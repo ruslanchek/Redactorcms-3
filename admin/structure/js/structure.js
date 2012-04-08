@@ -164,7 +164,7 @@ var structure = {
                         core.loading.unsetLoading('drawSelectContentId');
 
                         switch(module_mode.action){
-                            case 'get_albums' : {
+                            /*case 'get_albums' : {
                                 for(var i = 0, l = result.length; i < l; i++){
                                     if(result[i].id == content_id){
                                         selected = ' selected';
@@ -182,7 +182,7 @@ var structure = {
                                         '</div>';
 
                                 $('#select_block_content_id_placeholder').html(html);
-                            }; break;
+                            }; break;*/
 
                             default : {
                                 if(result != null){
