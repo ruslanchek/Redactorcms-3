@@ -546,7 +546,8 @@
                 'part'              => $part,
                 'menu_id'           => $_POST['menu_id'],
                 'template_id'       => $_POST['template_id'],
-                'blocks'             => urldecode($_POST['blocks']),
+                'blocks'            => urldecode($_POST['blocks']),
+                'main_block'        => urldecode($_POST['main_block']),
                 'seo_title'         => $_POST['seo_title'],
                 'seo_keywords'      => $_POST['seo_keywords'],
                 'seo_description'   => $_POST['seo_description']
@@ -569,6 +570,7 @@
 			        `structure_data`.`menu_id`,
 			        `structure_data`.`template_id`,
 			        `structure_data`.`blocks`,
+			        `structure_data`.`main_block`,
 			        `structure_data`.`seo_title`,
 			        `structure_data`.`seo_keywords`,
 			        `structure_data`.`seo_description`

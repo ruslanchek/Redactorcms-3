@@ -237,6 +237,10 @@ ul.tree li.active a.published {
     margin: 0 0 0.4em;
 }
 
+#blocks .main_block .num {
+
+}
+
 #blocks .item .module_name {
     display: block;
     text-align: center;

@@ -14,7 +14,8 @@ var structure = {
             {id: 1, name : 'Страницы', modes: [
                 {   id: 1,
                     name: 'HTML-страница',
-                    action: 'get_pages'
+                    action: 'get_pages',
+                    main: true
                 }
             ]},
 
@@ -35,12 +36,14 @@ var structure = {
                 {
                     id: 1,
                     name: 'Список линеек',
-                    action: false
+                    action: false,
+                    main: true
                 },
                 {
                     id: 2,
                     name: 'Линейка',
-                    action: 'get_news_section'
+                    action: 'get_news_section',
+                    main: true
                 }
             ]},
 
@@ -48,7 +51,8 @@ var structure = {
                 {
                     id: 1,
                     name: 'Вся галерея',
-                    action: false
+                    action: false,
+                    main: true
                 },
                 {
                     id: 2,
@@ -173,8 +177,8 @@ var structure = {
                                     options += '<div class="item'+selected+'" value="'+result[i].id+'">'+result[i].name+'</div>';
                                 };
 
-                                html += '<input type="hidden" id="select_block_content_id" value="'+content_id+'" />';
-                                html += '<div class="content_id_albums">' +
+                                html += '<input type="hidden" id="select_block_content_id" value="'+content_id+'" />' +
+                                        '<div class="content_id_albums">' +
                                             options +
                                             '<div class="clear"></div>' +
                                         '</div>';
@@ -215,12 +219,12 @@ var structure = {
             };
         },
 
-        getAndSetblockParams: function(block_id){
+        getAndSetBlockParams: function(block_id){
             var block_data,
                 new_block = false;
 
             if(block_id == 'new'){
-                block_id     = structure.blocksInput.blocks_obj.length+1;
+                block_id     = structure.blocksInput.blocks_obj.length + 1;
                 new_block    = true;
 
                 this.blocks_obj.push({
@@ -270,6 +274,22 @@ var structure = {
                 module_mode,
                 content_id;
 
+            switch(block_id){
+                case 'new' : {
+                    header = 'Новый блок №' + (this.blocks_obj.length+1);
+                    module = 1;
+                    module_mode = 1;
+                    content_id  = 0;
+                }; break;
+
+                case 'new' : {
+                    header = 'Новый блок №' + (this.blocks_obj.length+1);
+                    module = 1;
+                    module_mode = 1;
+                    content_id  = 0;
+                }; break;
+            };
+
             if(block_id == 'new'){
                 header = 'Новый блок №' + (this.blocks_obj.length+1);
                 module = 1;
@@ -304,7 +324,7 @@ var structure = {
                 content: content,
                 width: 500,
                 action: function(){
-                    structure.blocksInput.getAndSetblockParams(block_id);
+                    structure.blocksInput.getAndSetBlockParams(block_id);
                 }
             });
 
@@ -314,20 +334,32 @@ var structure = {
         },
 
         init: function(){
-            var blocks_value =   core.form.options.data.blocks,
-                blocks_html  =   new String(),
-                html        =   'Блоки' +
-                                '<div id="blocks" class="input_holder"></div>' +
-                                '<input type="hidden" id="hidden_blocks" name="blocks" value="'+encodeURIComponent(blocks_value)+'" />';
+            var blocks_value        =   core.form.options.data.blocks,
+                main_block_value    =   core.form.options.data.main_block,
+                blocks_html         =   new String(),
+                html                =   'Блоки' +
+                                        '<div id="blocks" class="input_holder"></div>' +
+                                        '<input type="hidden" id="hidden_blocks" name="blocks" value="'+encodeURIComponent(blocks_value)+'" />' +
+                                        '<input type="hidden" id="hidden_main_block" name="main_block" value="'+encodeURIComponent(main_block_value)+'" />';
 
-            this.blocks_obj = $.parseJSON(blocks_value);
+            this.blocks_obj         = $.parseJSON(blocks_value);
+            this.main_block_obj     = $.parseJSON(main_block_value);
             core.form.options.container_obj.find('form#'+core.form.options.form_id).find('.form_items').append(html);
+
+            var module              = this.getblockModule(this.main_block_obj.module),
+                module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode);
+
+            blocks_html +=  '<div class="item main_block" rel="main">' +
+                                '<span class="num">♛</span>' +
+                                '<span class="module_name">' + module.name + '</span>' +
+                                '<span class="module_mode">' + module_mode.name + '</span>' +
+                            '</div>';
 
             for(var i = 0, l = this.blocks_obj.length; i < l; i++){
                 var module          = this.getblockModule(this.blocks_obj[i].module),
                     module_mode     = this.getblockModuleMode(this.blocks_obj[i].module, this.blocks_obj[i].module_mode);
 
-                blocks_html +=   '<div class="item" rel="' + this.blocks_obj[i].id + '">' +
+                blocks_html +=  '<div class="item" rel="' + this.blocks_obj[i].id + '">' +
                                     '<span class="num">' + this.blocks_obj[i].id + '</span>' +
                                     '<span class="module_name">' + module.name + '</span>' +
                                     '<span class="module_mode">' + module_mode.name + '</span>' +
