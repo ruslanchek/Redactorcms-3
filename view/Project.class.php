@@ -1,6 +1,8 @@
 <?php
     Class Project extends Core {
         public function __construct(){
+            parent::__construct();
+
             $this->init();
 
             if($this->ajax_mode){
@@ -15,7 +17,9 @@
         }
 
         protected function ajaxTest(){
-            print 'asdas';
+            print 'test';
         }
+
+
     };
 ?>

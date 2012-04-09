@@ -5,6 +5,8 @@
             $root_node_name = 'Корневой узел';
 
         public function __construct(){
+            parent::__construct();
+
             $this->init(array(
                 'name'  => 'structure',
                 'title' => 'Структура'
@@ -33,6 +35,7 @@
                         $result['node_data']    = $this->getNodeData($_GET['id']);
                         $result['templates']    = $this->getTemplatesList();
                         $result['menues']       = $this->getMenuesList();
+                        $result['modules']      = $this->config->modules;
 
                         print json_encode($result);
                     }; break;

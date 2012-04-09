@@ -10,60 +10,6 @@ var structure = {
 
     //Расширяем фунционал создания формы для блоков раздела
     blocksInput: {
-        modules: [
-            {id: 1, name : 'Страницы', modes: [
-                {
-                    id: 1,
-                    name: 'HTML-страница',
-                    action: 'get_pages'
-                }
-            ]},
-
-            {id: 2, name : 'Меню', modes: [
-                {
-                    id: 1,
-                    name: 'Одноуровневое',
-                    action: 'get_menu_list'
-                },
-                {
-                    id: 2,
-                    name: 'Многоуровневое',
-                    action: 'get_menu_list'
-                }
-            ]},
-
-            {id: 3, name : 'Новости', modes: [
-                {
-                    id: 1,
-                    name: 'Список линеек',
-                    action: false
-                },
-                {
-                    id: 2,
-                    name: 'Линейка',
-                    action: 'get_news_section'
-                }
-            ]},
-
-            {id: 4, name : 'Галерея', modes: [
-                {
-                    id: 1,
-                    name: 'Вся галерея',
-                    action: false
-                },
-                {
-                    id: 2,
-                    name: 'Альбом',
-                    action: 'get_albums'
-                },
-                {
-                    id: 3,
-                    name: 'Случайная фотография',
-                    action: false
-                }
-            ]}
-        ],
-
         getblockModule: function(module_id){
             for(var i = 0, l = this.modules.length; i < l; i++){
                 if(this.modules[i].id == module_id){
@@ -97,7 +43,7 @@ var structure = {
             $('#hidden_main_block').val(encodeURI(JSON.stringify(this.main_block_obj)));
         },
 
-        drawSelectModule: function(module, block_id){
+        drawSelectModule: function(module){
             var options = new String(),
                 selected;
 
@@ -121,7 +67,7 @@ var structure = {
             });
         },
 
-        drawSelectModuleMode: function(module, module_mode, block_id){
+        drawSelectModuleMode: function(module, module_mode){
             var options = new String(),
                 selected,
                 module = this.getblockModule(module);
@@ -344,6 +290,8 @@ var structure = {
         },
 
         init: function(){
+            this.modules            =   core.form.options.modules;
+
             var blocks_value        =   core.form.options.data.blocks,
                 main_block_value    =   core.form.options.data.main_block,
                 blocks_html         =   new String(),
@@ -516,6 +464,7 @@ var structure = {
             form_id             : 'edit_item_form',
             container_obj       : $('#form'),
             data                : data.node_data,
+            modules             : data.modules,
             beforeSubmit        : function(){
                 structure.resizeing();
             },
@@ -595,61 +544,6 @@ var structure = {
         });
 
         this.blocksInput.init();
-
-        /*core.form.drawTextInput({
-            label       : 'SEO Title',
-            name        : 'seo_title',
-            collapsed   : true
-        });
-
-        core.form.drawTextarea({
-            label       : 'SEO Keywords',
-            name        : 'seo_keywords',
-            visywig     : false,
-            rows        : 6,
-            collapsed   : true
-        });
-
-        core.form.drawTextarea({
-            label       : 'SEO Description',
-            name        : 'seo_description',
-            visywig     : false,
-            rows        : 6,
-            collapsed   : true
-        });*/
-
-        /*
-
-        core.form.drawRadioButtonInput({
-            name    : 'type',
-            options : [
-                {
-                    label   : 'Текстовая страница',
-                    value   : 1
-                },
-                {
-                    label   : 'Фотогалерея',
-                    value   : 2
-                },
-                {
-                    label   : 'Блог',
-                    value   : 3
-                }
-            ]
-        });
-
-        core.form.drawTextarea({
-            label   : 'Контент',
-            name    : 'content',
-            visywig : true,
-            rows    : 20
-        });
-
-        core.form.drawHiddenInput({
-            name    : 'id'
-        });
-
-        */
     },
 
     openStructureItem: function(leaf_id){

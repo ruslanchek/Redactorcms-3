@@ -1,6 +1,8 @@
 <?php
     Class Gallery extends Core {
         public function __construct(){
+            parent::__construct();
+
             $this->init(array(
                 'name'  => 'gallery',
                 'title' => 'Галерея'

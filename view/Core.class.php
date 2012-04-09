@@ -158,5 +158,31 @@
                 $this->smarty->display($this->template);
             };
         }
+
+        public function drawBlock($block_id){
+            if($block_id == 'main'){
+                $block_obj = $this->page['main_block'];
+            }else{
+                foreach($this->page['blocks'] as $block){
+                    if($block['id'] == $block_id){
+                        $block_obj = $block;
+                    };
+                };
+            };
+
+            foreach($this->config->modules as $module){
+                if($module['id'] == $block_obj['module']){
+                    foreach($module['modes'] as $mode){
+                        if($mode['id'] == $block_obj['module_mode']){
+                            $block_params = $mode;
+                            break;
+                        };
+                    };
+                    break;
+                };
+            };
+
+            return $this->smarty->fetch('modules/'.$block_params['template']);
+        }
     }
 ?>
