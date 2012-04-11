@@ -1,1 +1,1 @@
-xxx
+page.simple.tpl

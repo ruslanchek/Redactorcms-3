@@ -1,1 +1,1 @@
-sas
+news.list.tpl
