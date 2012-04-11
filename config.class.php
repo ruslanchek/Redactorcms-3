@@ -10,7 +10,7 @@
         );
 
         public $modules = array(
-            array('id' => 1, 'name' => 'Страницы', 'modes' => array(
+            array('id' => 1, 'class' => 'page', 'name' => 'Страницы', 'modes' => array(
                 array(
                     'id'        => 1,
                     'name'      => 'HTML-страница',
@@ -19,7 +19,7 @@
                 )
             )),
 
-            array('id' => 2, 'name' => 'Меню', 'modes' => array(
+            array('id' => 2, 'class' => 'menu', 'name' => 'Меню', 'modes' => array(
                 array(
                     'id'        => 1,
                     'name'      => 'Одноуровневое',
@@ -34,7 +34,7 @@
                 )
             )),
 
-            array('id' => 3, 'name' => 'Новости', 'modes' => array(
+            array('id' => 3, 'class' => 'news', 'name' => 'Новости', 'modes' => array(
                 array(
                     'id'        => 1,
                     'name'      => 'Список линеек',
@@ -49,7 +49,7 @@
                 )
             )),
 
-            array('id' => 4, 'name' => 'Галерея', 'modes' => array(
+            array('id' => 4, 'class' => 'gallery', 'name' => 'Галерея', 'modes' => array(
                 array(
                     'id'        => 1,
                     'name'      => 'Вся галерея',

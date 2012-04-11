@@ -486,38 +486,27 @@
         //Returns array of specified branch
         public function getBranchArray($id = 0){
             if($id > 0){
-                $query = "
-                    SELECT
-                        `structure`.`id`,
-                        `structure_data`.`sort`,
-                        `structure_data`.`name`,
-                        `structure_data`.`publish`
-                    FROM
-                        `structure`,
-                        `structure_data`
-                    WHERE
-                        `structure`.`pid` = ".intval($id)." &&
-                        `structure`.`id` = `structure_data`.`id`
-                    ORDER BY
-                        `structure_data`.`sort` ASC
-                ";
+                $where = "`structure`.`pid` = ".intval($id)." && ";
             }else{
-                $query = "
-                    SELECT
-                        `structure`.`id`,
-                        `structure_data`.`sort`,
-                        `structure_data`.`name`,
-                        `structure_data`.`publish`
-                    FROM
-                        `structure`,
-                        `structure_data`
-                    WHERE
-                        `structure`.`id` = 1 &&
-                        `structure`.`id` = `structure_data`.`id`
-                    ORDER BY
-                        `structure_data`.`sort` ASC
-                ";
+                $where = "`structure`.`id` = 1 && ";
             };
+
+            $query = "
+                SELECT
+                    `structure`.`id`,
+                    `structure_data`.`sort`,
+                    `structure_data`.`name`,
+                    `structure_data`.`publish`,
+                    `structure_data`.`main_block`
+                FROM
+                    `structure`,
+                    `structure_data`
+                WHERE
+                    ".$where."
+                    `structure`.`id` = `structure_data`.`id`
+                ORDER BY
+                    `structure_data`.`sort` ASC
+            ";
 
             $sql = $this->db->query($query);
             $result = array();
@@ -668,6 +657,18 @@
             ";
 
             return $this->db->assocMulti($query);
+        }
+
+        public function getBranchClass($main_block_entry){
+            $main = json_decode($main_block_entry, true);
+
+            foreach($this->config->modules as $module){
+                if($module['id'] == $main['module']){
+                    return $module['class'];
+                };
+            };
+
+            return 'regular';
         }
     };
 ?>

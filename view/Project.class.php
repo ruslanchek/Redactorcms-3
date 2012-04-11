@@ -19,7 +19,5 @@
         protected function ajaxTest(){
             print 'test';
         }
-
-
     };
 ?>

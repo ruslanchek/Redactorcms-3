@@ -436,7 +436,15 @@ var structure = {
                 };
             },
             success     : function(result){
-                var status_class;
+                var status_class,
+                    module_icon_class,
+                    main_block_data = JSON.parse(result.main_block);
+
+                for(var i = 0, l = structure.blocksInput.modules.length; i < l; i++){
+                    if(main_block_data.module == structure.blocksInput.modules[i].id){
+                        module_icon_class = structure.blocksInput.modules[i].class;
+                    };
+                };
 
                 if(result.publish == '1'){
                     status_class = 'published';
@@ -446,6 +454,7 @@ var structure = {
 
                 $('#leaf_' + data.id + '>a>span').html(data.name);
                 $('#leaf_' + data.id + '>a').removeClass('published').removeClass('hidden').addClass(status_class);
+                $('#leaf_' + data.id + '>a i.item_icon').attr('class', 'item_icon ' + module_icon_class);
 
                 $('#current_path').attr('href', result.path).html(result.path);
                 $('#text_part').val(result.part);

@@ -132,6 +132,10 @@ ul.tree li a i.item_icon {
     left: 0;
     background: url(../img/icons/tree_icons.png);
     position: absolute;
+    padding: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
 }
 
 ul.tree li.active>a {
@@ -145,10 +149,18 @@ ul.tree i.item_icon.gallery {
     background-position: 0 0;
 }
 
+ul.tree i.item_icon.news {
+    background-position: -32px 0;
+}
+
+ul.tree i.item_icon.menu {
+    background-position: -48px 0;
+}
+
+ul.tree i.item_icon.page,
 ul.tree i.item_icon.regular {
     background-position: -16px 0;
 }
-
 
 ul.tree li.active {
     text-shadow: 0 -1px 0 #000;
@@ -188,6 +200,10 @@ ul.tree li a.hidden:visited {
 ul.tree li a.hidden:hover,
 ul.tree li a.hidden:active {
     color: #666 !important;
+}
+
+ul.tree li a.hidden i.item_icon {
+    opacity: 0.6;
 }
 
 ul.tree li.active a.hidden {

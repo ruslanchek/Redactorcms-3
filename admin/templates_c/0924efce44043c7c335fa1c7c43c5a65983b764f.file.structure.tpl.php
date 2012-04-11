@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-03-11 11:59:19
+<?php /* Smarty version Smarty-3.1.7, created on 2012-04-11 15:25:59
          compiled from "Z:/home/loc/rdclite/admin/templates\modules\structure.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:198284f5c5b574b9459-96068009%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0924efce44043c7c335fa1c7c43c5a65983b764f' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\modules\\structure.tpl',
-      1 => 1330701247,
+      1 => 1334143503,
       2 => 'file',
     ),
   ),
@@ -23,6 +23,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       'compiled' => '',
     ),
   ),
+  'version' => 'Smarty-3.1.7',
+  'unifunc' => 'content_4f5c5b5767dd6',
   'variables' => 
   array (
     'level' => 0,
@@ -31,8 +33,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'core' => 0,
   ),
   'has_nocache_code' => 0,
-  'version' => 'Smarty-3.1.7',
-  'unifunc' => 'content_4f5c5b5767dd6',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_4f5c5b5767dd6')) {function content_4f5c5b5767dd6($_smarty_tpl) {?><div class="black_linen_container">
     <div class="structure">
@@ -61,7 +61,8 @@ $_smarty_tpl->tpl_vars["entry"]->_loop = true;
                                 <i class="arrow"></i>
                                 <a href="#<?php echo $_smarty_tpl->tpl_vars['entry']->value['id'];?>
 " class="<?php if ($_smarty_tpl->tpl_vars['entry']->value['publish']=='1'){?>published<?php }else{ ?>hidden<?php }?>">
-                                    <i class="item_icon regular"></i>
+                                    <i class="item_icon <?php echo $_smarty_tpl->tpl_vars['core']->value->getBranchClass($_smarty_tpl->tpl_vars['entry']->value['main_block']);?>
+"></i>
                                     <span><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['entry']->value['name'], ENT_QUOTES, 'UTF-8', true);?>
 </span>
                                 </a>

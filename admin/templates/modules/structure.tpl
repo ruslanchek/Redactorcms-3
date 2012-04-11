@@ -12,7 +12,7 @@
                             <li id="leaf_{$entry.id}">
                                 <i class="arrow"></i>
                                 <a href="#{$entry.id}" class="{if $entry.publish == '1'}published{else}hidden{/if}">
-                                    <i class="item_icon regular"></i>
+                                    <i class="item_icon {$core->getBranchClass($entry.main_block)}"></i>
                                     <span>{$entry.name|escape}</span>
                                 </a>
                                 {if !empty($entry.childrens)}
