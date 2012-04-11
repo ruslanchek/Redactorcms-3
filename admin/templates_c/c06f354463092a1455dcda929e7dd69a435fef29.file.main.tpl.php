@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-03-11 14:22:15
+<?php /* Smarty version Smarty-3.1.7, created on 2012-04-11 13:09:45
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:126154f5c5b57237dd5-02547425%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1331461020,
+      1 => 1334059309,
       2 => 'file',
     ),
   ),
@@ -42,9 +42,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <script src="/admin/resources/js/jquery.js"></script>
         <script src="/admin/resources/js/jquery.cookie.js"></script>
         <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
-        
         <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-        <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.js"></script>
+        <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
         <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>
         <script src="/admin/resources/plugins/iphone_checkboxes/iphone-style-checkboxes.js"></script>
 
