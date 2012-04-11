@@ -533,7 +533,10 @@ var gallery = {
 
             gallery.reinitMode();
 
-            $('#gallery_total').html(parseInt($('#gallery_total').html())+1);
+            var new_total = parseInt($('#gallery_total').html())+1;
+
+            $('#gallery_total').html(new_total);
+            $('#gallery_total_word').html(core.utilities.plural(new_total, 'изображение', 'изображения', 'изображений'));
         });
     },
 

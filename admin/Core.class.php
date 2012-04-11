@@ -10,8 +10,8 @@
             $ajax_action,
             $module,
             $main_menu = array(
-                array('name' => 'structure'     , 'title' => 'Структура'),
-                array('name' => 'gallery'       , 'title' => 'Галерея')
+                array('name' => 'structure' , 'title' => 'Структура'),
+                array('name' => 'sections'  , 'title' => 'Разделы')
             );
 
         // Свойства - Классы API

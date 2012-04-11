@@ -771,6 +771,14 @@ body i.loading.micro {
     padding: 10px 0 0 0;
 }
 
+.list .table_wrap {
+    border: 1px solid #444;
+    padding: 1px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
 .list table {
     width: 100%;
     margin: 0;
@@ -836,12 +844,12 @@ body i.loading.micro {
 
 .list table tr th:first-child,
 .list table tr td:first-child {
-   padding-left: 3.5%;
+   padding-left: 35px;
 }
 
 .list table tr th:last-child,
 .list table tr td:last-child {
-   padding-right: 3.5%;
+   padding-right: 10px;
 }
 
 .list .highlight {
@@ -851,6 +859,7 @@ body i.loading.micro {
     background: -o-linear-gradient(top,  rgba(117,200,244,0.6) 0%,rgba(0,125,234,0.6) 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(top,  rgba(117,200,244,0.6) 0%,rgba(0,125,234,0.6) 100%); /* IE10+ */
     background: linear-gradient(top,  rgba(117,200,244,0.6) 0%,rgba(0,125,234,0.6) 100%); /* W3C */
+    cursor: move;
 }
 
 .list .ui-sortable-helper {
@@ -861,9 +870,8 @@ body i.loading.micro {
 
 /* Pager */
 .pager {
-    padding: 25px 3.5% 0;
+    padding: 25px 0 0;
     font-size: 1.2em;
-    margin-left: -9px;
 }
 
 .pager>span {
@@ -949,5 +957,36 @@ body i.loading.micro {
     -moz-border-radius-bottomleft: 0px;
     -webkit-border-radius: 0px 10px 10px 0px;
     border-radius: 0px 10px 10px 0px;
+}
+
+
+/* Icons */
+i.item_icon {
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-image: url(../img/icons/tree_icons.png) !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+i.item_icon.gallery {
+    background-position: 0 0;
+}
+
+i.item_icon.news {
+    background-position: -32px 0;
+}
+
+i.item_icon.menu {
+    background-position: -48px 0;
+}
+
+i.item_icon.page,
+i.item_icon.regular {
+    background-position: -16px 0;
 }
 
