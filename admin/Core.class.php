@@ -16,9 +16,11 @@
 
         // Свойства - Классы API
         private $classes = array(
-            'utils'     => 'Utilities',
-            'db'        => 'Database',
-            'upload'    => 'Upload'
+            'utils'         => 'Utilities',
+            'db'            => 'Database',
+            'upload'        => 'Upload',
+            'tmdl'          => 'TableModel',
+            'dsmdl'         => 'DatasetModel'
         );
 
         // Созданные объекты

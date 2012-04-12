@@ -22,8 +22,6 @@
                     <th width="1%"></th>
                     <th width="1%"><input type="checkbox" name="item1[]" /></th>
                 </tr>
-
-
                 <tr>
                     <td class="tacenter"><i class="sortable_hanler"></i>1</td>
                     <td><a href="#">Позиция 1</a></td>
