@@ -167,19 +167,7 @@
                 };
             };
 
-            foreach($this->config->modules as $module){
-                if($module['id'] == $block_obj['module']){
-                    foreach($module['modes'] as $mode){
-                        if($mode['id'] == $block_obj['module_mode']){
-                            $block_params = $mode;
-                            break;
-                        };
-                    };
-                    break;
-                };
-            };
-
-            return $this->smarty->fetch('blocks/'.$block_params['template']);
+            return $this->smarty->fetch('blocks/'.$block_obj['mode_template']);
         }
     }
 ?>

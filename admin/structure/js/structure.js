@@ -64,6 +64,7 @@ var structure = {
             $('#select_block_module').on('change', function(){
                 structure.blocksInput.drawSelectModuleMode($(this).val(), 1);
                 structure.blocksInput.drawSelectContentId($(this).val(), 1, '');
+                structure.blocksInput.drawSelectModuleTemplate($(this).val(), 1);
             });
         },
 
@@ -88,7 +89,41 @@ var structure = {
 
             $('#select_block_module_mode').on('change', function(){
                 structure.blocksInput.drawSelectContentId($('#select_block_module').val(), $(this).val(), '');
+                structure.blocksInput.drawSelectModuleTemplate($('#select_block_module').val(), $(this).val());
             });
+        },
+
+        drawSelectModuleTemplate: function(module, module_mode, mode_template){
+            var module_mode = this.getblockModuleMode(module, module_mode),
+                default_template = module_mode.template,
+                options = new String(),
+                selected;
+
+            if(!mode_template){
+                selected = 'selected="selected"';
+            }else{
+                selected = '';
+            };
+
+            options += '<option autocomplete="off" '+selected+' value="'+default_template+'">Стандартный &mdash; '+default_template+'</option>';
+
+            selected = '';
+
+            for(var i = 0, l = this.blocks_templates.length; i < l; i++){
+                if(default_template != this.blocks_templates[i]){
+                    if(mode_template == this.blocks_templates[i]){
+                        selected = 'selected="selected"';
+                    }else{
+                        selected = '';
+                    };
+
+                    options += '<option autocomplete="off" '+selected+' value="'+this.blocks_templates[i]+'">'+this.blocks_templates[i]+'</option>';
+                };
+            };
+
+            var html = '<select id="select_block_mode_template">' + options + '</select>';
+
+            $('#select_block_mode_template_placeholder').html(html);
         },
 
         drawSelectContentId: function(module, module_mode, content_id){
@@ -163,73 +198,10 @@ var structure = {
             };
         },
 
-        getAndSetBlockParams: function(block_id){
-            var block_data,
-                new_block = false;
-
-            if(block_id == 'main'){
-                this.main_block_obj.module        = parseInt($('#select_block_module').val());
-                this.main_block_obj.module_mode   = parseInt($('#select_block_module_mode').val());
-                this.main_block_obj.content_id    = parseInt($('#select_block_content_id').val());
-
-                block_data = this.main_block_obj;
-
-                var module      = this.getblockModule(block_data.module),
-                    module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
-
-                $block_item = $('#blocks .item[rel="main"]');
-                $block_item.find('span.module_name').html(module.name);
-                $block_item.find('span.module_mode').html(module_mode.name);
-
-                $('#hidden_main_block').val(encodeURIComponent(JSON.stringify(this.main_block_obj)));
-            }else{
-                if(block_id == 'new'){
-                    block_id     = structure.blocksInput.blocks_obj.length + 1;
-                    new_block    = true;
-
-                    this.blocks_obj.push({
-                        id            : block_id,
-                        module        : parseInt($('#select_block_module').val()),
-                        module_mode   : parseInt($('#select_block_module_mode').val()),
-                        content_id    : parseInt($('#select_block_content_id').val())
-                    });
-                };
-
-                for(var i = 0, l = this.blocks_obj.length; i < l; i++){
-                    if(this.blocks_obj[i].id == block_id){
-                        this.blocks_obj[i].module        = parseInt($('#select_block_module').val());
-                        this.blocks_obj[i].module_mode   = parseInt($('#select_block_module_mode').val());
-                        this.blocks_obj[i].content_id    = parseInt($('#select_block_content_id').val());
-
-                        block_data = this.blocks_obj[i];
-                    };
-                };
-
-                var module      = this.getblockModule(block_data.module),
-                    module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
-
-                if(new_block){
-                    var new_block_html = '<div class="item popup_effect" rel="' + block_id + '">' +
-                                            '<span class="num">' + block_id + '</span>' +
-                                            '<span class="module_name">' + module.name + '</span>' +
-                                            '<span class="module_mode">' + module_mode.name + '</span>' +
-                                        '</div>';
-
-                    $('#blocks .item[rel="new"]').before(new_block_html);
-                }else{
-                    var $block_item  = $('#blocks .item[rel="'+block_id+'"]');
-
-                    $block_item.find('span.module_name').html(module.name);
-                    $block_item.find('span.module_mode').html(module_mode.name);
-                };
-
-                $('#hidden_blocks').val(encodeURIComponent(JSON.stringify(this.blocks_obj)));
-            };
-        },
-
-        editblock: function($item_obj){
+        editBlock: function($item_obj){
             var block_id = $item_obj.attr('rel'),
                 block_data = this.getblockData(block_id),
+                mode_template = $item_obj.data('mode_template'),
                 header,
                 module,
                 module_mode,
@@ -266,8 +238,12 @@ var structure = {
                                         '<td id="select_block_module_placeholder"></td>' +
                                     '</tr>' +
                                     '<tr>' +
-                                        '<th><label for="select_block_module_mode">Режим модуля</label></th>' +
+                                        '<th><label for="select_block_module_mode">Режим</label></th>' +
                                         '<td id="select_block_module_mode_placeholder"></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<th><label for="select_block_mode_template">Шаблон</label></th>' +
+                                        '<td id="select_block_mode_template_placeholder"></td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<th><label for="select_block_content_id">Контент-юнит</label></th>' +
@@ -286,11 +262,84 @@ var structure = {
 
             this.drawSelectModule(module);
             this.drawSelectModuleMode(module, module_mode);
+            this.drawSelectModuleTemplate(module, module_mode, mode_template);
             this.drawSelectContentId(module, module_mode, content_id);
+        },
+
+        getAndSetBlockParams: function(block_id){
+            var block_data,
+                new_block = false;
+
+            if(block_id == 'main'){
+                this.main_block_obj.module          = parseInt($('#select_block_module').val());
+                this.main_block_obj.module_mode     = parseInt($('#select_block_module_mode').val());
+                this.main_block_obj.mode_template   = $('#select_block_mode_template').val();
+                this.main_block_obj.content_id      = parseInt($('#select_block_content_id').val());
+
+                block_data = this.main_block_obj;
+
+                var module      = this.getblockModule(block_data.module),
+                    module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
+
+                $block_item = $('#blocks .item[rel="main"]');
+                $block_item.find('span.module_name').html(module.name);
+                $block_item.find('span.module_mode').html(module_mode.name);
+                $block_item.data('mode_template', $('#select_block_mode_template').val());
+
+                $('#hidden_main_block').val(encodeURIComponent(JSON.stringify(this.main_block_obj)));
+            }else{
+                if(block_id == 'new'){
+                    block_id     = structure.blocksInput.blocks_obj.length + 1;
+                    new_block    = true;
+
+                    this.blocks_obj.push({
+                        id              : block_id,
+                        module          : parseInt($('#select_block_module').val()),
+                        module_mode     : parseInt($('#select_block_module_mode').val()),
+                        mode_template   : $('#select_block_mode_template').val(),
+                        content_id      : parseInt($('#select_block_content_id').val())
+                    });
+                };
+
+                for(var i = 0, l = this.blocks_obj.length; i < l; i++){
+                    if(this.blocks_obj[i].id == block_id){
+                        this.blocks_obj[i].module           = parseInt($('#select_block_module').val());
+                        this.blocks_obj[i].module_mode      = parseInt($('#select_block_module_mode').val());
+                        this.blocks_obj[i].mode_template    = $('#select_block_mode_template').val();
+                        this.blocks_obj[i].content_id       = parseInt($('#select_block_content_id').val());
+
+                        block_data = this.blocks_obj[i];
+                    };
+                };
+
+                var module      = this.getblockModule(block_data.module),
+                    module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
+
+                if(new_block){
+                    var new_block_html = '<div class="item popup_effect" rel="' + block_id + '" data-mode_template="'+$('#select_block_mode_template').val()+'">' +
+                                            '<span class="num">' + block_id + '</span>' +
+                                            '<span class="module_name">' + module.name + '</span>' +
+                                            '<span class="module_mode">' + module_mode.name + '</span>' +
+                                        '</div>';
+
+                    $('#blocks .item[rel="new"]').before(new_block_html);
+                }else{
+                    var $block_item  = $('#blocks .item[rel="'+block_id+'"]');
+
+                    $block_item.find('span.module_name').html(module.name);
+                    $block_item.find('span.module_mode').html(module_mode.name);
+                    $block_item.data('mode_template', $('#select_block_mode_template').val());
+                };
+
+                console.log(this.blocks_obj)
+
+                $('#hidden_blocks').val(encodeURIComponent(JSON.stringify(this.blocks_obj)));
+            };
         },
 
         init: function(){
             this.modules            =   core.form.options.modules;
+            this.blocks_templates   =   core.form.options.blocks_templates;
 
             var blocks_value        =   core.form.options.data.blocks,
                 main_block_value    =   core.form.options.data.main_block,
@@ -307,7 +356,7 @@ var structure = {
             var module              = this.getblockModule(this.main_block_obj.module),
                 module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode);
 
-            blocks_html +=  '<div class="item main_block" rel="main">' +
+            blocks_html +=  '<div class="item main_block" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
                                 '<span class="num">♛</span>' +
                                 '<span class="module_name">' + module.name + '</span>' +
                                 '<span class="module_mode">' + module_mode.name + '</span>' +
@@ -317,7 +366,7 @@ var structure = {
                 var module          = this.getblockModule(this.blocks_obj[i].module),
                     module_mode     = this.getblockModuleMode(this.blocks_obj[i].module, this.blocks_obj[i].module_mode);
 
-                blocks_html +=  '<div class="item" rel="' + this.blocks_obj[i].id + '">' +
+                blocks_html +=  '<div class="item" rel="' + this.blocks_obj[i].id + '" data-mode_template="' + this.blocks_obj[i].mode_template + '">' +
                                     '<span class="num">' + this.blocks_obj[i].id + '</span>' +
                                     '<span class="module_name">' + module.name + '</span>' +
                                     '<span class="module_mode">' + module_mode.name + '</span>' +
@@ -334,7 +383,7 @@ var structure = {
             $('#blocks').html(blocks_html);
 
             $('#blocks .item').live('click', function(){
-                structure.blocksInput.editblock($(this));
+                structure.blocksInput.editBlock($(this));
             });
         }
     },
@@ -474,6 +523,7 @@ var structure = {
             container_obj       : $('#form'),
             data                : data.node_data,
             modules             : data.modules,
+            blocks_templates    : data.blocks_templates,
             beforeSubmit        : function(){
                 structure.resizeing();
             },

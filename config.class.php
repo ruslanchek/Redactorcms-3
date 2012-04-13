@@ -2,13 +2,15 @@
     //error_reporting(E_ALL | E_STRICT);
 
     Class Config{
+        //DB params
         public $db_vars = array(
             'host'  => 'localhost',
             'db'    => 'rdclite',
             'user'  => 'root',
-            'pass'  => ''
+            'pass'  => '123'
         );
 
+        //Modules
         public $modules = array(
             array('id' => 1, 'class' => 'page', 'name' => 'Страницы', 'modes' => array(
                 array(
@@ -39,7 +41,7 @@
                     'id'        => 1,
                     'name'      => 'Список линеек',
                     'action'    => false,
-                    'template'  => 'news.sections.tpl'
+                    'template'  => 'news.list.tpl'
                 ),
                 array(
                     'id'        => 2,
@@ -63,10 +65,10 @@
                     'template'  => 'gallery.album.tpl'
                 ),
                 array(
-                    'id'        => 2,
+                    'id'        => 3,
                     'name'      => 'Случайная фотография',
                     'action'    => false,
-                    'template'  => 'gallery.ramdom_photo.tpl'
+                    'template'  => 'gallery.random_photo.tpl'
                 )
             ))
         );

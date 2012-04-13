@@ -32,10 +32,11 @@
 
                     case 'get_node_data' : {
                         $result = array();
-                        $result['node_data']    = $this->getNodeData($_GET['id']);
-                        $result['templates']    = $this->getTemplatesList();
-                        $result['menues']       = $this->getMenuesList();
-                        $result['modules']      = $this->config->modules;
+                        $result['node_data']        = $this->getNodeData($_GET['id']);
+                        $result['templates']        = $this->getTemplatesList();
+                        $result['menues']           = $this->getMenuesList();
+                        $result['modules']          = $this->config->modules;
+                        $result['blocks_templates'] = $this->getBlockTemplates();
 
                         print json_encode($result);
                     }; break;
@@ -669,6 +670,20 @@
             };
 
             return 'regular';
+        }
+
+        private function getBlockTemplates(){
+            $results = array();
+            $handler = opendir($_SERVER['DOCUMENT_ROOT'].'/templates/blocks/');
+
+            while($file = readdir($handler)){
+                if($file != "." && $file != ".." && !is_dir($file) && pathinfo($file, PATHINFO_EXTENSION) == 'tpl'){
+                    $results[] = $file;
+                };
+            };
+
+            closedir($handler);
+            return $results;
         }
     };
 ?>

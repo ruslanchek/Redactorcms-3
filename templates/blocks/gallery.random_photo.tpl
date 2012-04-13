@@ -1,0 +1,1 @@
+gallery.random_photo.tpl
