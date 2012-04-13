@@ -870,7 +870,7 @@ body i.loading.micro {
 
 /* Pager */
 .pager {
-    padding: 25px 0 0;
+    padding: 25px 0 10px;
     font-size: 1.2em;
 }
 

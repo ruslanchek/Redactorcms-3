@@ -10,6 +10,18 @@
             $this->dataset = $dataset;
         }
 
+        public function getCols(){
+            $result = array();
+
+            foreach($this->dataset->cols as $key => $value){
+                if($value[$key]['list']){
+                    $result[] = array('name' => $key, 'data' => $value[$key]);
+                };
+            };
+
+            return $result;
+        }
+
         public function getList(){
             $cols = '';
 
