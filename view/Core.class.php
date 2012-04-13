@@ -8,7 +8,8 @@
         public
             $utilities,
             $ajax_action,
-            $page;
+            $page,
+            $error_404;
 
         // Свойства - Классы API
         private $classes = array(
@@ -93,11 +94,12 @@
                 header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
             };
 
+            $this->error_404 = true;
             $this->template = '404.tpl';
         }
 
         //Check route and if it present - return the data, otherwise trigger the 404 error
-        private function checkRoute(){
+        private function checkAndSetRouteData(){
             $query = "
                 SELECT
                     `s`.`id`            AS `id`,
@@ -124,6 +126,10 @@
             $data = $this->db->assocItem($query);
 
             if(!empty($data)){
+                $data['blocks']         = json_decode($data['blocks'], true);
+                $data['main_block']     = json_decode($data['main_block'], true);
+                $this->template         = $data['template_file'];
+
                 return $data;
             }else{
                 $this->error404();
@@ -142,18 +148,9 @@
         private function renderPage(){
             //Если не включен режим аякса, отрисовываем страницу с помощью Смарти
             if(!$this->ajax_mode){
-                $this->page = $this->checkRoute();
-                $this->page['blocks'] = json_decode($this->page['blocks'], true);
-                $this->page['main_block'] = json_decode($this->page['main_block'], true);
+                $this->page = $this->checkAndSetRouteData();
 
                 $this->smarty->assign('core', $this);
-
-                if(!$this->page['template_file']){
-                    print $this->utils->debug('Не выбран шаблон');
-                    die();
-                }else{
-                    $this->template = $this->page['template_file'];
-                };
 
                 $this->smarty->display($this->template);
             };
