@@ -179,7 +179,7 @@
                 };
             };
 
-            return $this->smarty->fetch('modules/'.$block_params['template']);
+            return $this->smarty->fetch('blocks/'.$block_params['template']);
         }
     }
 ?>
