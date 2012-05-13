@@ -13,9 +13,9 @@
         public function getCols(){
             $result = array();
 
-            foreach($this->dataset->cols as $key => $value){
-                if($value[$key]['list']){
-                    $result[] = array('name' => $key, 'data' => $value[$key]);
+            foreach($this->dataset->cols as $item){
+                if($item['list']){
+                    $result[] = array('name' => $item['name'], 'data' => $item);
                 };
             };
 
@@ -25,8 +25,10 @@
         public function getList(){
             $cols = '';
 
-            foreach($this->dataset->cols as $key => $value){
-                $cols .= "`{$this->db->quote($this->db->quote($key))}`, ";
+            foreach($this->dataset->cols as $item){
+                if($item['list']){
+                    $cols .= "`{$this->db->quote($this->db->quote($item['name']))}`, ";
+                };
             };
 
             $cols = substr($cols, 0, strlen($cols) - 2);

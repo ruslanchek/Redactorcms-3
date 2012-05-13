@@ -7,13 +7,13 @@
 
             $this->init(array(
                 'name'  => 'pages',
-                'title' => 'HTML-страницы'
+                'title' => 'Страницы'
             ));
 
             $this->dataset = $this->dsmdl->create('pages');
             $this->dsmdl->add(
-                'id',
                 array(
+                    'name'          => 'id',
                     'label'         => 'Код',
                     'type'          => 'hidden',
                     'list'          => true,
@@ -23,20 +23,26 @@
             );
 
             $this->dsmdl->add(
-                'name',
                 array(
+                    'name'          => 'name',
                     'label'         => 'Название',
                     'type'          => 'text',
                     'list'          => true,
                     'link'          => true,
                     'width'         => '98%',
-                    'align'         => 'left'
+                    'align'         => 'left',
+                    'validate'      => array(
+                        array(
+                            'method' => 'required',
+                            'message' => 'Заполните название'
+                        )
+                    )
                 )
             );
 
             $this->dsmdl->add(
-                'publish',
                 array(
+                    'name'          => 'publish',
                     'label'         => 'Публиковать',
                     'type'          => 'checkbox',
                     'list'          => true,
@@ -45,12 +51,22 @@
                 )
             );
 
-            if(isset($_GET['item_id']) && $_GET['item_id'] > 0){
-
-            }else{
+            if(!isset($_GET['item_id'])){
                 $this->tmdl->setData($this->dataset);
                 $this->smarty->assign('list', $this->tmdl->getList());
                 $this->smarty->assign('cols', $this->tmdl->getCols());
+                $this->module['h1'] = 'Страницы';
+            }else{
+                $this->dsmdl->fillItemData($_GET['item_id']);
+                $this->module['h1'] = '<a href="/admin/pages/">Страницы</a> &rarr; Редактирование страницы';
+            };
+
+            if($this->ajax_mode){
+                switch($_GET['action']){
+                    case 'getItemFieldsAndData' : {
+                        print json_encode($this->dataset);
+                    }; break;
+                };
             };
         }
 

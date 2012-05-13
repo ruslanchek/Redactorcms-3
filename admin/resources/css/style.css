@@ -4,7 +4,7 @@
 /* =Main & typography
 -----------------------------------------------------------------------------*/
 body {
-	background: #555 url(../img/bg/denim.png);
+	background: #444 url(../img/bg/denim.png);
 	color: #000;
 	font: 12px/1.5em Arial, "Helvetica Neue", Helvetica, Verdana, sans-serif;
 }
@@ -990,3 +990,8 @@ i.item_icon.regular {
     background-position: -16px 0;
 }
 
+
+/* Common section */
+#content_editor {
+    margin: 0 0 15px;
+}

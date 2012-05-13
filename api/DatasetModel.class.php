@@ -22,8 +22,29 @@
          * @param string $name имя столбца mysql
          * @param array $params параметры столбца
          * */
-        public function add($name, $params){
-            $this->dataset->cols[$name] = array($name => $params);
+        public function add($item){
+            $this->dataset->cols[] = $item;
+        }
+
+        public function fillItemData($id){
+            $query = "SELECT ";
+
+            foreach($this->dataset->cols as $item){
+                $query .= "`{$this->db->quote($item['name'])}`, ";
+            };
+
+            $query = substr($query, 0, strlen($query)-2);
+            $query .= " FROM `{$this->db->quote($this->dataset->table)}` WHERE `id` = {intval($id)}";
+
+            $data = $this->db->assocItem($query);
+
+            for($i = 0, $l = count($this->dataset->cols); $i < $l; $i++){
+                foreach($data as $key => $value){
+                    if($this->dataset->cols[$i]['name'] == $key){
+                        $this->dataset->cols[$i]['value'] = $value;
+                    };
+                }
+            };
         }
     }
 ?>
