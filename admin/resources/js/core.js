@@ -220,7 +220,9 @@ core.loading = {
 
         var obj_offset = obj.offset();
 
-        var $loading = $('<i name="'+name+'" class="loading'+micro_class+'"></i>').css({
+        var $loading = $('<i name="'+name+'" class="loading'+micro_class+'"></i>')
+
+        $loading.css({
             top     : obj_offset.top + $loading.height()/2 + top,
             left    : obj_offset.left + $loading.width()/2 + left,
             zIndex  : zIndex
@@ -679,6 +681,8 @@ core.form = {
         if(typeof data.validate != 'undefined' && data.validate.length > 0){
             this.validator.bind($('#'+id), data.validate);
         };
+
+        $('#'+id).chosen();
     },
 
     //Рисование скрытого элемента

@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/iphone_checkboxes/style.css" media="all" />
+        <link rel="stylesheet" href="/admin/resources/plugins/chosen/chosen.css" media="all" />
         <link rel="stylesheet" href="/admin/{$core->module.name}/css/{$core->module.name}.css" media="all" />
 
         <script src="/admin/resources/js/jquery.js"></script>
@@ -17,6 +18,7 @@
         <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
         <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>
         <script src="/admin/resources/plugins/iphone_checkboxes/iphone-style-checkboxes.js"></script>
+        <script src="/admin/resources/plugins/chosen/chosen.jquery.js"></script>
 
         <script src="/admin/resources/plugins/upload/js/vendor/jquery.ui.widget.js"></script>
         <script src="/admin/resources/plugins/upload/js/jquery.iframe-transport.js"></script>

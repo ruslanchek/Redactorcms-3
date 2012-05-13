@@ -28,7 +28,7 @@ var structure = {
             };
         },
 
-        getblockData: function(id){
+        getBlockData: function(id){
             for(var i = 0, l = this.blocks_obj.length; i < l; i++){
                 if(this.blocks_obj[i].id == id){
                     var block = this.blocks_obj[i];
@@ -60,6 +60,7 @@ var structure = {
             var html = '<select id="select_block_module">' + options + '</select>';
 
             $('#select_block_module_placeholder').html(html);
+            $('select#select_block_module').chosen();
 
             $('#select_block_module').on('change', function(){
                 structure.blocksInput.drawSelectModuleMode($(this).val(), 1);
@@ -86,6 +87,7 @@ var structure = {
             var html = '<select id="select_block_module_mode">' + options + '</select>';
 
             $('#select_block_module_mode_placeholder').html(html);
+            $('select#select_block_module_mode').chosen();
 
             $('#select_block_module_mode').on('change', function(){
                 structure.blocksInput.drawSelectContentId($('#select_block_module').val(), $(this).val(), '');
@@ -124,6 +126,7 @@ var structure = {
             var html = '<select id="select_block_mode_template">' + options + '</select>';
 
             $('#select_block_mode_template_placeholder').html(html);
+            $('select#select_block_mode_template').chosen();
         },
 
         drawSelectContentId: function(module, module_mode, content_id){
@@ -181,6 +184,7 @@ var structure = {
                                         html = '<select id="select_block_content_id">' + options + '</select>';
 
                                         $('#select_block_content_id_placeholder').html(html);
+                                        $('select#select_block_content_id').chosen();
                                         $('#select_block_content_id_placeholder').parent().show();
                                     }else{
                                         $('#select_block_content_id_placeholder').html('<em class="gray">Нет объектов</em>');
@@ -200,7 +204,6 @@ var structure = {
 
         editBlock: function($item_obj){
             var block_id = $item_obj.attr('rel'),
-                block_data = this.getblockData(block_id),
                 mode_template = $item_obj.data('mode_template'),
                 header,
                 module,
@@ -210,9 +213,9 @@ var structure = {
             switch(block_id){
                 case 'main' : {
                     header = 'Настройка основного блока';
-                    module = 1;
-                    module_mode = 1;
-                    content_id  = 0;
+                    module = this.main_block_obj.module;
+                    module_mode = this.main_block_obj.module_mode;
+                    content_id  = this.main_block_obj.content_id;
                 }; break;
 
                 case 'new' : {
@@ -223,6 +226,7 @@ var structure = {
                 }; break;
 
                 default : {
+                    var block_data = this.getBlockData(block_id);
                     header = 'Настройка блока №'+block_id;
                     module = block_data.module;
                     module_mode = block_data.module_mode;
@@ -316,11 +320,11 @@ var structure = {
                     module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
 
                 if(new_block){
-                    var new_block_html = '<div class="item popup_effect" rel="' + block_id + '" data-mode_template="'+$('#select_block_mode_template').val()+'">' +
-                                            '<span class="num">' + block_id + '</span>' +
-                                            '<span class="module_name">' + module.name + '</span>' +
-                                            '<span class="module_mode">' + module_mode.name + '</span>' +
-                                        '</div>';
+                    var new_block_html =    '<div class="item popup_effect" rel="' + block_id + '" data-mode_template="'+$('#select_block_mode_template').val()+'">' +
+                                                '<span class="num">' + block_id + '</span>' +
+                                                '<span class="module_name">' + module.name + '</span>' +
+                                                '<span class="module_mode">' + module_mode.name + '</span>' +
+                                            '</div>';
 
                     $('#blocks .item[rel="new"]').before(new_block_html);
                 }else{
@@ -330,8 +334,6 @@ var structure = {
                     $block_item.find('span.module_mode').html(module_mode.name);
                     $block_item.data('mode_template', $('#select_block_mode_template').val());
                 };
-
-                console.log(this.blocks_obj)
 
                 $('#hidden_blocks').val(encodeURIComponent(JSON.stringify(this.blocks_obj)));
             };
