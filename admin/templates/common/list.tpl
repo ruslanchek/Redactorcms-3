@@ -1,6 +1,6 @@
 <div class="list">
     <div class="table_wrap">
-        <table>
+        <table class="table table-striped table-bordered table-condensed">
             <tr>
                 {foreach $cols as $col}
                 <th width="{$col.data.width}" class="ta{$col.data.align}">{$col.data.label}</th>
