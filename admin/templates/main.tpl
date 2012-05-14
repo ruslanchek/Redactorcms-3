@@ -27,6 +27,7 @@
         <script src="/admin/resources/js/core.js"></script>
         <script src="/admin/resources/js/section.js"></script>
         <script src="/admin/{$core->module.name}/js/{$core->module.name}.js"></script>
+
     </head>
     <body>
         <div id="wrapper">
