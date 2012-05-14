@@ -4,7 +4,7 @@
         <title>{$core->module.title}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <link rel="stylesheet" href="/admin/resources/css/style.css" media="all" />
+        <link rel="stylesheet" href="/admin/resources/bootsrtap/css/bootstrap.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/iphone_checkboxes/style.css" media="all" />
@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="/admin/{$core->module.name}/css/{$core->module.name}.css" media="all" />
 
         <script src="/admin/resources/js/jquery.js"></script>
+        <script src="/admin/resources/bootsrtap/js/bootstrap.min.js"></script>
         <script src="/admin/resources/js/jquery.cookie.js"></script>
         <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
         <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
@@ -30,30 +31,35 @@
 
     </head>
     <body>
-        <div id="wrapper">
-            <div id="header">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
 
-            </div>
+                    <a class="brand" href="/admin">Редактор</a>
 
-            <div id="content">
-                <ul class="menu">
-                    {foreach $core->main_menu as $item}
-                        {if $item.name == $core->module.name}
-                            <li><b>{$item.title}<i></i></b></li>
-                        {else}
-                            <li><a href="/admin/{$item.name}">{$item.title}</a></li>
-                        {/if}
-                    {/foreach}
-                </ul>
-
-                {include file="modules/`$core->module.name`.tpl"}
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            {foreach $core->main_menu as $item}
+                                <li {if $item.name == $core->module.name}class="active"{/if}><a href="/admin/{$item.name}">{$item.title}</a></li>
+                            {/foreach}
+                            <li class="divider-vertical"></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="footer">
-            <div class="footer_inner">
-                &copy; 2012 Система управления сайтом «Редактор лайт»
-            </div>
+        <div class="container-fluid main_content">
+            {include file="modules/`$core->module.name`.tpl"}
+
+            <div class="clear"></div>
+            <hr>
+            &copy; 2012 Система управления сайтом &laquo;Редактор лайт&raquo;
         </div>
     </body>
 </html>
