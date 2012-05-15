@@ -71,8 +71,6 @@
     opacity: 0;
     left: -13.9%;
     background: #ccc;
-    -webkit-box-shadow: inset 0px 1px 1px 0px rgba(1, 1, 1, 0.2);
-    box-shadow: inset 0px 1px 1px 0px rgba(1, 1, 1, 0.2);
 }
 
 ul.tree ul {
@@ -146,7 +144,6 @@ ul.tree li a i.item_icon {
 ul.tree li.active>a {
     text-decoration: none;
     cursor: default;
-    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
 }
 
 ul.tree li.active {

@@ -258,7 +258,7 @@ core.loading = {
 
         $('body').prepend($loading);
 
-        $(window).unbind('resize').bind('resize', function(){
+        $(window).bind('resize', function(){
             var obj_offset = obj.offset();
             $loading.css({
                 top     : obj_offset.top + obj.height()/2,
