@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-05-15 16:09:35
+<?php /* Smarty version Smarty-3.1.7, created on 2012-05-15 18:39:14
          compiled from "Z:/home/loc/rdclite/admin/templates\modules\structure.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:198284f5c5b574b9459-96068009%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0924efce44043c7c335fa1c7c43c5a65983b764f' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\modules\\structure.tpl',
-      1 => 1337083774,
+      1 => 1337091541,
       2 => 'file',
     ),
   ),
@@ -41,12 +41,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </div>
 
 <div class="left_col">
-
-
     <i class="vline"></i>
     <div class="tree_holder">
         <i id="active_tree_item_marker"></i>
-
         <?php if (!function_exists('smarty_template_function_menu')) {
     function smarty_template_function_menu($_smarty_tpl,$params) {
     $saved_tpl_vars = $_smarty_tpl->tpl_vars;

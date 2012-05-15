@@ -32,7 +32,11 @@
 </div>
 
 <div class="right_col">
-    <div class="structure_item_content" style="opacity: 0">
-        <div id="form"></div>
+    <div class="structure_item_content">
+        <div id="form">
+            <div class="alert alert-info">
+                Выберите узел структуры, чтобы его отредактировать, либо создайте новый.
+            </div>
+        </div>
     </div>
 </div>
