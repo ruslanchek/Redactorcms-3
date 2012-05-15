@@ -311,7 +311,6 @@ core.modal = {
 
     closeDialog: function(){
         $('.dialog')
-            .addClass('popdown_effect')
             .fadeOut(150, 'easeOutQuad', function(){
                 $('.dialog').remove();
             });
@@ -331,20 +330,25 @@ core.modal = {
         var ok;
 
         if(this.options.action != null){
-            ok = '<input class="dialog_button ok" type="submit" value="ОК" />';
+            ok = '<input class="btn btn-primary pull-left ok" type="submit" value="ОК" />';
         }else{
             ok = '';
         };
 
-        var html =  $('<div class="dialog popup_effect">' +
-                        '<div class="dialog_content">' +
+        var html =  $('<div class="modal dialog">' +
+                        '<div class="modal-header">' +
+                            '<button class="close" data-dismiss="modal">×</button>' +
+                            '<h3>' + this.options.header + '</h3>' +
+                        '</div>' +
+                        '<div class="modal-body">' +
                             this.options.content +
                         '</div>' +
-                        '<div class="buttons">' +
+                        '<div class="modal-footer">' +
                             ok +
-                            '<input class="dialog_button cancel" type="button" value="Закрыть" />' +
+                            '<input class="btn pull-left cancel" type="button" value="Закрыть" />' +
                         '</div>' +
                     '</div>');
+
 
         $('body').prepend(html);
 
@@ -359,12 +363,12 @@ core.modal = {
             });
         };
 
-        $('.dialog .dialog_button.ok').on('click', function(){
+        $('.dialog .ok').on('click', function(){
             core.modal.__action();
             core.modal.closeDialog();
         });
 
-        $('.dialog .dialog_button.cancel').on('click', function(){
+        $('.dialog .cancel, .dialog .close').on('click', function(){
             core.modal.closeDialog();
         });
 
@@ -509,10 +513,10 @@ core.form = {
 
     //Создание формы
     createFormContainer: function(){
-        var html =  '<form action="javascript:void(0)" class="form" id="'+this.options.form_id+'">' +
-                        '<div class="form_items"></div>' +
-                        '<div class="form_buttons">' +
-                            '<input class="dialog_button" type="submit" name="save" value="Сохранить" />' +
+        var html =  '<form action="javascript:void(0)" class="form-horizontal thumbnail thmb_form" id="'+this.options.form_id+'">' +
+                        '<fieldset class="form_items "></fieldset>' +
+                        '<div class="form-actions">' +
+                            '<input class="btn btn-primary" type="submit" name="save" value="Сохранить" />' +
                         '</div>' +
                     '</form>';
 
@@ -556,21 +560,14 @@ core.form = {
     drawCheckboxInput: function(data){
         var id      =   'checkbox_' + data.name,
             checked =   (this.options.data[data.name] == '1') ? 'checked="checked"' : '',
-            html    =   '<label class="checkbox_label" for="'+id+'">' +
-                            data.label +
-                        '</label>' +
-                        '<div class="clear"></div>' +
-                        '<div class="checkbox_wrap input_holder">' +
-                            '<input type="checkbox" id="' + id + '" '+checked+' name="'+data.name+'" />' +
-                        '</div>' +
-                        '<div class="clear"></div>';
+            html    =   '<div class="control-group">' +
+                            '<label class="control-label" for="'+id+'">' + data.label + '</label>' +
+                            '<div class="controls">' +
+                                '<label class="checkbox"><input type="checkbox" id="' + id + '" '+checked+' name="'+data.name+'"></label>' +
+                            '</div>' +
+                        '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
-
-        $('input#'+id).iphoneStyle({
-            checkedLabel    : '&nbsp;&nbsp;&nbsp;&nbsp;',
-            uncheckedLabel  : '&nbsp;&nbsp;&nbsp;&nbsp;'
-        });
     },
 
     //Рисование радиокнопок
@@ -638,12 +635,12 @@ core.form = {
     drawTextInput: function(data){
         var id          =   'text_' + data.name,
             collapsed   =   (data.collapsed) ? 'collapsed' : '',
-            html        =   '<label>' +
-                                data.label +
-                                '<div class="text_field input_holder '+collapsed+'">' +
-                                    '<input type="text" id="' + id + '" name="'+data.name+'" value="'+core.utilities.jsonNullToEmptyString(this.options.data[data.name])+'" />' +
+            html        =   '<div class="control-group">' +
+                                '<label class="control-label" for="' + id + '">' + data.label + '</label>' +
+                                '<div class="controls '+collapsed+'">' +
+                                    '<input class="input-xlarge" type="text" id="' + id + '" name="'+data.name+'" value="'+core.utilities.jsonNullToEmptyString(this.options.data[data.name])+'" />' +
                                 '</div>' +
-                            '</label>';
+                            '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
 
@@ -667,14 +664,14 @@ core.form = {
             options += '<option '+selected+' value="'+data.options[i].id+'">'+data.options[i].name+'</option>';
         };
 
-        var html    =   '<label>' +
-                            data.label +
-                            '<div class="select_field input_holder">' +
+        var html    =   '<div class="control-group">' +
+                            '<label class="control-label" for="' + id + '">' + data.label + '</label>' +
+                            '<div class="controls">' +
                                 '<select id="' + id + '" name="'+data.name+'">' +
                                     options +
                                 '</select>' +
                             '</div>' +
-                        '</label>';
+                        '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
 

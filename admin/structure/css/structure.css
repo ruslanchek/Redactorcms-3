@@ -46,6 +46,22 @@
 /* Tree */
 .tree_holder {
     position: relative;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 10px 30px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #EEEEEE;
+}
+
+.tree_holder a:link,
+.tree_holder a:visited {
+    color: #000;
+}
+
+.tree_holder a:hover,
+.tree_holder a:active {
+    color: #000;
 }
 
 .tree_holder i#active_tree_item_marker {
@@ -54,17 +70,14 @@
     width: 113.9%;
     opacity: 0;
     left: -13.9%;
-    border-top: 1px solid #888;
-    border-bottom: 1px solid #666;
-    background: #555;
-    background: -moz-linear-gradient(top,  rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.2) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.35)), color-stop(100%,rgba(255,255,255,0.2))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0.2) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0.2) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0.2) 100%); /* IE10+ */
-    background: linear-gradient(top,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0.2) 100%); /* W3C */
+    background: #ccc;
+    -webkit-box-shadow: inset 0px 1px 1px 0px rgba(1, 1, 1, 0.2);
+    box-shadow: inset 0px 1px 1px 0px rgba(1, 1, 1, 0.2);
 }
 
+ul.tree ul {
+    margin-left: 0;
+}
 
 ul.tree i.arrow {
     display: block;
@@ -131,14 +144,13 @@ ul.tree li a i.item_icon {
 }
 
 ul.tree li.active>a {
-    font-weight: bold;
     text-decoration: none;
-    color: #fff;
     cursor: default;
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
 }
 
 ul.tree li.active {
-    text-shadow: 0 -1px 0 #000;
+
 }
 
 ul.tree {
@@ -167,6 +179,10 @@ ul.tree li a.published {
 
 }
 
+ul.tree li a.hidden {
+    visibility: visible;
+}
+
 ul.tree li a.hidden:link,
 ul.tree li a.hidden:visited {
     color: #999 !important;
@@ -186,39 +202,23 @@ ul.tree li.active a.hidden {
 }
 
 ul.tree li.active a.published {
-    color: #fff !important;
+
 }
 
 /* Form */
 #blocks {
     padding: 5px 0 0 5px;
+    margin: 0 0 1em;
+    float: left;
 }
 
 #blocks .item {
     width: 100px;
     margin: 0 5px 5px 0;
     float: left;
-    padding: 15px 0 10px;
-    height: 75px;
-
+    padding: 15px 5px 10px;
+    height: 65px;
     cursor: pointer;
-
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.5);
-
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
-
-    background: #596a72 url(../../resources/img/bg/box_bg_gray.png) repeat-x top;
-    background-size: auto 100%;
-}
-
-#blocks .item:hover {
-    background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
-    background-size: auto 100%;
 }
 
 #blocks .item .num {
@@ -248,41 +248,4 @@ ul.tree li.active a.published {
 
 .block_setup table {
     margin: 0;
-}
-
-.content_id_albums {
-
-}
-
-.content_id_albums .item {
-    width: 52px;
-    margin: 0 4px 4px 0;
-    float: left;
-    padding: 4px;
-    height: 52px;
-
-    cursor: pointer;
-
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
-    background: #cedce7; /* Old browsers */
-    background: -moz-linear-gradient(top,  #cedce7 0%, #596a72 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cedce7), color-stop(100%,#596a72)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #cedce7 0%,#596a72 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #cedce7 0%,#596a72 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #cedce7 0%,#596a72 100%); /* IE10+ */
-    background: linear-gradient(top,  #cedce7 0%,#596a72 100%); /* W3C */
-}
-
-.content_id_albums .item:hover {
-    background: #007dea; /* Old browsers */
-    background: -moz-linear-gradient(top,  #75c8f4 0%, #007dea 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#75c8f4), color-stop(100%,#007dea)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #75c8f4 0%,#007dea 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #75c8f4 0%,#007dea 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #75c8f4 0%,#007dea 100%); /* IE10+ */
-    background: linear-gradient(top,  #75c8f4 0%,#007dea 100%); /* W3C */
 }

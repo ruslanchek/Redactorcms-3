@@ -234,30 +234,31 @@ var structure = {
                 }; break;
             };
 
-            var content =   '<h2>'+header+'</h2>' +
-                            '<div class="block_setup">' +
-                                '<table>' +
-                                    '<tr>' +
-                                        '<th><label for="select_block_module">Модуль</label></th>' +
-                                        '<td id="select_block_module_placeholder"></td>' +
-                                    '</tr>' +
-                                    '<tr>' +
-                                        '<th><label for="select_block_module_mode">Режим</label></th>' +
-                                        '<td id="select_block_module_mode_placeholder"></td>' +
-                                    '</tr>' +
-                                    '<tr>' +
-                                        '<th><label for="select_block_mode_template">Шаблон</label></th>' +
-                                        '<td id="select_block_mode_template_placeholder"></td>' +
-                                    '</tr>' +
-                                    '<tr>' +
-                                        '<th><label for="select_block_content_id">Контент-юнит</label></th>' +
-                                        '<td id="select_block_content_id_placeholder"></td>' +
-                                    '</tr>' +
-                                '</table>' +
-                            '</div>';
+            var content =   '<form class="form-horizontal"><fieldset>' +
+                                '<div class="control-group">' +
+                                    '<label class="control-label" for="select_block_module">Модуль</label>' +
+                                    '<div class="controls" id="select_block_module_placeholder"></div>' +
+                                '</div>' +
+
+                                '<div class="control-group">' +
+                                    '<label class="control-label" for="select_block_module_mode">Режим</label>' +
+                                    '<div class="controls" id="select_block_module_mode_placeholder"></div>' +
+                                '</div>' +
+
+                                '<div class="control-group">' +
+                                    '<label class="control-label" for="select_block_mode_template">Шаблон</label>' +
+                                    '<div class="controls" id="select_block_mode_template_placeholder"></div>' +
+                                '</div>' +
+
+                                '<div class="control-group">' +
+                                    '<label class="control-label" for="select_block_content_id">Контент-юнит</label>' +
+                                    '<div class="controls" id="select_block_content_id_placeholder"></div>' +
+                                '</div>' +
+                            '</fieldset></form>';
 
             core.modal.showDialog({
                 content: content,
+                header: header,
                 width: 500,
                 action: function(){
                     structure.blocksInput.getAndSetBlockParams(block_id);
@@ -320,7 +321,7 @@ var structure = {
                     module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
 
                 if(new_block){
-                    var new_block_html =    '<div class="item popup_effect" rel="' + block_id + '" data-mode_template="'+$('#select_block_mode_template').val()+'">' +
+                    var new_block_html =    '<div class="btn item popup_effect" rel="' + block_id + '" data-mode_template="'+$('#select_block_mode_template').val()+'">' +
                                                 '<span class="num">' + block_id + '</span>' +
                                                 '<span class="module_name">' + module.name + '</span>' +
                                                 '<span class="module_mode">' + module_mode.name + '</span>' +
@@ -346,8 +347,12 @@ var structure = {
             var blocks_value        =   core.form.options.data.blocks,
                 main_block_value    =   core.form.options.data.main_block,
                 blocks_html         =   new String(),
-                html                =   'Блоки' +
-                                        '<div id="blocks" class="input_holder"></div>' +
+                html                =   '<div class="control-group">' +
+                                            '<label class="control-label">Блоки</label>' +
+                                            '<div class="controls">' +
+                                                '<div id="blocks" class="input_holder thumbnail blocks"></div><div class="clear"></div>' +
+                                            '</div>' +
+                                        '</div>'+
                                         '<input type="hidden" id="hidden_blocks" name="blocks" value="'+encodeURIComponent(blocks_value)+'" />' +
                                         '<input type="hidden" id="hidden_main_block" name="main_block" value="'+encodeURIComponent(main_block_value)+'" />';
 
@@ -358,7 +363,7 @@ var structure = {
             var module              = this.getblockModule(this.main_block_obj.module),
                 module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode);
 
-            blocks_html +=  '<div class="item main_block" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
+            blocks_html +=  '<div class="item main_block btn" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
                                 '<span class="num">♛</span>' +
                                 '<span class="module_name">' + module.name + '</span>' +
                                 '<span class="module_mode">' + module_mode.name + '</span>' +
@@ -368,14 +373,14 @@ var structure = {
                 var module          = this.getblockModule(this.blocks_obj[i].module),
                     module_mode     = this.getblockModuleMode(this.blocks_obj[i].module, this.blocks_obj[i].module_mode);
 
-                blocks_html +=  '<div class="item" rel="' + this.blocks_obj[i].id + '" data-mode_template="' + this.blocks_obj[i].mode_template + '">' +
+                blocks_html +=  '<div class="item btn" rel="' + this.blocks_obj[i].id + '" data-mode_template="' + this.blocks_obj[i].mode_template + '">' +
                                     '<span class="num">' + this.blocks_obj[i].id + '</span>' +
                                     '<span class="module_name">' + module.name + '</span>' +
                                     '<span class="module_mode">' + module_mode.name + '</span>' +
                                 '</div>';
             };
 
-            blocks_html +=   '<div class="item" rel="new">' +
+            blocks_html +=   '<div class="item btn" rel="new">' +
                                 '<span class="num plus">+</span>' +
                                 '<span class="module_name">Добавить блок</span>' +
                                 '<span class="module_mode"></span>' +
@@ -455,7 +460,7 @@ var structure = {
             obj.removeClass('opened').addClass('closed');
 
             sub.slideUp(100, function(){
-                structure.setMarkerToActivePosition();
+                structure.setMarkerToActivePosition(0);
                 sub.addClass('closed');
                 structure.saveBranchesConditions();
                 structure.resizeing();
@@ -465,7 +470,7 @@ var structure = {
             obj.removeClass('closed').addClass('opened');
 
             sub.slideDown(100, function(){
-                structure.setMarkerToActivePosition();
+                structure.setMarkerToActivePosition(0);
                 sub.removeClass('closed');
                 structure.saveBranchesConditions();
                 structure.resizeing();
@@ -534,12 +539,12 @@ var structure = {
             }
         });
 
-        var html =  '<a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="mono gray_button">' +
+        var html =  '<a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="label label-info">' +
                         '<i class="new_window"></i>' +
                         '<span id="current_path">'+data.node_data.path+'</span>' +
                     '</a>';
 
-        $('.structure_item_content .inner_tools').html(html);
+        $('.inner_tools').html(html);
 
         core.form.drawHiddenInput({
             name    : 'id'
@@ -676,7 +681,7 @@ var structure = {
         this.showHideMarker();
 
         if(tree_active_item.length > 0){
-            var top     = tree_active_item.offset().top - $('.tree').offset().top - 3,
+            var top     = tree_active_item.offset().top - $('.tree').offset().top + 8,
                 height  = tree_active_item.height() + 4;
 
             if(maker.css('opacity') <= 0){
@@ -716,40 +721,18 @@ var structure = {
     },
 
     resizeing: function(){
-        var lc_height = $('.structure_left_col').height();
-
-        $('.structure .vline').css({
-            height: 0
-        });
-
-        $('.structure_right_col, .structure_item_content').css({
-            minHeight: 0
-        });
-
-        $('.structure_right_col').css({
-            minHeight: lc_height
-        });
-
-        $('.structure .vline').css({
-            height: $('.black_linen_container').height()
-        });
-
-        $('.structure_item_content').css({
-            minHeight: $('.structure_right_col').height()
-        });
-
         this.setMarkerToActivePosition(0);
     }
 };
 
 $(function(){
     structure.init();
-});
 
-$(window).resize(function(){
-    structure.resizeing();
-});
+    $(window).on('resize', function(){
+        structure.resizeing();
+    });
 
-$(window).scroll(function(){
-    structure.resizeing();
+    $(window).on('resize', function(){
+        structure.resizeing();
+    });
 });

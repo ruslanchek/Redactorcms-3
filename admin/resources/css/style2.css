@@ -1,0 +1,130 @@
+@import 'animations.css';
+
+
+/* Misc */
+.clear {
+    clear: both;
+}
+
+.main_content {
+    min-width: 800px;
+}
+
+.left_col {
+    float: left;
+    width: 28%;
+}
+
+.right_col {
+    float: right;
+    width: 70%;
+}
+
+.thmb_form {
+    padding: 20px 0 0 0;
+    box-shadow: none;
+}
+
+.thmb_form .form-actions {
+    margin: 0;
+}
+
+
+/* Overlay */
+.overlay {
+    background: #000;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+
+/* Loading */
+body i.loading {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    display: block;
+    margin: -23px 0 0 -23px;
+    background: url(../img/icons/spinner.png);
+    z-index: 100;
+}
+
+body i.loading.loading_global {
+    top: 50%;
+    left: 50%;
+}
+
+body i.loading.micro {
+    background: url(../img/icons/micro_spinner.gif);
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+}
+
+
+/* Notify */
+.notify {
+    padding: 10px 15px;
+    text-shadow: 0 -1px 0 #000;
+    z-index: 2001;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.75);
+    top: 50%;
+    left: 50%;
+    width: 180px;
+    margin: 0 0 0 -105px;
+    color: #fff;
+    text-align: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.7);
+}
+
+.notify * {
+    text-align: center;
+}
+
+.notify .loading_area {
+    height: 46px;
+    width: 46px;
+    margin: 5px auto 0;
+}
+
+
+/* Icons */
+i.item_icon {
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-image: url(../img/icons/tree_icons.png) !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+i.item_icon.gallery {
+    background-position: 0 0;
+}
+
+i.item_icon.news {
+    background-position: -32px 0;
+}
+
+i.item_icon.menu {
+    background-position: -48px 0;
+}
+
+i.item_icon.page,
+i.item_icon.regular {
+    background-position: -16px 0;
+}
