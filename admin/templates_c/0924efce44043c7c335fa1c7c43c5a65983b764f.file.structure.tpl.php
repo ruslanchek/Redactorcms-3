@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-05-15 18:39:14
+<?php /* Smarty version Smarty-3.1.7, created on 2012-05-16 19:24:13
          compiled from "Z:/home/loc/rdclite/admin/templates\modules\structure.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:198284f5c5b574b9459-96068009%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0924efce44043c7c335fa1c7c43c5a65983b764f' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\modules\\structure.tpl',
-      1 => 1337091541,
+      1 => 1337093202,
       2 => 'file',
     ),
   ),
@@ -86,7 +86,11 @@ $_smarty_tpl->tpl_vars["entry"]->_loop = true;
 </div>
 
 <div class="right_col">
-    <div class="structure_item_content" style="opacity: 0">
-        <div id="form"></div>
+    <div class="structure_item_content">
+        <div id="form">
+            <div class="alert alert-info">
+                Выберите узел структуры, чтобы его отредактировать, либо создайте новый.
+            </div>
+        </div>
     </div>
 </div><?php }} ?>

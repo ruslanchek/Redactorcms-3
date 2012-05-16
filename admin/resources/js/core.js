@@ -475,6 +475,7 @@ core.form = {
         validate: function(form){
             var valid = true;
             $('.field_error').remove();
+            $('form .error').removeClass('error');
 
             form.find('input, textarea, select').not(':submit').each(function(){
                 var validate;
@@ -484,9 +485,9 @@ core.form = {
                         if(typeof validate[i].method != 'undefined' && core.form.validator.methods[validate[i].method] !== null){
                             if(!core.form.validator.methods[validate[i].method]($(this).val(), validate[i].params)){
                                 valid = false;
-                                var error = $('<span class="field_error">' + validate[i].message + '</span>');
+                                var error = $('<span class="help-inline field_error">' + validate[i].message + '</span>');
+                                $(this).parent().parent().addClass('error');
                                 $(this).after(error);
-                                error.effect('highlight');
                             };
                         };
                     };
