@@ -25,6 +25,12 @@
     </div>
 </div>
 
+<script>
+    $(function () {
+        $(".tree_holder").jstree({ "plugins" : ["themes","html_data","ui"] });
+    });
+</script>
+
 <div class="right_col">
     <div class="structure_item_content">
         <div id="form">
