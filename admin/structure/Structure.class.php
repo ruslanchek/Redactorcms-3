@@ -67,12 +67,20 @@
                         $this->insertNode($_GET['id']);
                     }; break;
 
-                    case 'move' : {
+                    /*case 'move' : {
                         $this->moveBranch($_GET['id'], $_GET['pid']);
                     }; break;
 
                     case 'order' : {
                         $this->orderNodes(json_decode(urldecode($_GET['order_items']), true));
+                    }; break;*/
+
+                    case 'move' : {
+                        $this->move();
+                    }; break;
+
+                    case 'get_full_branch' : {
+                        print json_encode($this->getBranchArray());
                     }; break;
                 };
 
@@ -85,7 +93,7 @@
                 AND CREATE A NEW RANDOM STRUCTURE
 
                 $this->resetStructure();
-                $this->createRandomStructure(15);
+                $this->createRandomStructure(125);
             */
         }
 
@@ -118,6 +126,55 @@
             return $this->db->assocMulti($query);
         }
 
+        private function move(){
+            /*console.log('moved_node', e.move_info.moved_node);
+            console.log('target_node', e.move_info.target_node);
+            console.log('position', e.move_info.position);
+            console.log('previous_parent', e.move_info.previous_parent);*/
+
+            switch ($_GET['position']){
+                case 'inside' : {
+                    $this->moveBranch($_GET['moved_node'], $_GET['target_node']);
+                }; break;
+
+                case 'after' : {
+                    $mn = $this->getNodeData($_GET['moved_node']);
+                    $c = $this->getNodeChildrens($mn['pid']);
+                    $sa = array();
+
+                    $i = 0;
+
+                    foreach($c as $item){
+                        if($_GET['moved_node'] != $item['id']){
+                            if($_GET['target_node'] == $item['id']){
+                                $tp = $i+1;
+
+                                array_push($sa, array(
+                                    'id' => $item['id'],
+                                    'sort' => $tp
+                                ));
+
+                                $i += 2;
+                            }else{
+                                $i++;
+
+                                array_push($sa, array(
+                                    'id' => $item['id'],
+                                    'sort' => $i
+                                ));
+                            };
+                        };
+                    };
+
+                    array_splice($sa, $tp, 0, 1);
+
+                    $sa[$tp] = array('id' => $_GET['moved_node'], 'sort' => $tp+1);
+
+                    $this->orderNodes($sa);
+                }; break;
+            }
+        }
+
         //Create ramdom structure
         private function createRandomStructure($leafs){
             $this->resetStructure();
@@ -128,7 +185,7 @@
             while($i < $leafs){
                 $i++;
 
-                $result = $this->getRandomItems('structure', 1, array('id'));
+                $result = $this->db->getRandomItems('structure', 1, array('id'));
 
                 $this->insertNode($result[0]['id']);
             };
@@ -307,6 +364,26 @@
             return $result;
         }
 
+        //Returns a branch array
+        private function getNodeChildrens($id){
+            $query = "
+                SELECT
+                    `structure`.`id`,
+                    `structure_data`.`sort`
+                FROM
+                    `structure`,
+                    `structure_data`
+                WHERE
+                    `structure`.`pid` = ".intval($id)." &&
+                    `structure`.`id` = `structure_data`.`id`
+                ORDER BY
+                    `structure_data`.`sort`
+                ASC
+            ";
+
+            return $this->db->assocMulti($query);
+        }
+
         //Set path to the branch
         private function setPath($id){
             $query = "
@@ -344,7 +421,7 @@
             $this->db->query($query);
 
 
-            $id = $this->getMysqlInsertId();
+            $id = $this->db->getMysqlInsertId();
 
             $query = "
                 INSERT INTO `structure_data`
@@ -369,7 +446,9 @@
                 SET
                     `part` = '".$this->db->quote($part)."',
                     `path` = '".$this->db->quote($path)."',
-                    `name` = '".$this->db->quote($new_item_name)."'
+                    `name` = '".$this->db->quote($new_item_name)."',
+                    `blocks` = '[]',
+                    `main_block` = '{\"module\":1,\"module_mode\":1,\"content_id\":\"\",\"mode_template\":\"\"}'
                 WHERE
                     `id` = ".intval($id);
 
@@ -496,10 +575,9 @@
             $query = "
                 SELECT
                     `structure`.`id`,
-                    `structure_data`.`sort`,
-                    `structure_data`.`name`,
+                    `structure_data`.`name` AS `label`,
                     `structure_data`.`publish`,
-                    `structure_data`.`main_block`
+                    `structure_data`.`sort`
                 FROM
                     `structure`,
                     `structure_data`
@@ -507,14 +585,16 @@
                     ".$where."
                     `structure`.`id` = `structure_data`.`id`
                 ORDER BY
-                    `structure_data`.`sort` ASC
+                    `structure_data`.`sort`
+                ASC
             ";
 
             $sql = $this->db->query($query);
             $result = array();
 
             while($row = $sql->fetch_assoc()){
-                $row['childrens'] = $this->getBranchArray($row['id']);
+                $row['children'] = $this->getBranchArray($row['id']);
+                $row['appendClass'] = ($row['publish'] == '1' ? 'published' : 'hidden');
                 $result[] = $row;
             };
 
@@ -627,8 +707,6 @@
 
         //Set order to the node
         public function orderNodes($order_items){
-            print_r($order_items);
-
             foreach($order_items as $item){
                 $this->updateNode($item['id'], array(
 					'sort' => $item['sort']

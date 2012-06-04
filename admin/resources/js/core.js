@@ -487,7 +487,7 @@ core.form = {
                                 valid = false;
                                 var error = $('<span class="help-inline field_error">' + validate[i].message + '</span>');
                                 $(this).parent().parent().addClass('error');
-                                $(this).after(error);
+                                $(this).parent().append(error);
                             };
                         };
                     };

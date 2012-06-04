@@ -267,7 +267,6 @@ var structure = {
                     if(this.blocks_obj[i2].id == blocks_etalon[i].id){
                         present = true;
                         block = this.blocks_obj[i2];
-                        console.log(this.blocks_obj[i2])
                     };
                 };
 
@@ -539,14 +538,21 @@ var structure = {
         }
     },
 
+    getIdFromHash: function(){
+        var id = window.location.hash.substr(1, window.location.hash.length);
+        return parseInt(id);
+    },
+
     openItemByHash: function(){
         if(window.location.hash){
-            var id = window.location.hash.substr(1, window.location.hash.length);
-            id = parseInt(id);
+            var id = this.getIdFromHash();
 
             if(id > 0){
                 this.openStructureItem(id);
             };
+        }else{
+            var html = '<div class="alert alert-info">Выберите узел структуры, чтобы его отредактировать, либо создайте новый.</div>';
+            $('#form').html(html);
         };
     },
 
@@ -804,19 +810,21 @@ var structure = {
                         success: function(data){
                             core.loading.unsetLoading('openStructureItem');
 
-                            if(data != null){
+                            if(data.node_data != null){
                                 structure.createEditItemForm(data);
                                 structure.resizeing();
-
-                                $('.structure_item_content').animate({
-                                    opacity: 1
-                                }, {
-                                    duration: 500,
-                                    specialEasing: {
-                                        opacity : 'easeOutExpo'
-                                    }
-                                });
+                            }else{
+                                $('#form').html('<div class="alert alert-warning">Узла с ID '+leaf_id+' не существует. Выберите или создайте другой узел.</div>');
                             };
+
+                            $('.structure_item_content').animate({
+                                opacity: 1
+                            }, {
+                                duration: 500,
+                                specialEasing: {
+                                    opacity : 'easeOutExpo'
+                                }
+                            });
                         }
                     });
 
@@ -858,7 +866,7 @@ var structure = {
         };
     },
 
-    dragDrop: function(){
+    /*dragDrop: function(){
         $('.tree_holder ul').sortable({
             axis: 'y',
             connectWith: '.tree_holder ul',
@@ -901,6 +909,67 @@ var structure = {
                 //ui.draggable.css({background: 'red'})
             }
         });
+    },*/
+
+    buildTree: function(){
+        $.ajax({
+            url         : '/admin/structure/?ajax&action=get_full_branch',
+            type        : 'get',
+            dataType    : 'json',
+            beforeSend: function(){
+                core.loading.unsetLoading('loadStructureTree');
+                core.loading.setLoadingToElementCenter('loadStructureTree', $('.tree_holder'));
+            },
+            success: function(data){
+                core.loading.unsetLoading('loadStructureTree');
+
+                var $tree = $('.tree_holder');
+
+                $tree.tree({
+                    data: data,
+                    autoOpen: true,
+                    dragAndDrop: true,
+                    selectable: true,
+                    saveState: 'tree'
+                });
+
+                $tree.bind(
+                    'tree.click',
+                    function(event) {
+                        var node = event.node;
+                        document.location.hash = node.id;
+                    }
+                );
+
+                $tree.bind(
+                    'tree.move',
+                    function(e) {
+                        console.log('moved_node', e.move_info.moved_node);
+                        console.log('target_node', e.move_info.target_node);
+                        console.log('position', e.move_info.position);
+                        console.log('previous_parent', e.move_info.previous_parent);
+
+                        $.ajax({
+                            url         : '/admin/structure/?ajax&action=move',
+                            type        : 'get',
+                            data        : {
+                                moved_node: e.move_info.moved_node.id,
+                                target_node: e.move_info.target_node.id,
+                                position: e.move_info.position,
+                                previous_parent: e.move_info.previous_parent.id
+                            }
+                        });
+                    }
+                );
+
+                /*var id = structure.getIdFromHash();
+
+                if(id > 0){
+                    var node = $tree.tree('getNodeById', id);
+                    $tree.tree('selectNode', node, true);
+                };*/
+            }
+        });
     },
 
     init: function(){
@@ -910,12 +979,12 @@ var structure = {
         ]);
 
         $('.tree_holder').disableSelection();
+        this.buildTree();
         this.readBranchesConditions();
         this.setMarkerToActivePosition(0);
         this.binds();
         this.resizeing();
         this.openItemByHash();
-        this.dragDrop();
     },
 
     resizeing: function(){

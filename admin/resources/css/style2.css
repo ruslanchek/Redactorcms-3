@@ -29,6 +29,9 @@
     margin: 0;
 }
 
+.field_error {
+    margin-bottom: 5px !important;
+}
 
 /* Overlay */
 .overlay {

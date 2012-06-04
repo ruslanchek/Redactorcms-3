@@ -5,7 +5,7 @@
 </div>
 
 <div class="left_col">
-    <i class="vline"></i>
+    {*<i class="vline"></i>
     <div class="tree_holder">
         <i id="active_tree_item_marker"></i>
         {function name=menu level=0}
@@ -28,15 +28,17 @@
         {/function}
 
         {call name=menu data=$core->getBranchArray()}
+    </div>*}
+
+    <div class="tree_holder">
+
     </div>
 </div>
 
 <div class="right_col">
     <div class="structure_item_content">
         <div id="form">
-            <div class="alert alert-info">
-                Выберите узел структуры, чтобы его отредактировать, либо создайте новый.
-            </div>
+
         </div>
     </div>
 </div>
