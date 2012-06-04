@@ -658,9 +658,13 @@ var structure = {
                     status_class = 'hidden';
                 };
 
-                $('#leaf_' + data.id + '>a>span').html(data.name);
+                /*$('#leaf_' + data.id + '>a>span').html(data.name);
                 $('#leaf_' + data.id + '>a').removeClass('published').removeClass('hidden').addClass(status_class);
-                $('#leaf_' + data.id + '>a i.item_icon').attr('class', 'item_icon ' + module_icon_class);
+                $('#leaf_' + data.id + '>a i.item_icon').attr('class', 'item_icon ' + module_icon_class);*/
+
+                //$('#item_'+data.id).jstree('rename')
+
+                $(".tree_holder").jstree('set_text', $('#item_'+data.id), data.name);
 
                 $('#current_path').attr('href', result.path).html(result.path);
                 $('#text_part').val(result.part);
@@ -867,16 +871,69 @@ var structure = {
     },
 
     drawTree: function(){
-        $(".tree_holder").jstree({
-            "json_data" : {
-                "ajax" : {
-                    "url" : "/admin/structure/?ajax&action=get_tree",
-                    "data" : function (n) {
-                        return { id : n.attr ? n.attr("id") : 0 };
-                    }
-                }
+        $.ajax({
+            url         : '/admin/structure/?ajax&action=get_tree',
+            type        : 'GET',
+            dataType    : 'json',
+            beforeSend  : function(){
+                core.loading.unsetLoading('loadTree');
+                core.loading.setLoadingToElementCenter('loadTree', $('.left_col'));
             },
-            "plugins" : [ "themes", "json_data" ]
+            success     : function(data){
+                core.loading.unsetLoading('loadTree');
+
+                var init_id;
+
+                if(structure.getIdFromHash() > 0){
+                    init_id = 'item_'+structure.getIdFromHash();
+                };
+
+                $(".tree_holder").jstree({
+                    "core" : {
+                        "initially_open" : [init_id],
+                        "animation" : 200
+                    },
+                    "json_data" : {
+                        data: data
+                    },
+                    "ui" : {
+                        "select_limit" : 1,
+                        "initially_select" : [init_id]
+                    },
+                    "cookies" : {
+                        "save_opened" : true,
+                        "save_selected" : true
+                    },
+                    "dnd" : {
+                        "drop_finish" : function () {
+                            alert("DROP");
+                        },
+                        "drag_check" : function (data) {
+                            if(data.r.attr("id") == "phtml_1") {
+                                return false;
+                            }
+                            return {
+                                after : false,
+                                before : false,
+                                inside : true
+                            };
+                        },
+                        "drag_finish" : function (data) {
+                            alert("DRAG OK");
+                        }
+                    },
+                    "plugins" : [
+                        "themes",
+                        "json_data",
+                        "ui",
+                        "cookies",
+                        "dnd",
+                        "types"
+                    ]
+                }).bind("select_node.jstree", function(event, data){
+
+                });
+            }
         });
     },
 
