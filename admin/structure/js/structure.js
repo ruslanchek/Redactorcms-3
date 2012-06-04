@@ -10,6 +10,8 @@ var structure = {
 
     //Расширяем фунционал создания формы для блоков раздела
     blocksInput: {
+        blocks_count: 0,
+
         getblockModule: function(module_id){
             for(var i = 0, l = this.modules.length; i < l; i++){
                 if(this.modules[i].id == module_id){
@@ -202,6 +204,132 @@ var structure = {
             };
         },
 
+        setBlocksCount: function(value){
+            var count = 0;
+
+            for(var i = 0, l = structure.templates.length; i < l; i++){
+                if(structure.templates[i].id == value){
+                    count = structure.templates[i].blocks;
+                };
+            };
+
+            this.blocks_count = parseInt(count);
+        },
+
+        createBlocksEtalon: function(){
+            var blocks_etalon = [];
+
+            for(var i = 1, l = this.blocks_count+1; i < l; i++){
+                blocks_etalon.push({
+                    id: i
+                });
+            };
+
+            return blocks_etalon;
+        },
+
+        drawBlocks: function(){
+            //Create main block
+            var module              = this.getblockModule(this.main_block_obj.module),
+                module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode),
+                blocks_html         = '';
+
+            blocks_html +=  '<div class="item main_block btn btn-inverse" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
+                                '<span class="num">♛</span>' +
+                                '<span class="module_name">' + module.name + '</span>' +
+                                '<span class="module_mode">' + module_mode.name + '</span>' +
+                            '</div>';
+
+            //Create oher blocks
+            /*for(var i = 0, l = this.blocks_obj.length; i < l; i++){
+                var module          = this.getblockModule(this.blocks_obj[i].module),
+                    module_mode     = this.getblockModuleMode(this.blocks_obj[i].module, this.blocks_obj[i].module_mode);
+
+                blocks_html +=  '<div class="item btn" rel="' + this.blocks_obj[i].id + '" data-mode_template="' + this.blocks_obj[i].mode_template + '">' +
+                                    '<span class="num">' + this.blocks_obj[i].id + '</span>' +
+                                    '<span class="module_name">' + module.name + '</span>' +
+                                    '<span class="module_mode">' + module_mode.name + '</span>' +
+                                '</div>';
+            };*/
+
+            var blocks_etalon = this.createBlocksEtalon();
+
+            for(var i = 0, l = blocks_etalon.length; i < l; i++){
+                var id,
+                    template,
+                    block_module,
+                    block_module_mode,
+                    present = false,
+                    block = null,
+                    block_class;
+
+                for(var i2 = 0, l2 = this.blocks_obj.length; i2 < l2; i2++){
+                    if(this.blocks_obj[i2].id == blocks_etalon[i].id){
+                        present = true;
+                        block = this.blocks_obj[i2];
+                        console.log(this.blocks_obj[i2])
+                    };
+                };
+
+                if(block){
+                    var module          = this.getblockModule(block.module),
+                        module_mode     = this.getblockModuleMode(block.module, block.module_mode);
+
+                    id                  = blocks_etalon[i].id;
+                    block_module        = module.name;
+                    block_module_mode   = module_mode.name;
+                    template            = block.mode_template;
+                    block_class         = 'btn-info';
+                }else{
+                    id                  = blocks_etalon[i].id;
+                    block_module        = 'Пустой блок';
+                    block_module_mode   = '';
+                    block_class         = 'empty_block';
+                };
+
+                blocks_html +=  '<div class="item btn '+block_class+'" rel="'+id+'" data-id="'+id+'" data-mode_template="' + template + '">' +
+                                    '<span class="num">' + blocks_etalon[i].id + '</span>' +
+                                    '<span class="module_name">' + block_module + '</span>' +
+                                    '<span class="module_mode">' + block_module_mode + '</span>' +
+                                '</div>';
+            };
+
+
+            /*blocks_html +=   '<div class="item btn" rel="new">' +
+                                '<span class="num plus">+</span>' +
+                                '<span class="module_name">Добавить блок</span>' +
+                                '<span class="module_mode"></span>' +
+                            '</div>' +
+                            '<div class="clear"></div>';*/
+
+            $('#blocks').html(blocks_html);
+        },
+
+        deleteBlock: function($o){
+            var new_obj = [];
+
+            for(var i = 0, l = this.blocks_obj.length; i < l; i++){
+                if(this.blocks_obj[i].id != $o.data('id')){
+                    var new_o = this.blocks_obj[i];
+                    new_obj.push(new_o);
+                };
+            };
+
+            this.blocks_obj = new_obj;
+
+            $o
+                .removeClass('btn-info')
+                .addClass('empty_block')
+                .find('.module_name')
+                .text('Пустой блок');
+
+            $o
+                .find('.module_mode')
+                .text('');
+
+            this.setData();
+        },
+
         editBlock: function($item_obj){
             var block_id = $item_obj.attr('rel'),
                 mode_template = $item_obj.data('mode_template'),
@@ -209,6 +337,10 @@ var structure = {
                 module,
                 module_mode,
                 content_id;
+
+            if($item_obj.hasClass('empty_block')){
+                block_id = 'empty';
+            };
 
             switch(block_id){
                 case 'main' : {
@@ -225,36 +357,55 @@ var structure = {
                     content_id  = 0;
                 }; break;
 
+                case 'empty' : {
+                    header = 'Настройка пустого блока №'+$item_obj.data('id');
+                    module = 1;
+                    module_mode = 1;
+                    content_id  = 0;
+                    block_id = $item_obj.data('id');
+                }; break;
+
                 default : {
                     var block_data = this.getBlockData(block_id);
                     header = 'Настройка блока №'+block_id;
                     module = block_data.module;
                     module_mode = block_data.module_mode;
                     content_id  = block_data.content_id;
+
+                    var aftershow = function(){
+                        $('.modal-footer').append('<input type="button" class="btn btn-danger delete_block_button" value="Сбросить">');
+
+                        $('.delete_block_button').off('click').on('click', function(){
+                            structure.blocksInput.deleteBlock($item_obj);
+                            core.modal.closeDialog();
+                        });
+                    };
                 }; break;
             };
 
-            var content =   '<form class="form-horizontal"><fieldset>' +
-                                '<div class="control-group">' +
-                                    '<label class="control-label" for="select_block_module">Модуль</label>' +
-                                    '<div class="controls" id="select_block_module_placeholder"></div>' +
-                                '</div>' +
+            var content =   '<form class="form-horizontal">' +
+                                '<fieldset>' +
+                                    '<div class="control-group">' +
+                                        '<label class="control-label" for="select_block_module">Модуль</label>' +
+                                        '<div class="controls" id="select_block_module_placeholder"></div>' +
+                                    '</div>' +
 
-                                '<div class="control-group">' +
-                                    '<label class="control-label" for="select_block_module_mode">Режим</label>' +
-                                    '<div class="controls" id="select_block_module_mode_placeholder"></div>' +
-                                '</div>' +
+                                    '<div class="control-group">' +
+                                        '<label class="control-label" for="select_block_module_mode">Режим</label>' +
+                                        '<div class="controls" id="select_block_module_mode_placeholder"></div>' +
+                                    '</div>' +
 
-                                '<div class="control-group">' +
-                                    '<label class="control-label" for="select_block_mode_template">Шаблон</label>' +
-                                    '<div class="controls" id="select_block_mode_template_placeholder"></div>' +
-                                '</div>' +
+                                    '<div class="control-group">' +
+                                        '<label class="control-label" for="select_block_mode_template">Шаблон</label>' +
+                                        '<div class="controls" id="select_block_mode_template_placeholder"></div>' +
+                                    '</div>' +
 
-                                '<div class="control-group">' +
-                                    '<label class="control-label" for="select_block_content_id">Контент-юнит</label>' +
-                                    '<div class="controls" id="select_block_content_id_placeholder"></div>' +
-                                '</div>' +
-                            '</fieldset></form>';
+                                    '<div class="control-group">' +
+                                        '<label class="control-label" for="select_block_content_id">Контент-юнит</label>' +
+                                        '<div class="controls" id="select_block_content_id_placeholder"></div>' +
+                                    '</div>' +
+                                '</fieldset>' +
+                            '</form>';
 
             core.modal.showDialog({
                 content: content,
@@ -264,6 +415,10 @@ var structure = {
                     structure.blocksInput.getAndSetBlockParams(block_id);
                 }
             });
+
+            if(aftershow){
+                aftershow();
+            };
 
             this.drawSelectModule(module);
             this.drawSelectModuleMode(module, module_mode);
@@ -295,6 +450,7 @@ var structure = {
             }else{
                 if(block_id == 'new'){
                     block_id     = structure.blocksInput.blocks_obj.length + 1;
+
                     new_block    = true;
 
                     this.blocks_obj.push({
@@ -314,7 +470,20 @@ var structure = {
                         this.blocks_obj[i].content_id       = parseInt($('#select_block_content_id').val());
 
                         block_data = this.blocks_obj[i];
+                        break;
                     };
+                };
+
+                if($('#blocks .item[rel="'+block_id+'"]').hasClass('empty_block')){
+                    block_data = {
+                        id              : block_id,
+                        module          : parseInt($('#select_block_module').val()),
+                        module_mode     : parseInt($('#select_block_module_mode').val()),
+                        mode_template   : $('#select_block_mode_template').val(),
+                        content_id      : parseInt($('#select_block_content_id').val())
+                    };
+
+                    this.blocks_obj.push(block_data);
                 };
 
                 var module      = this.getblockModule(block_data.module),
@@ -331,6 +500,7 @@ var structure = {
                 }else{
                     var $block_item  = $('#blocks .item[rel="'+block_id+'"]');
 
+                    $block_item.removeClass('empty_block').addClass('btn-info');
                     $block_item.find('span.module_name').html(module.name);
                     $block_item.find('span.module_mode').html(module_mode.name);
                     $block_item.data('mode_template', $('#select_block_mode_template').val());
@@ -346,7 +516,6 @@ var structure = {
 
             var blocks_value        =   core.form.options.data.blocks,
                 main_block_value    =   core.form.options.data.main_block,
-                blocks_html         =   new String(),
                 html                =   '<div class="control-group">' +
                                             '<label class="control-label">Блоки</label>' +
                                             '<div class="controls">' +
@@ -358,36 +527,11 @@ var structure = {
 
             this.blocks_obj         = $.parseJSON(blocks_value);
             this.main_block_obj     = $.parseJSON(main_block_value);
+
             core.form.options.container_obj.find('form#'+core.form.options.form_id).find('.form_items').append(html);
 
-            var module              = this.getblockModule(this.main_block_obj.module),
-                module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode);
-
-            blocks_html +=  '<div class="item main_block btn" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
-                                '<span class="num">♛</span>' +
-                                '<span class="module_name">' + module.name + '</span>' +
-                                '<span class="module_mode">' + module_mode.name + '</span>' +
-                            '</div>';
-
-            for(var i = 0, l = this.blocks_obj.length; i < l; i++){
-                var module          = this.getblockModule(this.blocks_obj[i].module),
-                    module_mode     = this.getblockModuleMode(this.blocks_obj[i].module, this.blocks_obj[i].module_mode);
-
-                blocks_html +=  '<div class="item btn" rel="' + this.blocks_obj[i].id + '" data-mode_template="' + this.blocks_obj[i].mode_template + '">' +
-                                    '<span class="num">' + this.blocks_obj[i].id + '</span>' +
-                                    '<span class="module_name">' + module.name + '</span>' +
-                                    '<span class="module_mode">' + module_mode.name + '</span>' +
-                                '</div>';
-            };
-
-            blocks_html +=   '<div class="item btn" rel="new">' +
-                                '<span class="num plus">+</span>' +
-                                '<span class="module_name">Добавить блок</span>' +
-                                '<span class="module_mode"></span>' +
-                            '</div>' +
-                            '<div class="clear"></div>';
-
-            $('#blocks').html(blocks_html);
+            this.setBlocksCount(core.form.options.data.template_id);
+            this.drawBlocks();
 
             $('#blocks .item').live('click', function(){
                 structure.blocksInput.editBlock($(this));
@@ -525,6 +669,8 @@ var structure = {
     },
 
     createEditItemForm: function(data){
+        this.templates = data.templates;
+
         core.form.createForm({
             form_id             : 'edit_item_form',
             container_obj       : $('#form'),
@@ -607,6 +753,11 @@ var structure = {
                     message : 'Выберите шаблон'
                 }
             ]
+        });
+
+        $('#select_template_id').on('change', function(){
+            structure.blocksInput.setBlocksCount($(this).val());
+            structure.blocksInput.drawBlocks();
         });
 
         this.blocksInput.init();
