@@ -74,6 +74,10 @@
                     case 'order' : {
                         $this->orderNodes(json_decode(urldecode($_GET['order_items']), true));
                     }; break;
+
+                    case 'get_tree' : {
+                        print json_encode($this->getBranchArray());
+                    }; break;
                 };
 
                 exit;
@@ -514,7 +518,8 @@
             $result = array();
 
             while($row = $sql->fetch_assoc()){
-                $row['childrens'] = $this->getBranchArray($row['id']);
+                $row['children'] = $this->getBranchArray($row['id']);
+                $row['data'] = $row['name'];
                 $result[] = $row;
             };
 

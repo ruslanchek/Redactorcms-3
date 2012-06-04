@@ -6,12 +6,12 @@
 
 <div class="left_col">
     <div class="tree_holder">
-        {function name=menu level=0}
+        {*function name=menu level=0}
         <ul>
             {foreach from=$data item="entry" key="i"}
                 {if is_array($entry)}
                     <li>
-                        {$entry.name|escape}
+                        <a href="#">{$entry.name|escape}</a>
                         {if !empty($entry.childrens)}
                             {call name=menu data=$entry.childrens level=$level+1}
                         {/if}
@@ -21,15 +21,9 @@
         </ul>
         {/function}
 
-        {call name=menu data=$core->getBranchArray()}
+        {call name=menu data=$core->getBranchArray()*}
     </div>
 </div>
-
-<script>
-    $(function () {
-        $(".tree_holder").jstree({ "plugins" : ["themes","html_data","ui"] });
-    });
-</script>
 
 <div class="right_col">
     <div class="structure_item_content">

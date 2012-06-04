@@ -866,6 +866,20 @@ var structure = {
         };
     },
 
+    drawTree: function(){
+        $(".tree_holder").jstree({
+            "json_data" : {
+                "ajax" : {
+                    "url" : "/admin/structure/?ajax&action=get_tree",
+                    "data" : function (n) {
+                        return { id : n.attr ? n.attr("id") : 0 };
+                    }
+                }
+            },
+            "plugins" : [ "themes", "json_data" ]
+        });
+    },
+
     init: function(){
         core.preloadImages([
             '/admin/resources/img/bg/popup.png',
@@ -878,6 +892,7 @@ var structure = {
         this.binds();
         this.resizeing();
         this.openItemByHash();
+        this.drawTree();
     },
 
     resizeing: function(){
