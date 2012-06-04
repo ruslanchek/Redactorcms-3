@@ -768,8 +768,9 @@ var structure = {
 
         var parent = $('li#leaf_'+leaf_id);
 
-        $('.arrow_hider').remove();
-        parent.parent().parent().find('>i.arrow').after('<div class="arrow_hider"></div>');
+        //$('.arrow_hider').remove();
+
+        //parent.parents().find('>i.arrow').after('<div class="arrow_hider"></div>');
 
         parent.addClass('active');
         this.setMarkerToActivePosition(150);
@@ -857,6 +858,51 @@ var structure = {
         };
     },
 
+    dragDrop: function(){
+        $('.tree_holder ul').sortable({
+            axis: 'y',
+            connectWith: '.tree_holder ul',
+            sort: function(){
+                structure.setMarkerToActivePosition(0);
+            },
+            stop: function(e, ui){
+                structure.setMarkerToActivePosition(0);
+
+                var arr = [],
+                    i = 1;
+
+                ui.item.parent('ul').find('>li').each(function(){
+                    arr.push({
+                        id: $(this).data('id'),
+                        sort: i
+                    });
+
+                    i++;
+                });
+
+                $.ajax({
+                    url         : '/admin/structure/?ajax&action=order',
+                    type        : 'get',
+                    data        : {
+                        order_items: JSON.stringify(arr)
+                    }
+                });
+            }
+        });
+
+        $(".tree_holder ul").draggable({
+            revert: true,
+            connectToSortable: '.tree_holder ul'
+        });
+
+        $(".tree_holder ul li").droppable({
+            drop: function(e, ui){
+                //$(this).css({background: 'blue'})
+                //ui.draggable.css({background: 'red'})
+            }
+        });
+    },
+
     init: function(){
         core.preloadImages([
             '/admin/resources/img/bg/popup.png',
@@ -869,6 +915,7 @@ var structure = {
         this.binds();
         this.resizeing();
         this.openItemByHash();
+        this.dragDrop();
     },
 
     resizeing: function(){

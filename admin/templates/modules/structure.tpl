@@ -12,7 +12,7 @@
         <ul {if $level > 0}id="branch_{$entry.id}"{else}id="branch_1" class="tree"{/if}>
             {foreach from=$data item="entry" key="i"}
                 {if is_array($entry)}
-                    <li id="leaf_{$entry.id}">
+                    <li id="leaf_{$entry.id}" data-id="{$entry.id}">
                         <i class="arrow"></i>
                         <a href="#{$entry.id}" class="{if $entry.publish == '1'}published{else}hidden{/if}">
                             <i class="item_icon {$core->getBranchClass($entry.main_block)}"></i>

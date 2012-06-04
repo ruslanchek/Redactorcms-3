@@ -46,7 +46,6 @@
 /* Tree */
 .tree_holder {
     position: relative;
-    overflow-x: hidden;
     overflow-y: visible;
     padding: 10px 30px 15px;
     -webkit-border-radius: 4px;
@@ -67,9 +66,9 @@
 .tree_holder i#active_tree_item_marker {
     position: absolute;
     height: 2em;
-    width: 113.9%;
+    width: 100%;
     opacity: 0;
-    left: -13.9%;
+    left: 0;
     background: #ccc;
 }
 
@@ -166,6 +165,9 @@ ul.tree li:last-child {
     padding-bottom: 0;
 }
 
+ul.tree .ui-sortable-placeholder {
+    height: 18px !important;
+}
 
 ul.tree li ul {
     padding: 5px 0 0 1.8em;

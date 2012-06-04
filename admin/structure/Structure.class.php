@@ -71,9 +71,8 @@
                         $this->moveBranch($_GET['id'], $_GET['pid']);
                     }; break;
 
-                    case 'up';
-                    case 'down' : {
-                        $this->orderNode($_GET['id'], $_GET['order_params']);
+                    case 'order' : {
+                        $this->orderNodes(json_decode(urldecode($_GET['order_items']), true));
                     }; break;
                 };
 
@@ -627,13 +626,12 @@
 		}
 
         //Set order to the node
-        public function orderNode($id, $order_params){
-            $order = explode(';', $order_params);
+        public function orderNodes($order_items){
+            print_r($order_items);
 
-            foreach($order as $item){
-                $order_item = explode('=', $item);
-                $this->updateNode($order_item[0], array(
-					'sort' => $order_item[1]
+            foreach($order_items as $item){
+                $this->updateNode($item['id'], array(
+					'sort' => $item['sort']
 				));
             };
         }

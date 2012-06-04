@@ -24,6 +24,7 @@
         public function __construct(){
             require_once($_SERVER['DOCUMENT_ROOT'].'/Config.class.php');
             $this->config = new Config();
+            $this->page = new stdClass();
         }
 
         public function __get($name){
@@ -111,7 +112,8 @@
                     `sd`.`template_id`  AS `template_id`,
                     `sd`.`blocks`       AS `blocks`,
                     `sd`.`main_block`   AS `main_block`,
-                    `t`.`file`          AS `template_file`
+                    `t`.`file`          AS `template_file`,
+                    `t`.`blocks`        AS `template_blocks`
                 FROM
                     `structure` `s`
                 LEFT JOIN
@@ -128,7 +130,7 @@
             if(!empty($data)){
                 $data['blocks']         = json_decode($data['blocks'], true);
                 $data['main_block']     = json_decode($data['main_block'], true);
-                $this->template         = $data['template_file'];
+                $data['blocks_count']   = $data['template_blocks'];
 
                 return $data;
             }else{
@@ -148,7 +150,10 @@
         private function renderPage(){
             //Если не включен режим аякса, отрисовываем страницу с помощью Смарти
             if(!$this->ajax_mode){
-                $this->page = $this->checkAndSetRouteData();
+                $data = $this->checkAndSetRouteData();
+
+                $this->page->template = $data;
+                $this->template = $data['template_file'];
 
                 $this->smarty->assign('core', $this);
 
@@ -157,17 +162,21 @@
         }
 
         public function drawBlock($block_id){
-            if($block_id == 'main'){
-                $block_obj = $this->page['main_block'];
-            }else{
-                foreach($this->page['blocks'] as $block){
-                    if($block['id'] == $block_id){
-                        $block_obj = $block;
+            if(intval($block_id) <= intval($this->page->template['blocks_count']) || $this->page->template['blocks_count'] == 'main'){
+                if($block_id == 'main'){
+                    $block_obj = $this->page->template['main_block'];
+                }else{
+                    foreach($this->page->template['blocks'] as $block){
+                        if($block['id'] == $block_id){
+                            $block_obj = $block;
+                        };
                     };
                 };
-            };
 
-            return $this->smarty->fetch('blocks/'.$block_obj['mode_template']);
+                $this->smarty->assign('block', $block_obj);
+
+                return $this->smarty->fetch('blocks/'.$block_obj['mode_template']);
+            };
         }
     }
 ?>
