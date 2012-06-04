@@ -6,7 +6,6 @@
 
         <link rel="stylesheet" href="/admin/resources/bootsrtap/css/bootstrap.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/css/style2.css" media="all" />
-        <link rel="stylesheet" href="/admin/resources/plugins/jqtree/jqtree.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/chosen/chosen.css" media="all" />
@@ -16,7 +15,6 @@
         <script src="/admin/resources/bootsrtap/js/bootstrap.min.js"></script>
         <script src="/admin/resources/js/jquery.cookie.js"></script>
         <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
-        <script src="/admin/resources/plugins/jqtree/tree.jquery.js"></script>
         <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
         <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
         <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>

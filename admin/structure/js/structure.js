@@ -866,112 +866,6 @@ var structure = {
         };
     },
 
-    /*dragDrop: function(){
-        $('.tree_holder ul').sortable({
-            axis: 'y',
-            connectWith: '.tree_holder ul',
-            sort: function(){
-                structure.setMarkerToActivePosition(0);
-            },
-            stop: function(e, ui){
-                structure.setMarkerToActivePosition(0);
-
-                var arr = [],
-                    i = 1;
-
-                ui.item.parent('ul').find('>li').each(function(){
-                    arr.push({
-                        id: $(this).data('id'),
-                        sort: i
-                    });
-
-                    i++;
-                });
-
-                $.ajax({
-                    url         : '/admin/structure/?ajax&action=order',
-                    type        : 'get',
-                    data        : {
-                        order_items: JSON.stringify(arr)
-                    }
-                });
-            }
-        });
-
-        $(".tree_holder ul").draggable({
-            revert: true,
-            connectToSortable: '.tree_holder ul'
-        });
-
-        $(".tree_holder ul li").droppable({
-            drop: function(e, ui){
-                //$(this).css({background: 'blue'})
-                //ui.draggable.css({background: 'red'})
-            }
-        });
-    },*/
-
-    buildTree: function(){
-        $.ajax({
-            url         : '/admin/structure/?ajax&action=get_full_branch',
-            type        : 'get',
-            dataType    : 'json',
-            beforeSend: function(){
-                core.loading.unsetLoading('loadStructureTree');
-                core.loading.setLoadingToElementCenter('loadStructureTree', $('.tree_holder'));
-            },
-            success: function(data){
-                core.loading.unsetLoading('loadStructureTree');
-
-                var $tree = $('.tree_holder');
-
-                $tree.tree({
-                    data: data,
-                    autoOpen: true,
-                    dragAndDrop: true,
-                    selectable: true,
-                    saveState: 'tree'
-                });
-
-                $tree.bind(
-                    'tree.click',
-                    function(event) {
-                        var node = event.node;
-                        document.location.hash = node.id;
-                    }
-                );
-
-                $tree.bind(
-                    'tree.move',
-                    function(e) {
-                        console.log('moved_node', e.move_info.moved_node);
-                        console.log('target_node', e.move_info.target_node);
-                        console.log('position', e.move_info.position);
-                        console.log('previous_parent', e.move_info.previous_parent);
-
-                        $.ajax({
-                            url         : '/admin/structure/?ajax&action=move',
-                            type        : 'get',
-                            data        : {
-                                moved_node: e.move_info.moved_node.id,
-                                target_node: e.move_info.target_node.id,
-                                position: e.move_info.position,
-                                previous_parent: e.move_info.previous_parent.id
-                            }
-                        });
-                    }
-                );
-
-                /*var id = structure.getIdFromHash();
-
-                if(id > 0){
-                    var node = $tree.tree('getNodeById', id);
-                    $tree.tree('selectNode', node, true);
-                };*/
-            }
-        });
-    },
-
     init: function(){
         core.preloadImages([
             '/admin/resources/img/bg/popup.png',
@@ -979,7 +873,6 @@ var structure = {
         ]);
 
         $('.tree_holder').disableSelection();
-        this.buildTree();
         this.readBranchesConditions();
         this.setMarkerToActivePosition(0);
         this.binds();

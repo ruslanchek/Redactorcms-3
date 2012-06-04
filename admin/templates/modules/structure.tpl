@@ -5,19 +5,13 @@
 </div>
 
 <div class="left_col">
-    {*<i class="vline"></i>
     <div class="tree_holder">
-        <i id="active_tree_item_marker"></i>
         {function name=menu level=0}
-        <ul {if $level > 0}id="branch_{$entry.id}"{else}id="branch_1" class="tree"{/if}>
+        <ul>
             {foreach from=$data item="entry" key="i"}
                 {if is_array($entry)}
-                    <li id="leaf_{$entry.id}" data-id="{$entry.id}">
-                        <i class="arrow"></i>
-                        <a href="#{$entry.id}" class="{if $entry.publish == '1'}published{else}hidden{/if}">
-                            <i class="item_icon {$core->getBranchClass($entry.main_block)}"></i>
-                            <span>{$entry.name|escape}</span>
-                        </a>
+                    <li>
+                        {$entry.name|escape}
                         {if !empty($entry.childrens)}
                             {call name=menu data=$entry.childrens level=$level+1}
                         {/if}
@@ -28,10 +22,6 @@
         {/function}
 
         {call name=menu data=$core->getBranchArray()}
-    </div>*}
-
-    <div class="tree_holder">
-
     </div>
 </div>
 
