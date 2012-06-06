@@ -922,13 +922,19 @@ var structure = {
                             alert("DRAG OK");
                         }
                     },
+                    "themes" : {
+                        "theme" : "default",
+                        "dots" : false,
+                        "icons" : true
+                    },
                     "plugins" : [
                         "themes",
                         "json_data",
                         "ui",
                         "cookies",
                         "dnd",
-                        "types"
+                        "types",
+                        "themes"
                     ]
                 }).bind("select_node.jstree", function(event, data){
 
