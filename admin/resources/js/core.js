@@ -178,7 +178,7 @@ core.loading = {
         }else{
             pos = 0;
         };
-        
+
         $loading.data('pos', pos).css({
             backgroundPosition: '0 -' + pos + 'px'
         });
@@ -514,11 +514,10 @@ core.form = {
 
     //Создание формы
     createFormContainer: function(){
-        var html =  '<form action="javascript:void(0)" class="form-horizontal thumbnail thmb_form" id="'+this.options.form_id+'">' +
+        var html =  '<form action="javascript:void(0)" class="form-horizontal" id="'+this.options.form_id+'">' +
                         '<fieldset class="form_items "></fieldset>' +
-                        '<div class="form-actions">' +
-                            '<input class="btn btn-primary" type="submit" name="save" value="Сохранить" />' +
-                        '</div>' +
+                        '<hr>' +
+                        '<input class="btn" type="submit" name="save" value="Сохранить" />' +
                     '</form>';
 
         this.options.container_obj.html(html);

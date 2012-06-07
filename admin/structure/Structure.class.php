@@ -7,7 +7,7 @@
         public function __construct(){
             parent::__construct();
 
-            $this->template = 'main2.tpl';
+            $this->template = 'main.tpl';
 
             $this->init(array(
                 'name'  => 'structure',

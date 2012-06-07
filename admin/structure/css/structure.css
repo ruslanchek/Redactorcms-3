@@ -43,194 +43,21 @@
     background: url(/admin/resources/img/bg/5_white.png);
 }
 
-/* Tree */
-.tree_holder {
-    position: relative;
-    overflow-y: visible;
-    padding: 15px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    background: #EEEEEE;
-    min-height: 30px;
-}
 
-.tree_holder ul {
-    padding: 0;
-}
-
-.tree_holder li {
-    padding: 5px;
-}
-
-.tree_holder li:last-child {
-    padding-bottom: 0;
-}
-
-/*
-.tree_holder a:link,
-.tree_holder a:visited {
-    color: #000;
-}
-
-.tree_holder a:hover,
-.tree_holder a:active {
-    color: #000;
-}
-
-.tree_holder i#active_tree_item_marker {
-    position: absolute;
-    height: 2em;
-    width: 100%;
-    opacity: 0;
-    left: 0;
-    background: #ccc;
-}
-
-ul.tree ul {
-    margin-left: 0;
-}
-
-ul.tree i.arrow {
-    display: block;
-    position: absolute;
-    background: url(../img/icons/tree_arrow.png);
-    left: -16px;
-    top: 10px;
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-ul.tree .arrow_hider {
-    position: absolute;
-    display: block;
-    left: -16px;
-    top: 10px;
-    width: 10px;
-    height: 10px;
-    z-index: 2;
-}
-
-ul.tree li.active>i.arrow {
-    opacity: 1;
-}
-
-ul.tree i.arrow:hover {
-    opacity: 0.85;
-}
-
-ul.tree i.arrow:active {
-    opacity: 1;
-}
-
-ul.tree i.arrow.opened {
-    background-position: 0 0;
-    width: 9px;
-    height: 8px;
-}
-
-ul.tree i.arrow.closed {
-    background-position: 0 -8px;
-    width: 9px;
-    height: 9px;
-}
-
-ul.tree li {
-    position: relative;
-}
-
-ul.tree li ul.closed {
-    display: none;
-}
-
-ul.tree li a {
-    position: relative;
-    padding: 0 21px;
-    display: block;
-}
-
-ul.tree li a i.item_icon {
-    top: 1px;
-    left: 0;
-    position: absolute;
-}
-
-ul.tree li.active>a {
-    text-decoration: none;
-    cursor: default;
-}
-
-ul.tree li.active {
-
-}
-
-ul.tree {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    z-index: 2;
-}
-
-ul.tree li {
-    list-style-type: none;
-    padding: 5px 0;
-}
-
-ul.tree li:last-child {
-    padding-bottom: 0;
-}
-
-ul.tree .ui-sortable-placeholder {
-    height: 18px !important;
-}
-
-ul.tree li ul {
-    padding: 5px 0 0 1.8em;
-    margin: 0;
-}
-
-ul.tree li a.published {
-
-}
-
-ul.tree li a.hidden {
-    visibility: visible;
-}
-
-ul.tree li a.hidden:link,
-ul.tree li a.hidden:visited {
-    color: #999 !important;
-}
-
-ul.tree li a.hidden:hover,
-ul.tree li a.hidden:active {
-    color: #666 !important;
-}
-
-ul.tree li a.hidden i.item_icon {
-    opacity: 0.6;
-}
-
-ul.tree li.active a.hidden {
-    color: #999 !important;
-}
-
-ul.tree li.active a.published {
-
-}*/
 
 /* Form */
 #blocks {
-    padding: 5px 0 0 5px;
+    padding: 0;
     margin: 0 0 1em;
     float: left;
 }
 
 #blocks .item {
-    width: 100px;
+    width: 90px;
     margin: 0 5px 5px 0;
     float: left;
     padding: 15px 5px 10px;
-    height: 65px;
+    height: 55px;
     cursor: pointer;
 }
 

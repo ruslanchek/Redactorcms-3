@@ -1,34 +1,24 @@
-<div class="page-header">
-    <h1 class="pull-left">Структура</h1>
-    <div class="inner_tools pull-right"></div>
-    <div class="clear"></div>
-</div>
+<div id="content-primary" class="wrapchrome">
+    <div id="entity_header" class="wrapchrome editor container">
+        <div class="entity wrapchrome page">
+            <h1 class="title selectable">Каталог товаров</h1>
+            <hr>
 
-<div class="left_col">
-    <div class="tree_holder">
-        {*function name=menu level=0}
-        <ul>
-            {foreach from=$data item="entry" key="i"}
-                {if is_array($entry)}
-                    <li>
-                        <a href="#">{$entry.name|escape}</a>
-                        {if !empty($entry.childrens)}
-                            {call name=menu data=$entry.childrens level=$level+1}
-                        {/if}
-                    </li>
-                {/if}
-            {/foreach}
-        </ul>
-        {/function}
-
-        {call name=menu data=$core->getBranchArray()*}
+            <div id="form"><!-- Will filld by JS (see structure.js) --></div>
+        </div>
     </div>
 </div>
 
-<div class="right_col">
-    <div class="structure_item_content">
-        <div id="form">
+<div id="content-secondary" class="wrapchrome">
+    <!--div class="tree_holder"></div-->
 
+    <div class="cc-sidebar document_info">
+        <h2>
+            <span class="title ellipsis">Дерево узлов</span>
+            <span class="button sidebar-close">Close</span>
+        </h2>
+        <div class="content">
+            <div class="cc-sidebar-section paginating collapsed" id="tree"></div>
         </div>
     </div>
 </div>

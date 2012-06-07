@@ -234,7 +234,7 @@ var structure = {
                 module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode),
                 blocks_html         = '';
 
-            blocks_html +=  '<div class="item main_block btn btn-inverse" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
+            blocks_html +=  '<div class="item main_block btn btn-small" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
                                 '<span class="num">♛</span>' +
                                 '<span class="module_name">' + module.name + '</span>' +
                                 '<span class="module_mode">' + module_mode.name + '</span>' +
@@ -286,7 +286,7 @@ var structure = {
                     block_class         = 'empty_block';
                 };
 
-                blocks_html +=  '<div class="item btn '+block_class+'" rel="'+id+'" data-id="'+id+'" data-mode_template="' + template + '">' +
+                blocks_html +=  '<div class="item btn btn-small '+block_class+'" rel="'+id+'" data-id="'+id+'" data-mode_template="' + template + '">' +
                                     '<span class="num">' + blocks_etalon[i].id + '</span>' +
                                     '<span class="module_name">' + block_module + '</span>' +
                                     '<span class="module_mode">' + block_module_mode + '</span>' +
@@ -518,7 +518,7 @@ var structure = {
                 html                =   '<div class="control-group">' +
                                             '<label class="control-label">Блоки</label>' +
                                             '<div class="controls">' +
-                                                '<div id="blocks" class="input_holder thumbnail blocks"></div><div class="clear"></div>' +
+                                                '<div id="blocks" class="input_holder blocks"></div><div class="clear"></div>' +
                                             '</div>' +
                                         '</div>'+
                                         '<input type="hidden" id="hidden_blocks" name="blocks" value="'+encodeURIComponent(blocks_value)+'" />' +
@@ -577,7 +577,7 @@ var structure = {
     saveBranchesConditions: function(){
         var conditions = new Object();
 
-        $('.tree_holder').find('ul').each(function(){
+        $('#tree').find('ul').each(function(){
             conditions[$(this).attr('id')] = ($(this).hasClass('closed'))? '0': '1';
         });
 
@@ -591,7 +591,7 @@ var structure = {
             this.saveBranchesConditions();
             this.readBranchesConditions();
         }else{
-            $('.tree_holder').find('ul').each(function(){
+            $('#tree').find('ul').each(function(){
                 if(conditions[$(this).attr('id')] != null){
                     if(conditions[$(this).attr('id')] == '0'){
                         $(this).addClass('closed').prev().prev().addClass('closed');
@@ -664,7 +664,7 @@ var structure = {
 
                 //$('#item_'+data.id).jstree('rename')
 
-                $(".tree_holder").jstree('set_text', $('#item_'+data.id), data.name);
+                $("#tree").jstree('set_text', $('#item_'+data.id), data.name);
 
                 $('#current_path').attr('href', result.path).html(result.path);
                 $('#text_part').val(result.part);
@@ -695,12 +695,12 @@ var structure = {
             }
         });
 
-        var html =  '<a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="label label-info">' +
+        var html =  '<li><a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="about"><span class="leftcap"></span>' +
                         '<i class="new_window"></i>' +
                         '<span id="current_path">'+data.node_data.path+'</span>' +
-                    '</a>';
+                    '<span class="rightcap"></span></a></li>';
 
-        $('.inner_tools').html(html);
+        $('#inner_tools').html(html);
 
         core.form.drawHiddenInput({
             name    : 'id'
@@ -791,7 +791,7 @@ var structure = {
                 core.loading.unsetLoading('openStructureItem');
             };
 
-            $('.structure_item_content').animate({
+            $('#content-primary').animate({
                 opacity: 0
             }, {
                 duration: 500,
@@ -808,7 +808,7 @@ var structure = {
                         },
                         dataType: 'json',
                         beforeSend: function(){
-                            core.loading.setLoadingToElementCenter('openStructureItem', $('.structure_item_content'));
+                            core.loading.setLoadingToElementCenter('openStructureItem', $('#content-primary'));
                             structure.resizeing();
                         },
                         success: function(data){
@@ -821,7 +821,7 @@ var structure = {
                                 $('#form').html('<div class="alert alert-warning">Узла с ID '+leaf_id+' не существует. Выберите или создайте другой узел.</div>');
                             };
 
-                            $('.structure_item_content').animate({
+                            $('#content-primary').animate({
                                 opacity: 1
                             }, {
                                 duration: 500,
@@ -877,7 +877,7 @@ var structure = {
             dataType    : 'json',
             beforeSend  : function(){
                 core.loading.unsetLoading('loadTree');
-                core.loading.setLoadingToElementCenter('loadTree', $('.left_col'));
+                core.loading.setLoadingToElementCenter('loadTree', $('#content-secondary .content'));
             },
             success     : function(data){
                 core.loading.unsetLoading('loadTree');
@@ -888,7 +888,7 @@ var structure = {
                     init_id = 'item_'+structure.getIdFromHash();
                 };
 
-                $(".tree_holder").jstree({
+                $("#tree").jstree({
                     "core" : {
                         "initially_open" : [init_id],
                         "animation" : 200
@@ -925,7 +925,7 @@ var structure = {
                     "themes" : {
                         "theme" : "default",
                         "dots" : false,
-                        "icons" : true
+                        "icons" : false
                     },
                     "plugins" : [
                         "themes",
@@ -937,7 +937,8 @@ var structure = {
                         "themes"
                     ]
                 }).bind("select_node.jstree", function(event, data){
-
+                    console.log('event', event);
+                        console.log('data', data)
                 });
             }
         });
