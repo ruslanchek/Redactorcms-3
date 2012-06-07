@@ -339,7 +339,7 @@
 			rtl			: false,
 			load_open	: false,
 			strings		: {
-				loading		: "Loading ...",
+				loading		: "Загрузка...",
 				new_node	: "New node",
 				multiple_selection : "Multiple selection"
 			}

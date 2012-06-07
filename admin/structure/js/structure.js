@@ -234,7 +234,7 @@ var structure = {
                 module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode),
                 blocks_html         = '';
 
-            blocks_html +=  '<div class="item main_block btn btn-small" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
+            blocks_html +=  '<div class="item main_block btn btn-warning btn-small" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
                                 '<span class="num">♛</span>' +
                                 '<span class="module_name">' + module.name + '</span>' +
                                 '<span class="module_mode">' + module_mode.name + '</span>' +
@@ -372,7 +372,7 @@ var structure = {
                     content_id  = block_data.content_id;
 
                     var aftershow = function(){
-                        $('.modal-footer').append('<input type="button" class="btn btn-danger delete_block_button" value="Сбросить">');
+                        $('.dialog .submit').append('<input type="button" class="pull-right delete_block_button" value="Сбросить">');
 
                         $('.delete_block_button').off('click').on('click', function(){
                             structure.blocksInput.deleteBlock($item_obj);
@@ -382,34 +382,37 @@ var structure = {
                 }; break;
             };
 
-            var content =   '<form class="form-horizontal">' +
-                                '<fieldset>' +
-                                    '<div class="control-group">' +
-                                        '<label class="control-label" for="select_block_module">Модуль</label>' +
-                                        '<div class="controls" id="select_block_module_placeholder"></div>' +
-                                    '</div>' +
 
-                                    '<div class="control-group">' +
-                                        '<label class="control-label" for="select_block_module_mode">Режим</label>' +
-                                        '<div class="controls" id="select_block_module_mode_placeholder"></div>' +
-                                    '</div>' +
+            var content =   '<div class="section selected">' +
+                                '<form>' +
+                                    '<fieldset>' +
+                                        '<div class="field">' +
+                                            '<label for="select_block_module">Модуль</label>' +
+                                            '<div class="controls" id="select_block_module_placeholder"></div>' +
+                                        '</div>' +
 
-                                    '<div class="control-group">' +
-                                        '<label class="control-label" for="select_block_mode_template">Шаблон</label>' +
-                                        '<div class="controls" id="select_block_mode_template_placeholder"></div>' +
-                                    '</div>' +
+                                        '<div class="field">' +
+                                            '<label for="select_block_module_mode">Режим</label>' +
+                                            '<div class="controls" id="select_block_module_mode_placeholder"></div>' +
+                                        '</div>' +
 
-                                    '<div class="control-group">' +
-                                        '<label class="control-label" for="select_block_content_id">Контент-юнит</label>' +
-                                        '<div class="controls" id="select_block_content_id_placeholder"></div>' +
-                                    '</div>' +
-                                '</fieldset>' +
-                            '</form>';
+                                        '<div class="field">' +
+                                            '<label for="select_block_mode_template">Шаблон</label>' +
+                                            '<div class="controls" id="select_block_mode_template_placeholder"></div>' +
+                                        '</div>' +
+
+                                        '<div class="field">' +
+                                            '<label class="control-label" for="select_block_content_id">Контент-юнит</label>' +
+                                            '<div class="controls" id="select_block_content_id_placeholder"></div>' +
+                                        '</div>' +
+                                    '</fieldset>' +
+                                '</form>' +
+                            '</div>';
 
             core.modal.showDialog({
                 content: content,
                 header: header,
-                width: 500,
+                width: 455,
                 action: function(){
                     structure.blocksInput.getAndSetBlockParams(block_id);
                 }
@@ -695,6 +698,8 @@ var structure = {
             }
         });
 
+        $('#item_name').html(data.node_data.name);
+
         var html =  '<li><a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="about"><span class="leftcap"></span>' +
                         '<i class="new_window"></i>' +
                         '<span id="current_path">'+data.node_data.path+'</span>' +
@@ -819,6 +824,7 @@ var structure = {
                                 structure.resizeing();
                             }else{
                                 $('#form').html('<div class="alert alert-warning">Узла с ID '+leaf_id+' не существует. Выберите или создайте другой узел.</div>');
+                                $('#item_name').html('Редактор узла');
                             };
 
                             $('#content-primary').animate({
@@ -871,76 +877,68 @@ var structure = {
     },
 
     drawTree: function(){
-        $.ajax({
-            url         : '/admin/structure/?ajax&action=get_tree',
-            type        : 'GET',
-            dataType    : 'json',
-            beforeSend  : function(){
-                core.loading.unsetLoading('loadTree');
-                core.loading.setLoadingToElementCenter('loadTree', $('#content-secondary .content'));
+        var init_id;
+
+        if(structure.getIdFromHash() > 0){
+            init_id = 'item_'+structure.getIdFromHash();
+        };
+
+        $("#tree").jstree({
+            "core" : {
+                "initially_open" : [init_id],
+                "animation" : 200
             },
-            success     : function(data){
-                core.loading.unsetLoading('loadTree');
-
-                var init_id;
-
-                if(structure.getIdFromHash() > 0){
-                    init_id = 'item_'+structure.getIdFromHash();
-                };
-
-                $("#tree").jstree({
-                    "core" : {
-                        "initially_open" : [init_id],
-                        "animation" : 200
-                    },
-                    "json_data" : {
-                        data: data
-                    },
-                    "ui" : {
-                        "select_limit" : 1,
-                        "initially_select" : [init_id]
-                    },
-                    "cookies" : {
-                        "save_opened" : true,
-                        "save_selected" : true
-                    },
-                    "dnd" : {
-                        "drop_finish" : function () {
-                            alert("DROP");
-                        },
-                        "drag_check" : function (data) {
-                            if(data.r.attr("id") == "phtml_1") {
-                                return false;
-                            }
-                            return {
-                                after : false,
-                                before : false,
-                                inside : true
-                            };
-                        },
-                        "drag_finish" : function (data) {
-                            alert("DRAG OK");
-                        }
-                    },
-                    "themes" : {
-                        "theme" : "default",
-                        "dots" : false,
-                        "icons" : false
-                    },
-                    "plugins" : [
-                        "themes",
-                        "json_data",
-                        "ui",
-                        "cookies",
-                        "dnd",
-                        "types",
-                        "themes"
-                    ]
-                }).bind("select_node.jstree", function(event, data){
-                    console.log('event', event);
-                        console.log('data', data)
-                });
-            }
+            "json_data" : {
+                "ajax" : {
+                    "url" : "/admin/structure/?ajax&action=get_tree",
+                    "data" : function (n) {
+                        return { id : n.attr ? n.attr("id") : 0 };
+                    }
+                }
+            },
+            "ui" : {
+                "select_limit" : 1,
+                "initially_select" : [init_id]
+            },
+            "cookies" : {
+                "save_opened" : true,
+                "save_selected" : true
+            },
+            "dnd" : {
+                "drop_finish" : function () {
+                    alert("DROP");
+                },
+                "drag_check" : function (data) {
+                    if(data.r.attr("id") == "phtml_1") {
+                        return false;
+                    }
+                    return {
+                        after : false,
+                        before : false,
+                        inside : true
+                    };
+                },
+                "drag_finish" : function (data) {
+                    alert("DRAG OK");
+                }
+            },
+            "themes" : {
+                "theme" : "default",
+                "dots" : false,
+                "icons" : false
+            },
+            "plugins" : [
+                "themes",
+                "json_data",
+                "ui",
+                "cookies",
+                "dnd",
+                "types",
+                "themes"
+            ]
+        }).bind("select_node.jstree", function(event, data){
+            console.log('event', event);
+            console.log('data', data)
         });
     },
 

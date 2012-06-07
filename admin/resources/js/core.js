@@ -330,24 +330,35 @@ core.modal = {
         var ok;
 
         if(this.options.action != null){
-            ok = '<input class="btn btn-primary pull-left ok" type="submit" value="ОК" />';
+            ok = '<input class="pull-left ok" type="submit" value="ОК" />';
         }else{
             ok = '';
         };
 
-        var html =  $('<div class="modal dialog">' +
-                        '<div class="modal-header">' +
-                            '<button class="close" data-dismiss="modal">×</button>' +
-                            '<h3>' + this.options.header + '</h3>' +
+        var html = '<div id="hide_entity_dialog" class="dialog chrome w_form">' +
+                        '<div class="dialog_contents panel">' +
+                            '<table>' +
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<td colspan="2">' + this.options.header + '</td>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody>' +
+                                    '<tr>' +
+                                        '<td class="dialog_description" colspan="2">' + this.options.content + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td colspan="2" class="form_buttons">' +
+                                            '<div class="submit">' +
+                                                ok +
+                                                '<input class="pull-left cancel" type="button" value="Закрыть" />' +
+                                            '</div>' +
+                                        '</td>' +
+                                    '</tr>' +
+                                '</tbody>' +
+                            '</table>' +
                         '</div>' +
-                        '<div class="modal-body">' +
-                            this.options.content +
-                        '</div>' +
-                        '<div class="modal-footer">' +
-                            ok +
-                            '<input class="btn pull-left cancel" type="button" value="Закрыть" />' +
-                        '</div>' +
-                    '</div>');
+                    '</div>';
 
 
         $('body').prepend(html);

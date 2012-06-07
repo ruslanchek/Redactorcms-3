@@ -98,3 +98,9 @@
     line-height: 20px;
 }
 
+.jstree-loading:link {
+    background: url(/admin/resources/img/icons/blue_spinner.gif) no-repeat left;
+    height: 16px;
+    padding-left: 20px !important;
+    margin-left: -5px;
+}
