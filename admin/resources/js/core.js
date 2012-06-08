@@ -265,17 +265,17 @@ core.loading = {
         };
 
         var $loading = $('<i name="'+name+'" class="loading'+micro_class+'"></i>').css({
-            top     : obj_offset.top + obj.height()/2,
+            top     : obj_offset.top + obj.height()/2 - 32,
             left    : obj_offset.left + obj.width()/2,
             zIndex  : zIndex
         });
 
-        $('body').prepend($loading);
+        $('#content').prepend($loading);
 
         $(window).bind('resize', function(){
             var obj_offset = obj.offset();
             $loading.css({
-                top     : obj_offset.top + obj.height()/2,
+                top     : obj_offset.top + obj.height()/2 - 30,
                 left    : obj_offset.left + obj.width()/2
             });
         });

@@ -90,15 +90,14 @@
     width: 120px;
     cursor: pointer;
     float: left;
-    padding: 3px;
-    margin: 0 3% 20px 0;
+    padding: 5px;
+    margin: 0 16px 20px 0;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow: 0px 2px 3px 0 rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 2px 3px 0 rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 2px 3px 0 rgba(0, 0, 0, 0.5);
-
+    -webkit-box-shadow: inset 0px 1px 3px 0 rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: inset 0px 1px 3px 0 rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0px 1px 3px 0 rgba(0, 0, 0, 0.7);
     background: #596a72 url(../../resources/img/bg/box_bg_gray.png) repeat-x top;
     background-size: auto 100%;
 }
@@ -107,23 +106,18 @@
 .gallery_pics .album_item:hover,
 .gallery_pics .album_item.over {
     background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
-    background-size: auto 100%;
 }
 
 .gallery_pics .item.active,
 .gallery_pics .album_item:active {
     background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
-    background-size: auto 100%;
 }
 
 .gallery_pics .wobble {
     background: #f7b818 url(../../resources/img/bg/box_bg_yellow.png) repeat-x top;
-    background-size: auto 100%;
 }
 
 .gallery_pics .item i.preview {
-    background-position: center;
-    background-repeat: no-repeat;
     display: block;
     height: 120px;
     width: 120px;
@@ -133,8 +127,6 @@
 }
 
 .gallery_pics .album_item i.preview {
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
     display: block;
     height: 50px;
     width: 50px;
@@ -160,6 +152,7 @@
     width: 50px;
     margin: 5px;
     float: left;
+    color: #fff;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -170,7 +163,6 @@
     font-size: 25px;
     line-height: 50px;
     text-shadow: 0 -1px 0 #0f4e75;
-
     background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
     background-size: auto 100%;
 }
