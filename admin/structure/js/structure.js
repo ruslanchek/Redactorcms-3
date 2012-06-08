@@ -791,7 +791,7 @@ var structure = {
                 core.loading.unsetLoading('openStructureItem');
             };
 
-            $('#content-primary').animate({
+            $('#content-primary .page').animate({
                 opacity: 0
             }, {
                 duration: 500,
@@ -822,7 +822,7 @@ var structure = {
                                 $('#item_name').html('Редактор узла');
                             };
 
-                            $('#content-primary').animate({
+                            $('#content-primary .page').animate({
                                 opacity: 1
                             }, {
                                 duration: 500,

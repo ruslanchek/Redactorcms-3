@@ -132,7 +132,8 @@
                 $data['main_block']     = json_decode($data['main_block'], true);
                 $data['blocks_count']   = $data['template_blocks'];
 
-                return $data;
+                $this->page->template = $data;
+                $this->template = $data['template_file'];
             }else{
                 $this->error404();
             };
@@ -150,13 +151,8 @@
         private function renderPage(){
             //Если не включен режим аякса, отрисовываем страницу с помощью Смарти
             if(!$this->ajax_mode){
-                $data = $this->checkAndSetRouteData();
-
-                $this->page->template = $data;
-                $this->template = $data['template_file'];
-
+                $this->checkAndSetRouteData();
                 $this->smarty->assign('core', $this);
-
                 $this->smarty->display($this->template);
             };
         }
