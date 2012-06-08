@@ -3,23 +3,16 @@
         <h1 class="header">
             {if $smarty.get.album > 0}
                 {assign var="album_data" value=$core->getAlbumData($smarty.get.album)}
-                <a href="/admin/gallery/">Галерея</a> &rarr;
-                <span id="album_name_block">&laquo;{$album_data.name}&raquo;</span>
-                <span id="album_name_edit">&laquo;<form action="javascript:void(0)"><input class="text_field_black" type="text" name="album_name" value="{$album_data.name}" /></form>&raquo;</span>
+                <div id="album_name_block">{$album_data.name}</div>
+                <div id="album_name_edit"><form action="javascript:void(0)">Название альбома<input type="text" name="album_name" value="{$album_data.name}" /></form></div>
             {else}
                 {assign var="images_count" value=$core->getImagesCount()}
                 {assign var="albums_count" value=$core->getAlbumsCount()}
-                В галерее <span class="num" id="gallery_total">{$images_count}</span> <span id="gallery_total_word">{$images_count|pluralform:array('изображение','изображения','изображений')}</span> и <span class="num">{$albums_count}</span> {$albums_count|pluralform:array('альбом','альбома','альбомов')}
+                <div id="album_name_block">
+                    В галерее <span class="num" id="gallery_total">{$images_count}</span> <span id="gallery_total_word">{$images_count|pluralform:array('изображение','изображения','изображений')}</span> и <span class="num">{$albums_count}</span> {$albums_count|pluralform:array('альбом','альбома','альбомов')}
+                </div>
             {/if}
         </h1>
-
-        <div class="inner_tools">
-            <a id="button_gallery_delete_all" style="display: none" href="javascript:void(0)" class="red_button">Удалить все</a>
-            <a id="button_gallery_new_album" href="javascript:void(0)" class="blue_button">Создать альбом</a>
-            <a id="button_gallery_upload" href="javascript:void(0)" class="blue_button">Загрузить</a>
-            <a id="button_gallery_edit_ok" style="display: none" href="javascript:void(0)" class="gray_button">Готово</a>
-            <a id="button_gallery_edit" href="javascript:void(0)" class="gray_button">Редактировать</a>
-        </div>
 
         <div class="clear"></div>
     </div>

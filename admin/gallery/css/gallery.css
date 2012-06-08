@@ -27,14 +27,14 @@
 
 #item_ejector,
 #item_upload_area {
-    width: 100%;
-    height: 52px;
+    width: 1000px;
+    height: 72px;
     margin: 0;
     position: absolute;
-    top: -51px;
+    top: -71px;
     left: 0;
     z-index: 100;
-    border: 3px dashed #fff;
+    border: 3px dashed #565656;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -42,16 +42,17 @@
     display: none;
     text-shadow: none;
     font-size: 18px;
+    text-shadow: 0 1px 0 #fff;
 }
 
 #item_ejector span,
 #item_upload_area span {
     display: block;
-    height: 52px;
+    height: 72px;
     width: 700px;
     padding: 15px 0 0 95px;
     margin: 0 auto;
-    line-height: 1.3em;
+    line-height: 2.1em;
     position: relative;
 }
 
@@ -69,7 +70,7 @@
     -webkit-border-radius: 17px;
     -moz-border-radius: 17px;
     border-radius: 17px;
-    border: 2px solid #fff;
+    border: 2px solid #565656;
 }
 
 #item_ejector_helper,
@@ -176,16 +177,39 @@
 
 #album_name_edit {
     display: none;
+    position: relative;
+    width: 100%;
+    font-size: 12px;
 }
 
 #album_name_edit form {
-    display: inline;
-    margin: 0 0.15em;
+    position: absolute;
+    top: -10px;
+    width: 993px;
+    border:2px solid #F3F9FF;
+    background: #F3F9FF;
+    border-radius:7px;
+    -webkit-border-radius:7px;
+    -moz-border-radius:7px;
+    box-shadow:0px 0px 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow:rgba(0,0,0,0.3) 0px 0px 2px;
+    -moz-box-shadow:rgba(0,0,0,0.3) 0px 0px 2px;
+    padding: 10px 4px 4px 4px;
+    height: auto;
+    height: 58px;
 }
 
-#album_name_edit input {
-    padding: 0 0.2em;
-    font-size: 0.8em;
-    width: 50%;
-    display: inline;
+#album_name_edit form input {
+    width: 985px;
+    margin: 3px 0 0 0;
+    font-size: 18px;
+    padding: 5px 3px;
+}
+
+.header {
+    height: 60px;
+}
+
+#album_name_block {
+    padding-top: 30px;
 }

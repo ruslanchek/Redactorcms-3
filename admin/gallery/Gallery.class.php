@@ -3,6 +3,8 @@
         public function __construct(){
             parent::__construct();
 
+            $this->template = 'gallery.tpl';
+
             $this->init(array(
                 'name'  => 'gallery',
                 'title' => 'Галерея'
@@ -198,7 +200,7 @@
                 ".$where."
                 ORDER BY
                     `sort`
-                DESC
+                ASC
                 ".$limit."
             ";
 

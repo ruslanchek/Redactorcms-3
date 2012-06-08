@@ -17,7 +17,9 @@ var gallery = {
 
     deletePic: function(obj){
         core.modal.showDialog({
+            header: 'Удаление картинки',
             content: 'Удалить картинку?',
+            width: 300,
             action: function(){
                 var $obj = obj.parent(),
                     id = $obj.attr('rel');
@@ -47,7 +49,11 @@ var gallery = {
     },
 
     deleteAlbum: function(obj){
-        core.modal.showDialog({content: 'Удалить альбом вместе со всеми его картинками?', action: function(){
+        core.modal.showDialog({
+            header: 'Удаление альбома',
+            content: 'Удалить альбом вместе со всеми его картинками?',
+            width: 300,
+            action: function(){
             var $obj = obj.parent();
             $obj.removeClass('wobble').hide(250, 'easeOutQuad', function(){
                 $obj.remove();
@@ -57,7 +63,11 @@ var gallery = {
     },
 
     deleteAll: function(){
-        core.modal.showDialog({content: 'Удалить все картинки альбома?', action: function(){
+        core.modal.showDialog({
+            header: 'Удаление всех картинок альбома',
+            content: 'Удалить все картинки альбома?',
+            width: 300,
+            action: function(){
             gallery.delete_img_request = $.ajax({
                 url         : '/admin/gallery/?ajax&action=delete_all_images',
                 data        : {
@@ -95,23 +105,23 @@ var gallery = {
         });
 
         if(this.gallery_mode == 'normal'){
-            $('#button_gallery_edit').show(150);
-            $('#button_gallery_upload').show(150);
-            $('#button_gallery_new_album').show(150);
+            $('#button_gallery_edit').show();
+            $('#button_gallery_upload').show();
+            $('#button_gallery_new_album').show();
 
-            $('#button_gallery_edit_ok').hide(150);
-            $('#button_gallery_delete_all').hide(150);
+            $('#button_gallery_edit_ok').hide();
+            $('#button_gallery_delete_all').hide();
         }else{
-            $('#button_gallery_edit').hide(150);
-            $('#button_gallery_upload').hide(150);
-            $('#button_gallery_new_album').hide(150);
+            $('#button_gallery_edit').hide();
+            $('#button_gallery_upload').hide();
+            $('#button_gallery_new_album').hide();
 
-            $('#button_gallery_edit_ok').show(150);
+            $('#button_gallery_edit_ok').show();
 
             if(i <= 0){
-                $('#button_gallery_delete_all').hide(150);
+                $('#button_gallery_delete_all').hide();
             }else{
-                $('#button_gallery_delete_all').show(150);
+                $('#button_gallery_delete_all').show();
             };
         };
     },
@@ -507,7 +517,7 @@ var gallery = {
 
             $.data(file, $html);
 
-            $('.gallery_pics .items_holder').prepend($html);
+            $('.gallery_pics .items_holder').append($html);
         });
 
         $('.new_item').each(function(){
