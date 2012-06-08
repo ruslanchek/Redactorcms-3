@@ -520,8 +520,8 @@
             while($row = $sql->fetch_assoc()){
                 $row['children'] = $this->getBranchArray($row['id']);
                 $row['data'] = $row['name'];
-                $row['attr'] = array('id' => 'item_'.$row['id']);
-                $row['metadata'] = array('id' => 'item_'.$row['id']);
+                $row['attr'] = array('id' => 'item_'.$row['id'], 'rel' => $row['id']);
+                $row['metadata'] = array('id' => $row['id']);
                 $result[] = $row;
             };
 

@@ -937,8 +937,7 @@ var structure = {
                 "themes"
             ]
         }).bind("select_node.jstree", function(event, data){
-            console.log('event', event);
-            console.log('data', data)
+            window.location.hash = $(data.rslt.obj[0]).attr('rel');
         });
     },
 

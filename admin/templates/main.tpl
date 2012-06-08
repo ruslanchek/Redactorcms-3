@@ -29,11 +29,11 @@
         <script src="/admin/{$core->module.name}/js/{$core->module.name}.js"></script>
     </head>
     <body>
-    <div id="cc-launchbar" style="">
+        <div id="cc-launchbar" style="display: none;">
     		<div class="wrapper">
     			<div class="inner">
     				<ul class="items">
-    					<li><a href="/" class="cc-launchbar-item home selected" title="View the server homepage.">
+    					<li><a href="/admin/structure" class="cc-launchbar-item home selected" title="View the server homepage.">
     						<span class="icon-selection"></span>
     						<span class="icon"></span>
     						<span class="title ellipsis">Home</span>
@@ -43,25 +43,11 @@
     						<span class="icon"></span>
     						<span class="title ellipsis">My Page</span>
     					</a></li>
-    					<li><a href="/wiki/updates" class="cc-launchbar-item updates" title="Track real-time activity for people and wikis you care about.">
-    						<span class="icon-selection"></span>
-    						<span class="icon"></span>
-    						<span class="title ellipsis">Updates</span>
-    					</a></li>
-    					<li><a href="/wiki/projects" class="cc-launchbar-item projects" title="Communicate and collaborate with team members.">
-    						<span class="icon-selection"></span>
-    						<span class="icon"></span>
-    						<span class="title ellipsis">Wikis</span>
-    					</a></li>
-    					<li><a href="/wiki/people" class="cc-launchbar-item people" title="View other people's activity and blogs.">
-    						<span class="icon-selection"></span>
-    						<span class="icon"></span>
-    						<span class="title ellipsis">People</span>
-    					</a></li>
     				</ul>
     			</div>
     		</div>
     	</div>
+
         <div id="header" class="chrome">
             <span class="header_start"></span>
             <ul class="buttonbar hierarchy">

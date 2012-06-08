@@ -147,6 +147,10 @@ core.keyboard = {
         $('body').live('keyup', function(){
             core.keyboard.processKeyboard(event);
         });
+
+        this.bindKeyboardAction('27', false, function(){
+            core.mainmenu.toggle();
+        });
     }
 };
 
@@ -432,6 +436,26 @@ core.notify = {
                 $notify.remove();
             });
         }, 200);
+    }
+};
+
+core.mainmenu = {
+    toggle: function(){
+        if($('#cc-launchbar').is(':visible')){
+            $('#cc-launchbar').fadeOut(200);
+            $('html').off('click');
+            $('#cc-launchbar').off('click');
+        }else{
+            $('#cc-launchbar').fadeIn(200);
+
+            $('html').off('click').on('click', function() {
+                core.mainmenu.toggle();
+            });
+
+            $('#cc-launchbar').off('click').on('click', function(event){
+                event.stopPropagation();
+            });
+        };
     }
 };
 
