@@ -372,7 +372,7 @@ var structure = {
                     content_id  = block_data.content_id;
 
                     var aftershow = function(){
-                        $('.dialog .submit').append('<input type="button" class="pull-right delete_block_button" value="Сбросить">');
+                        $('.dialog .submit').append('<input type="button" class="btn btn-danger pull-right delete_block_button" value="Сбросить">');
 
                         $('.delete_block_button').off('click').on('click', function(){
                             structure.blocksInput.deleteBlock($item_obj);
@@ -638,13 +638,13 @@ var structure = {
             data        : data,
             dataType    : 'json',
             beforeSend  : function(){
-                core.loading.setLoadingWithNotify('saveItemData', false, 'Сохранение');
-
                 if(structure.save_item_request != null){
                     structure.save_item_request.abort();
                 };
             },
             success     : function(result){
+                core.form.formReady();
+
                 var status_class,
                     module_icon_class,
                     main_block_data = JSON.parse(result.main_block);
@@ -669,14 +669,10 @@ var structure = {
 
                 $("#tree").jstree('set_text', $('#item_'+data.id), data.name);
 
-                $('#current_path').attr('href', result.path).html(result.path);
+                $('#cuutent_item_path').attr('href', result.path).html(result.path);
                 $('#text_part').val(result.part);
 
                 structure.setMarkerToActivePosition();
-
-                setTimeout(function(){
-                    core.loading.unsetLoading('saveItemData');
-                }, 200);
             }
         });
     },
@@ -700,12 +696,11 @@ var structure = {
 
         $('#item_name').html(data.node_data.name);
 
-        var html =  '<li><a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="about"><span class="leftcap"></span>' +
-                        '<i class="new_window"></i>' +
-                        '<span id="current_path">'+data.node_data.path+'</span>' +
-                    '<span class="rightcap"></span></a></li>';
+        var html =  '<div class="section first top-tool">' +
+                        '<a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="button selected">'+data.domain_name+'<b id="cuutent_item_path">'+data.node_data.path+'</b></a>' +
+                    '</div>';
 
-        $('#inner_tools').html(html);
+        $('#item_path_indicator').html(html);
 
         core.form.drawHiddenInput({
             name    : 'id'
@@ -899,10 +894,6 @@ var structure = {
             "ui" : {
                 "select_limit" : 1,
                 "initially_select" : [init_id]
-            },
-            "cookies" : {
-                "save_opened" : true,
-                "save_selected" : true
             },
             "dnd" : {
                 "drop_finish" : function () {

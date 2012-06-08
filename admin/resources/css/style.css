@@ -13,7 +13,7 @@ body i.loading {
     position: absolute;
     width: 46px;
     height: 46px;
-    display: block;
+    display: inline-block;
     margin: -23px 0 0 -23px;
     background: url(../img/icons/spinner.png);
     z-index: 100;
@@ -25,7 +25,7 @@ body i.loading.loading_global {
 }
 
 body i.loading.micro {
-    background: url(../img/icons/micro_spinner.gif);
+    background: url(../img/icons/spinner_transparent_small.gif);
     width: 16px;
     height: 16px;
     margin: -8px 0 0 -8px;
@@ -107,4 +107,20 @@ body i.loading.micro {
     height: 46px;
     width: 46px;
     margin: 5px auto 0;
+}
+
+.save_loading {
+    display: block;
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    background: url(../img/icons/spinner_transparent_small.gif);
+    display: none;
+    position: absolute;
+    left: 10px;
+    top: 56px;
+}
+
+.input-xlarge {
+    width: 98%;
 }

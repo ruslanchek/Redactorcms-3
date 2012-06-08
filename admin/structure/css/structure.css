@@ -53,7 +53,7 @@
 }
 
 #blocks .item {
-    width: 90px;
+    width: 88px;
     margin: 0 5px 5px 0;
     float: left;
     padding: 15px 5px 10px;
@@ -88,4 +88,17 @@
 
 .block_setup table {
     margin: 0;
+}
+
+#item_path_indicator .top-tool {
+    left: auto;
+    right: 8px;
+}
+
+#item_path_indicator .top-tool {
+    font-family: monospace;
+}
+
+#item_path_indicator .top-tool * {
+    font-weight: normal !important;
 }

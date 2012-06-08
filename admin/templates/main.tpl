@@ -29,20 +29,17 @@
         <script src="/admin/{$core->module.name}/js/{$core->module.name}.js"></script>
     </head>
     <body>
-        <div id="cc-launchbar" style="display: none;">
+        <div id="cc-launchbar">
     		<div class="wrapper">
     			<div class="inner">
     				<ul class="items">
-    					<li><a href="/admin/structure" class="cc-launchbar-item home selected" title="View the server homepage.">
+                        {foreach $core->main_menu as $item}
+    					<li><a href="/admin/{$item.name}" class="cc-launchbar-item home {if $item.name == $core->module.name}selected{/if}">
     						<span class="icon-selection"></span>
-    						<span class="icon"></span>
-    						<span class="title ellipsis">Home</span>
+    						<span class="icon"><img src="/admin/{$item.name}/img/icons/section_big.png"></span>
+    						<span class="title ellipsis">{$item.title}</span>
     					</a></li>
-    					<li><a href="/wiki/mypage" class="cc-launchbar-item my_page" title="Manage your profile and blog.">
-    						<span class="icon-selection"></span>
-    						<span class="icon"></span>
-    						<span class="title ellipsis">My Page</span>
-    					</a></li>
+                        {/foreach}
     				</ul>
     			</div>
     		</div>
@@ -51,7 +48,7 @@
         <div id="header" class="chrome">
             <span class="header_start"></span>
             <ul class="buttonbar hierarchy">
-                <li><a href="/admin" class="ellipsis">Home</a></li>
+                <li><a href="javascript:void(0)" class="ellipsis" id="main_menu_caller">Меню</a></li>
                 <li><a href="/admin/structure" class="ellipsis">demo.redactorcms.ru</a></li>
                 <li><a href="#" class="ellipsis">Руслан</a></li>
             </ul>

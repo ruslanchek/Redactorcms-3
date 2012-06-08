@@ -23,6 +23,10 @@ var core = {
     init: function(){
         jQuery.easing.def = "easeOutQuad";
         this.keyboard.init();
+
+        $('#main_menu_caller').live('click', function(){
+            core.keyboard.processKeyboard(27);
+        });
     }
 };
 
@@ -124,6 +128,12 @@ core.keyboard = {
 
     unBindKeyboardAction: function(keycode){
         this.keys[keycode] = undefined;
+
+        if(keycode == '27'){
+            this.bindKeyboardAction('27', false, function(){
+                core.mainmenu.toggle();
+            });
+        };
     },
 
     bindKeyboardAction: function(keycode, unbind_after_exec, action){
@@ -133,19 +143,19 @@ core.keyboard = {
         };
     },
 
-    processKeyboard: function(event){
-        if(this.keys[event.keyCode] != null && typeof this.keys[event.keyCode].action != 'undefined'){
-            this.keys[event.keyCode].action();
+    processKeyboard: function(keyCode){
+        if(this.keys[keyCode] != null && typeof this.keys[keyCode].action != 'undefined'){
+            this.keys[keyCode].action();
 
-            if(this.keys[event.keyCode].unbind_after_exec === true){
-                this.unBindKeyboardAction(event.keyCode);
+            if(this.keys[keyCode].unbind_after_exec === true){
+                this.unBindKeyboardAction(keyCode);
             };
         };
     },
 
     init: function(){
         $('body').live('keyup', function(){
-            core.keyboard.processKeyboard(event);
+            core.keyboard.processKeyboard(event.keyCode);
         });
 
         this.bindKeyboardAction('27', false, function(){
@@ -334,7 +344,7 @@ core.modal = {
         var ok;
 
         if(this.options.action != null){
-            ok = '<input class="pull-left ok" type="submit" value="ОК" />';
+            ok = '<input class="btn pull-left ok" type="submit" value="ОК" />';
         }else{
             ok = '';
         };
@@ -355,7 +365,7 @@ core.modal = {
                                         '<td colspan="2" class="form_buttons">' +
                                             '<div class="submit">' +
                                                 ok +
-                                                '<input class="pull-left cancel" type="button" value="Закрыть" />' +
+                                                '<input class="btn pull-left cancel" type="button" value="Закрыть" />' +
                                             '</div>' +
                                         '</td>' +
                                     '</tr>' +
@@ -381,10 +391,14 @@ core.modal = {
         $('.dialog .ok').on('click', function(){
             core.modal.__action();
             core.modal.closeDialog();
+            core.keyboard.unBindKeyboardAction('13');
+            core.keyboard.unBindKeyboardAction('27');
         });
 
         $('.dialog .cancel, .dialog .close').on('click', function(){
             core.modal.closeDialog();
+            core.keyboard.unBindKeyboardAction('13');
+            core.keyboard.unBindKeyboardAction('27');
         });
 
         core.keyboard.bindKeyboardAction('13', true, function(){
@@ -440,20 +454,33 @@ core.notify = {
 };
 
 core.mainmenu = {
+    hide: function(){
+        if($('#cc-launchbar').is(':visible')){
+            $('#cc-launchbar').hide();
+            console.log('hide')
+        };
+    },
+
+    show: function(){
+        if(!$('#cc-launchbar').is(':visible')){
+            $('#cc-launchbar').show();
+            console.log('show')
+        };
+    },
+
     toggle: function(){
         if($('#cc-launchbar').is(':visible')){
-            $('#cc-launchbar').fadeOut(200);
+            this.hide();
+
             $('html').off('click');
             $('#cc-launchbar').off('click');
         }else{
-            $('#cc-launchbar').fadeIn(200);
+            this.show();
 
             $('html').off('click').on('click', function() {
-                core.mainmenu.toggle();
-            });
-
-            $('#cc-launchbar').off('click').on('click', function(event){
-                event.stopPropagation();
+                if(event.srcElement.id != 'main_menu_caller'){
+                    core.mainmenu.toggle();
+                };
             });
         };
     }
@@ -547,20 +574,32 @@ core.form = {
         this.createFormContainer();
     },
 
+    formReady: function(){
+        var form = this.options.container_obj.find('form#'+this.options.form_id);
+        var sbmt = form.find('.form_sumbit');
+
+        sbmt.val(sbmt.data('original_text'))
+            .removeAttr('disabled');
+
+        sbmt.prev().hide();
+    },
+
     //Создание формы
     createFormContainer: function(){
-        var html =  '<form action="javascript:void(0)" class="form-horizontal" id="'+this.options.form_id+'">' +
-                        '<fieldset class="form_items "></fieldset>' +
-                        '<hr>' +
-                        '<input class="btn" type="submit" name="save" value="Сохранить" />' +
-                    '</form>';
+        var html =  '<div class="section selected">' +
+                        '<form action="javascript:void(0)" class="form-horizontal" id="'+this.options.form_id+'">' +
+                            '<fieldset class="form_items"></fieldset>' +
+                            '<hr>' +
+                            '<span class="save_loading"></span><input class="btn form_sumbit" type="submit" name="save" value="Сохранить" data-loadind_text="Сохраняется..." autocomplete="off" />' +
+                        '</form>' +
+                    '</div>';
 
         this.options.container_obj.html(html);
 
         var form = this.options.container_obj.find('form#'+this.options.form_id);
 
         form.on('submit', function(){
-            var data = new Object();
+            var data = {};
 
             $(this).find('input, textarea, select').not(':submit').each(function(){
                 var name, value;
@@ -586,6 +625,14 @@ core.form = {
             core.form.options.beforeSubmit();
 
             if(valid){
+                var sbmt = $(this).find('.form_sumbit');
+
+                sbmt.data('original_text', sbmt.val())
+                    .val(sbmt.data('loadind_text'))
+                    .attr('disabled', 'disabled');
+
+                sbmt.prev().show();
+
                 core.form.options.submit(data);
             };
         });

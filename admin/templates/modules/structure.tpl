@@ -1,10 +1,11 @@
-<div id="content-primary" class="wrapchrome">
+<div id="content-primary" class="wrapchrome cc-entitylist">
+    <div class="header" id="item_path_indicator"></div>
     <div id="entity_header" class="wrapchrome editor container">
         <div class="entity wrapchrome page">
             <h1 class="title selectable" id="item_name">Редактор узла</h1>
             <hr>
 
-            <div id="form"><!-- Will filld by JS (see structure.js) --></div>
+            <div id="form"><!-- Will be filld by JS (see structure.js) --></div>
         </div>
     </div>
 </div>

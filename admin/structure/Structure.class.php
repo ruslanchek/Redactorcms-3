@@ -39,6 +39,7 @@
                         $result['menues']           = $this->getMenuesList();
                         $result['modules']          = $this->config->modules;
                         $result['blocks_templates'] = $this->getBlockTemplates();
+                        $result['domain_name']      = $this->utils->getDomainName();
 
                         print json_encode($result);
                     }; break;

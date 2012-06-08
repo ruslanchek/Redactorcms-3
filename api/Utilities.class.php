@@ -7,6 +7,10 @@
             parent::__construct();
         }
 
+        static public function getDomainName(){
+            return Utilities::punycode_to_unicode($_SERVER['HTTP_HOST']);
+        }
+
         //Convert MYSQL-datetime to seconds
         static public function datetimeToSeconds($time){
             $years = substr($time, 0, 4);

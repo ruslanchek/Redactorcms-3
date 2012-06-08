@@ -76,6 +76,7 @@
 .jstree a {
     padding: 1px !important;
     text-shadow: white 0px 1px 0px;
+    max-width: 145px;
 }
 
 .jstree a:link, .jstree a:visited {

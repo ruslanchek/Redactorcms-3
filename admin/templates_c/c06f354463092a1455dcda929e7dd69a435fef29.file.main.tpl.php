@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-07 18:03:57
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-08 16:14:40
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40444fd07edd159ad3-17617668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1339077836,
+      1 => 1339157680,
       2 => 'file',
     ),
   ),
@@ -20,6 +20,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'core' => 0,
+    'item' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -59,10 +60,33 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 .js"></script>
     </head>
     <body>
+        <div id="cc-launchbar">
+    		<div class="wrapper">
+    			<div class="inner">
+    				<ul class="items">
+                        <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['core']->value->main_menu; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value){
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+?>
+    					<li><a href="/admin/<?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
+" class="cc-launchbar-item home <?php if ($_smarty_tpl->tpl_vars['item']->value['name']==$_smarty_tpl->tpl_vars['core']->value->module['name']){?>selected<?php }?>">
+    						<span class="icon-selection"></span>
+    						<span class="icon"><img src="/admin/<?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
+/img/icons/section_big.png"></span>
+    						<span class="title ellipsis"><?php echo $_smarty_tpl->tpl_vars['item']->value['title'];?>
+</span>
+    					</a></li>
+                        <?php } ?>
+    				</ul>
+    			</div>
+    		</div>
+    	</div>
+
         <div id="header" class="chrome">
             <span class="header_start"></span>
             <ul class="buttonbar hierarchy">
-                <li><a href="/admin" class="ellipsis">Home</a></li>
+                <li><a href="javascript:void(0)" class="ellipsis" id="main_menu_caller">Меню</a></li>
                 <li><a href="/admin/structure" class="ellipsis">demo.redactorcms.ru</a></li>
                 <li><a href="#" class="ellipsis">Руслан</a></li>
             </ul>
