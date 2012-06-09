@@ -91,16 +91,15 @@
     width: 120px;
     cursor: pointer;
     float: left;
-    padding: 5px;
+    padding: 4px;
     margin: 0 16px 20px 0;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: inset 0px 1px 3px 0 rgba(0, 0, 0, 0.7);
-    -moz-box-shadow: inset 0px 1px 3px 0 rgba(0, 0, 0, 0.7);
-    box-shadow: inset 0px 1px 3px 0 rgba(0, 0, 0, 0.7);
-    background: #596a72 url(../../resources/img/bg/box_bg_gray.png) repeat-x top;
-    background-size: auto 100%;
+    background: #F3F9FF;
+    border-radius:7px;
+    -webkit-border-radius:7px;
+    -moz-border-radius:7px;
+    box-shadow:0px 0px 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow:rgba(0,0,0,0.3) 0px 0px 2px;
+    -moz-box-shadow:rgba(0,0,0,0.3) 0px 0px 2px;
 }
 
 .gallery_pics .item:hover,
@@ -129,16 +128,16 @@
 
 .gallery_pics .album_item i.preview {
     display: block;
-    height: 50px;
-    width: 50px;
-    margin: 5px;
+    height: 54px;
+    width: 54px;
+    margin: 3px;
     float: left;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
-    -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    box-shadow:0px 0px 2px rgba(0,0,0,0.4);
+    -webkit-box-shadow:rgba(0,0,0,0.4) 0px 0px 2px;
+    -moz-box-shadow:rgba(0,0,0,0.4) 0px 0px 2px;
 }
 
 .gallery_pics .item i.loading,
@@ -149,23 +148,23 @@
 
 .gallery_pics .album_item span.counter {
     display: block;
-    height: 50px;
-    width: 50px;
-    margin: 5px;
+    height: 54px;
+    width: 54px;
+    margin: 3px;
     float: left;
     color: #fff;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
-    -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.7);
     text-align: center;
     font-size: 25px;
     line-height: 50px;
     text-shadow: 0 -1px 0 #0f4e75;
     background: #007dea url(../../resources/img/bg/box_bg_blue.png) repeat-x top;
     background-size: auto 100%;
+    box-shadow:0px 0px 2px rgba(0,0,0,0.4);
+    -webkit-box-shadow:rgba(0,0,0,0.4) 0px 0px 2px;
+    -moz-box-shadow:rgba(0,0,0,0.4) 0px 0px 2px;
 }
 
 .gallery_pics .item .x_button,
@@ -177,15 +176,17 @@
 
 #album_name_edit {
     display: none;
-    position: relative;
     width: 100%;
+    position: relative;
     font-size: 12px;
 }
 
 #album_name_edit form {
     position: absolute;
+    opacity: 0;
+    left: -2000px;
     top: -10px;
-    width: 993px;
+    width: 980px;
     border:2px solid #F3F9FF;
     background: #F3F9FF;
     border-radius:7px;
@@ -200,7 +201,7 @@
 }
 
 #album_name_edit form input {
-    width: 985px;
+    width: 972px;
     margin: 3px 0 0 0;
     font-size: 18px;
     padding: 5px 3px;

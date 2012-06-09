@@ -35,6 +35,10 @@
                     case 'delete_all_images' : {
                         $this->deleteAllImages($_GET['album_id']);
                     }; break;
+
+                    case 'eject_album_item' : {
+                        $this->ejectAlbumItem($_GET['id']);
+                    }; break;
                 };
 
                 exit;
@@ -60,38 +64,40 @@
         }
 
         private function deleteImage($id){
-            $query = "
-                SELECT
-                    `id`,
-                    `extension`
-                FROM
-                    `gallery_images`
-                WHERE
-                    `id` = ".intval($id)."
-            ";
-
-            $result = $this->db->assocItem($query);
-
-            if(!empty($result)){
-                $file = $_SERVER['DOCUMENT_ROOT'].'/content/gallery/images/'.$result['id'].'.'.$result['extension'];
-                $thumbnail = $_SERVER['DOCUMENT_ROOT'].'/content/gallery/thumbnails/'.$result['id'].'.'.$result['extension'];
-
-                if(file_exists($file)){
-                    unlink($file);
-                };
-
-                if(file_exists($thumbnail)){
-                    unlink($thumbnail);
-                };
-
+            if($id > 0){
                 $query = "
-                    DELETE FROM
+                    SELECT
+                        `id`,
+                        `extension`
+                    FROM
                         `gallery_images`
                     WHERE
                         `id` = ".intval($id)."
                 ";
 
-                $this->db->query($query);
+                $result = $this->db->assocItem($query);
+
+                if(!empty($result)){
+                    $file = $_SERVER['DOCUMENT_ROOT'].'/content/gallery/images/'.$result['id'].'.'.$result['extension'];
+                    $thumbnail = $_SERVER['DOCUMENT_ROOT'].'/content/gallery/thumbnails/'.$result['id'].'.'.$result['extension'];
+
+                    if(file_exists($file)){
+                        unlink($file);
+                    };
+
+                    if(file_exists($thumbnail)){
+                        unlink($thumbnail);
+                    };
+
+                    $query = "
+                        DELETE FROM
+                            `gallery_images`
+                        WHERE
+                            `id` = ".intval($id)."
+                    ";
+
+                    $this->db->query($query);
+                };
             };
         }
 
@@ -258,6 +264,21 @@
             ";
 
             $this->db->query($query);
+        }
+
+        private function ejectAlbumItem($id){
+            if($id > 0){
+                $query = "
+                    UPDATE
+                        `gallery_images`
+                    SET
+                        `album_id` = 0
+                    WHERE
+                        `id` = ".intval($id)."
+                ";
+
+                $this->db->query($query);
+            };
         }
     };
 ?>

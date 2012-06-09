@@ -52,7 +52,15 @@ class Upload extends Core{
                     'upload_url' => '/content/gallery/thumbnails/',
                     'max_width' => 120,
                     'max_height' => 120,
-                    'jpeg_quality' => 98,
+                    'jpeg_quality' => 95,
+                    'crop' => true
+                ),
+                'micro' => array(
+                    'upload_dir' => $_SERVER['DOCUMENT_ROOT'].'/content/gallery/micros/',
+                    'upload_url' => '/content/gallery/micros/',
+                    'max_width' => 54,
+                    'max_height' => 54,
+                    'jpeg_quality' => 90,
                     'crop' => true
                 )
             )

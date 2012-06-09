@@ -78,11 +78,11 @@
                     <div class="right">
                         <div class="links">
                             <ul class="inner_tools">
-                                <li id="button_gallery_delete_all" style="display: none"><a href="javascript:void(0)" class="red_button"><span class="leftcap"></span>Удалить все<span class="rightcap"></span></a></li>
-                                <li id="button_gallery_new_album" class="active"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Создать альбом<span class="rightcap"></span></a></li>
-                                <li id="button_gallery_upload"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Загрузить<span class="rightcap"></span></a></li>
-                                <li id="button_gallery_edit_ok" style="display: none"><a href="javascript:void(0)" class="gray_button"><span class="leftcap"></span>Готово<span class="rightcap"></span></a></li>
-                                <li id="button_gallery_edit"><a href="javascript:void(0)" class="gray_button"><span class="leftcap"></span>Редактировать<span class="rightcap"></span></a></li>
+                                <li id="button_gallery_delete_all" style="display: none" class="active red"><a href="javascript:void(0)" class="red_button"><span class="leftcap"></span>Удалить все<span class="rightcap"></span></a></li>
+                                <li id="button_gallery_new_album" class="active blue"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Создать альбом<span class="rightcap"></span></a></li>
+                                <li id="button_gallery_upload" class="active blue"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Загрузить<span class="rightcap"></span></a></li>
+                                <li id="button_gallery_edit_ok" style="display: none" class="active blue"><a href="javascript:void(0)" class="gray_button"><span class="leftcap"></span>Готово<span class="rightcap"></span></a></li>
+                                <li id="button_gallery_edit" class="active blue"><a href="javascript:void(0)" class="gray_button"><span class="leftcap"></span>Редактировать<span class="rightcap"></span></a></li>
                             </ul>
                         </div>
                     </div>

@@ -40,7 +40,7 @@
                     <div onclick="document.location.href='/admin/gallery?album={$album.id}'" title="{$album.name}" class="album_item{if $album.publish != 1} hidden{/if}" rel="{$album.id}" status="{if $album.publish == 1}1{else}0{/if}">
                         <span class="status"></span>
                         {foreach $core->getImages($album.id, 3) as $image}
-                            <i class="preview" style="background-image: url(/content/gallery/thumbnails/{$image.id}.{$image.extension})"></i>
+                            <i class="preview" style="background-image: url(/content/gallery/micros/{$image.id}.{$image.extension})"></i>
                         {/foreach}
                         {if $images_count > 3}
                         <span class="counter">{$images_count}</span>

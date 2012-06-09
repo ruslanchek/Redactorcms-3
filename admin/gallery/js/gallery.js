@@ -311,6 +311,16 @@ var gallery = {
 
                 var $this = $(this);
                 $this.removeClass('upscale').addClass('downscale');
+
+                $.ajax({
+                   url         : '/admin/gallery/?ajax&action=eject_album_item',
+                   data        : {
+                       id : ui.draggable.attr('rel')
+                   },
+                   type        : 'GET',
+                   success     : function(){
+                   }
+               });
             },
             over: function() {
                 var $this = $(this);
@@ -412,8 +422,12 @@ var gallery = {
 
                 if(previews_lenght < 3){
                     var rand = Math.random(),
-                        preview = $('<i>').css({
-                            backgroundImage: ui.draggable.children('i').css('background-image')
+                        img = ui.draggable.children('i').css('background-image');
+
+                    img = img.replace('thumbnails', 'micros');
+
+                    var preview = $('<i>').css({
+                            backgroundImage: img
                         }).attr('new_preview', rand).addClass('preview').addClass('popup_effect');
 
                     $this.append(preview);
@@ -455,6 +469,10 @@ var gallery = {
 
         $('#album_name_block').hide();
         $('#album_name_edit').show();
+        $('#album_name_edit form').animate({
+            left: 0,
+            opacity: 1
+        }, 400);
     },
 
     moveImageToAlbum: function(album_id, image_id, preview){
@@ -489,8 +507,14 @@ var gallery = {
         $('.gallery_pics div.items_holder').sortable('destroy');
         $('.gallery_pics div.albums_holder .album_item').droppable('destroy');
 
-        $('#album_name_block').show();
-        $('#album_name_edit').hide();
+        $('#album_name_edit form').animate({
+            left: 50,
+            opacity: 0
+        }, 200, function(){
+            $('#album_name_edit').hide();
+            $('#album_name_block').fadeIn();
+            $('#album_name_edit form').css({left: -1000})
+        });
 
         $('.gallery_pics .item i.preview').off('click');
 
