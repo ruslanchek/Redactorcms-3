@@ -58,7 +58,6 @@
                 <li><a href="#" class="add" title="Create new content">Add</a></li>
                 <li><a href="#" class="action" title="Take action on this page">Actions</a></li>
                 <li><a href="#" class="login-logout authenticated" title="Log out (ruslan)">Log out</a></li>
-                <li><input id="search" value="" title="Search" autocapitalize="off"><span class="searchfield_close_overlay"></span></li>
             </ul>
         </div>
 

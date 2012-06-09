@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-08 16:14:40
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-09 20:18:55
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40444fd07edd159ad3-17617668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1339157680,
+      1 => 1339251766,
       2 => 'file',
     ),
   ),
@@ -96,7 +96,6 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                 <li><a href="#" class="add" title="Create new content">Add</a></li>
                 <li><a href="#" class="action" title="Take action on this page">Actions</a></li>
                 <li><a href="#" class="login-logout authenticated" title="Log out (ruslan)">Log out</a></li>
-                <li><input id="search" value="" title="Search" autocapitalize="off"><span class="searchfield_close_overlay"></span></li>
             </ul>
         </div>
 
