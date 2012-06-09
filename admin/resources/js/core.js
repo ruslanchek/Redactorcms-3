@@ -20,6 +20,10 @@ var core = {
         };
     },
 
+    drawTopActions: function(html){
+        $('#top_actions').html(html);
+    },
+
     init: function(){
         jQuery.easing.def = "easeOutQuad";
         this.keyboard.init();

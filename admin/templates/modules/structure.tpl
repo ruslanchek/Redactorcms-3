@@ -11,12 +11,10 @@
 </div>
 
 <div id="content-secondary" class="wrapchrome">
-    <!--div class="tree_holder"></div-->
-
     <div class="cc-sidebar document_info">
         <h2>
             <span class="title ellipsis">Дерево узлов</span>
-            <span class="button sidebar-close">Close</span>
+            {*<span class="button sidebar-close">Close</span>*}
         </h2>
         <div class="content">
             <div class="cc-sidebar-section paginating collapsed" id="tree"></div>

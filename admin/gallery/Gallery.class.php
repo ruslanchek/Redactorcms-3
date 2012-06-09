@@ -3,7 +3,7 @@
         public function __construct(){
             parent::__construct();
 
-            $this->template = 'gallery.tpl';
+            $this->template = 'main.tpl';
 
             $this->init(array(
                 'name'  => 'gallery',

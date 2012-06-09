@@ -75,8 +75,7 @@
                         </h1>
                     </div>
                     <div class="right">
-                        <div class="links">
-                            <ul id="inner_tools"></ul>
+                        <div class="links" id="top_actions">
                         </div>
                     </div>
                     <span class="banner_end"></span>

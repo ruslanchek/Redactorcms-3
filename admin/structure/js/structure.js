@@ -938,6 +938,12 @@ var structure = {
             '/admin/resources/img/icons/micro_spinner.gif'
         ]);
 
+        var top_actions =   '<ul class="inner_tools">' +
+                                '<li id="button_gallery_new_album" class="active blue"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Создать узел<span class="rightcap"></span></a></li>' +
+                            '</ul>';
+
+        core.drawTopActions(top_actions);
+
         $('.tree_holder').disableSelection();
         this.readBranchesConditions();
         this.setMarkerToActivePosition(0);

@@ -645,6 +645,16 @@ var gallery = {
     },
 
     init: function(){
+        var top_actions =   '<ul class="inner_tools">' +
+                                '<li id="button_gallery_delete_all" style="display: none" class="active red"><a href="javascript:void(0)" class="red_button"><span class="leftcap"></span>Удалить все<span class="rightcap"></span></a></li>' +
+                                '<li id="button_gallery_new_album" class="active blue"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Создать альбом<span class="rightcap"></span></a></li>' +
+                                '<li id="button_gallery_upload" class="active blue"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Загрузить<span class="rightcap"></span></a></li>' +
+                                '<li id="button_gallery_edit_ok" style="display: none" class="active blue"><a href="javascript:void(0)" class="gray_button"><span class="leftcap"></span>Готово<span class="rightcap"></span></a></li>' +
+                                '<li id="button_gallery_edit" class="active blue"><a href="javascript:void(0)" class="gray_button"><span class="leftcap"></span>Редактировать<span class="rightcap"></span></a></li>' +
+                            '</ul>';
+
+        core.drawTopActions(top_actions);
+
         core.preloadImages([
             '/admin/resources/img/bg/popup.png',
             '/admin/resources/img/icons/spinner.png',
