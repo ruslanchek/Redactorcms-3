@@ -28,10 +28,10 @@
 #item_ejector,
 #item_upload_area {
     width: 1000px;
-    height: 72px;
+    height: 62px;
     margin: 0;
     position: absolute;
-    top: -71px;
+    top: -61px;
     left: 0;
     z-index: 100;
     border: 3px dashed #565656;
@@ -48,11 +48,11 @@
 #item_ejector span,
 #item_upload_area span {
     display: block;
-    height: 72px;
+    height: 62px;
     width: 700px;
     padding: 15px 0 0 95px;
     margin: 0 auto;
-    line-height: 2.1em;
+    line-height: 1.8em;
     position: relative;
 }
 
@@ -195,7 +195,7 @@
     box-shadow:0px 0px 2px rgba(0,0,0,0.3);
     -webkit-box-shadow:rgba(0,0,0,0.3) 0px 0px 2px;
     -moz-box-shadow:rgba(0,0,0,0.3) 0px 0px 2px;
-    padding: 10px 4px 4px 4px;
+    padding: 5px 4px 0px 4px;
     height: auto;
     height: 58px;
 }
@@ -208,7 +208,7 @@
 }
 
 .header {
-    height: 60px;
+    height: 50px;
 }
 
 #album_name_block {
