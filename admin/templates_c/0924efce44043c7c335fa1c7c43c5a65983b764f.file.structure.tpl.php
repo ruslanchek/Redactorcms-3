@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-08 15:16:38
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-13 13:54:04
          compiled from "Z:/home/loc/rdclite/admin/templates\modules\structure.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:46294fd07edd2463c6-88885772%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0924efce44043c7c335fa1c7c43c5a65983b764f' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\modules\\structure.tpl',
-      1 => 1339154196,
+      1 => 1339581223,
       2 => 'file',
     ),
   ),
@@ -32,12 +32,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </div>
 
 <div id="content-secondary" class="wrapchrome">
-    <!--div class="tree_holder"></div-->
-
     <div class="cc-sidebar document_info">
         <h2>
             <span class="title ellipsis">Дерево узлов</span>
-            <span class="button sidebar-close">Close</span>
+            
         </h2>
         <div class="content">
             <div class="cc-sidebar-section paginating collapsed" id="tree"></div>

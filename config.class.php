@@ -7,7 +7,7 @@
             'host'  => 'localhost',
             'db'    => 'rdclite',
             'user'  => 'root',
-            'pass'  => '123'
+            'pass'  => ''
         );
 
         //Modules
@@ -24,6 +24,7 @@
             array('id' => 2, 'class' => 'menu', 'name' => 'Меню', 'modes' => array(
                 array(
                     'id'        => 1,
+
                     'name'      => 'Одноуровневое',
                     'action'    => 'get_menu_list',
                     'template'  => 'menu.one_level.tpl'
