@@ -10,6 +10,7 @@
             'pass'  => ''
         );
 
+
         //Modules
         public $modules = array(
             array('id' => 1, 'class' => 'page', 'name' => 'Страницы', 'modes' => array(
