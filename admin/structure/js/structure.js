@@ -518,8 +518,8 @@ var structure = {
 
             var blocks_value        =   core.form.options.data.blocks,
                 main_block_value    =   core.form.options.data.main_block,
-                html                =   '<div class="control-group">' +
-                                            '<label class="control-label">Блоки</label>' +
+                html                =   '<div class="item_block">' +
+                                            '<label class="label">Блоки</label>' +
                                             '<div class="controls">' +
                                                 '<div id="blocks" class="input_holder blocks"></div><div class="clear"></div>' +
                                             '</div>' +

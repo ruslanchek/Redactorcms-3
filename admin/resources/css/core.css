@@ -844,8 +844,38 @@ a.button:active {
 
 	.form .item_block {
 		margin: 0 0 15px;
-		padding: 0 15px;
-        position: relative; }
+		padding: 0 200px 0 160px;
+        position: relative;
+        min-height: 30px;
+    }
+
+    .form .item_block .controls {
+        min-height: 30px;
+    }
+
+    .form .item_block .controls .field_error {
+        background: #8F0000 url(../img/bg/light.png) repeat-x top;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+        color: #fff;
+        padding: 1px 4px;
+        z-index: 5;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.5);
+        box-shadow: rgba(0, 0, 0, 0.5);
+        right: 0;
+        bottom: 0;
+        max-width: 150px;
+        font-size: 0.85em;
+    }
+
+    .form .item_block .label {
+        position: absolute;
+        padding-top: 0.25em;
+        left: 14px;
+        text-align: right;
+        width: 134px;
+    }
 
 	.form .item_block_no_padding {
 		margin: 0 0 15px;
@@ -854,7 +884,7 @@ a.button:active {
 		.form .item_block_no_padding label { padding: 0 15px; }
 
 	.form .text {
-		font-size: 18px;
+		font-size: 1em;
 		width: 99%;
 		padding: 2px 3px; }
 
@@ -906,7 +936,29 @@ a.button:active {
         background-position: 0 -42px;
     }
 
-.label { display: block; }
+    .form .add_param_button {
+        position: absolute;
+        background: url(../img/buttons/gray_mini.png) repeat-x top left;
+        color: #222;
+        width: 76px;
+        height: 21px;
+        text-align: center;
+        font-size: 0.9em;
+        line-height: 21px;
+        right: 14px;
+        top: -4px;
+        text-decoration: none;
+    }
+
+    .form .add_param_button:hover {
+        background-position: 0 -21px;
+    }
+
+    .form .add_param_button:active {
+        background-position: 0 -42px;
+    }
+
+.form .label { display: block; }
 
 .form .result_message {
     display: none;
@@ -2347,24 +2399,9 @@ ul#tag_tree li {
 	border-bottom: 1px solid #ccc;
 }
 
-.form .add_param_button {
-    position: absolute;
-    background: url(../img/buttons/gray_mini.png) repeat-x top left;
-    color: #222;
-    width: 76px;
-    height: 21px;
-    text-align: center;
-    font-size: 0.9em;
-    line-height: 21px;
-    right: 14px;
-    top: -4px;
-    text-decoration: none;
-}
 
-.form .add_param_button:hover {
-    background-position: 0 -21px;
-}
 
-.form .add_param_button:active {
-    background-position: 0 -42px;
+#top_actions {
+    margin: 0 0 1em;
+    height: 30px;
 }

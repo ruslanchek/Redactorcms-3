@@ -106,3 +106,7 @@
 .jstree {
     margin-left: -7px;
 }
+
+#item_path_indicator {
+    float: right;
+}
