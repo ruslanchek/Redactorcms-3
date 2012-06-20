@@ -1,4 +1,5 @@
 <?php
+
     Class Structure extends Core {
         private
             $new_node_prefix = 'Узел',

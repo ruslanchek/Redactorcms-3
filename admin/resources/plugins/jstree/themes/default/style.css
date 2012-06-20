@@ -100,8 +100,8 @@
 }
 
 .jstree-loading:link {
-    background: url(/admin/resources/img/icons/blue_spinner.gif) no-repeat left;
-    height: 16px;
-    padding-left: 20px !important;
-    margin-left: -5px;
+    background: url(/admin/resources/img/icons/spinner_transparent_small.gif) no-repeat left;
+    height: 18px;
+    padding-left: 25px !important;
+    margin-left: -12px;
 }

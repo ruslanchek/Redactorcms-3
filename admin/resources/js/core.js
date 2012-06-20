@@ -615,7 +615,7 @@ core.form = {
 
         this.hideMessage();
 
-        form.find('.result_message').attr('class', 'result_message').addClass('loading').text('Загрузка...').fadeIn(100);
+        form.find('.result_message').attr('class', 'result_message').addClass('loading').text('Отправка данных...').fadeIn(100);
         sbmt.attr('disabled', 'disabled');
         sbmt.prev().show();
     },
