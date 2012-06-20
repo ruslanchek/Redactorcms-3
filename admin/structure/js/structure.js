@@ -234,7 +234,7 @@ var structure = {
                 module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode),
                 blocks_html         = '';
 
-            blocks_html +=  '<div class="item main_block btn btn-warning btn-small" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
+            blocks_html +=  '<div class="item main_block button" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
                                 '<span class="num">♛</span>' +
                                 '<span class="module_name">' + module.name + '</span>' +
                                 '<span class="module_mode">' + module_mode.name + '</span>' +
@@ -286,7 +286,7 @@ var structure = {
                     block_class         = 'empty_block';
                 };
 
-                blocks_html +=  '<div class="item btn btn-small '+block_class+'" rel="'+id+'" data-id="'+id+'" data-mode_template="' + template + '">' +
+                blocks_html +=  '<div class="item button '+block_class+'" rel="'+id+'" data-id="'+id+'" data-mode_template="' + template + '">' +
                                     '<span class="num">' + blocks_etalon[i].id + '</span>' +
                                     '<span class="module_name">' + block_module + '</span>' +
                                     '<span class="module_mode">' + block_module_mode + '</span>' +
@@ -300,6 +300,8 @@ var structure = {
                                 '<span class="module_mode"></span>' +
                             '</div>' +
                             '<div class="clear"></div>';*/
+
+            blocks_html = blocks_html + '<div class="clear"></div>';
 
             $('#blocks').html(blocks_html);
         },
@@ -521,7 +523,7 @@ var structure = {
                 html                =   '<div class="item_block">' +
                                             '<label class="label">Блоки</label>' +
                                             '<div class="controls">' +
-                                                '<div id="blocks" class="input_holder blocks"></div><div class="clear"></div>' +
+                                                '<div id="blocks" class="input_holder blocks"></div>' +
                                             '</div>' +
                                         '</div>'+
                                         '<input type="hidden" id="hidden_blocks" name="blocks" value="'+encodeURIComponent(blocks_value)+'" />' +
@@ -938,7 +940,7 @@ var structure = {
             '/admin/resources/img/icons/micro_spinner.gif'
         ]);
 
-        var top_actions =   '<a href="javascript:void(0)" class="button"><span>Создать узел</span></a>';
+        var top_actions =   '<a href="javascript:void(0)" class="button">Создать узел</a>';
 
         core.drawTopActions(top_actions);
 

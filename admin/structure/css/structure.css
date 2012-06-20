@@ -47,18 +47,22 @@
 
 /* Form */
 #blocks {
-    padding: 0;
-    margin: 0 0 1em;
-    float: left;
+    padding: 3px 0 0 3px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
 #blocks .item {
-    width: 88px;
-    margin: 0 5px 5px 0;
+    margin: 0 2px 3px 0;
     float: left;
-    padding: 15px 5px 10px;
-    height: 55px;
+    padding: 10px 5px 0;
+    width: 95px;
+    height: 80px;
     cursor: pointer;
+    line-height: 1.7em;
+    color: #444;
 }
 
 #blocks .item .num {
