@@ -643,7 +643,9 @@ var structure = {
                 };
             },
             success     : function(result){
-                core.form.formReady();
+                setTimeout(function(){
+                    core.form.formReady({status: true, message: 'Данные сохранены!'});
+                }, 450);
 
                 var status_class,
                     module_icon_class,
@@ -694,10 +696,8 @@ var structure = {
             }
         });
 
-        $('#item_name').html(data.node_data.name);
-
-        var html =  '<div class="section first top-tool">' +
-                        '<a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="button selected">'+data.domain_name+'<b id="cuutent_item_path">'+data.node_data.path+'</b></a>' +
+        var html =  '<div class="">' +
+                        '<a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="">'+data.domain_name+'<b id="cuutent_item_path">'+data.node_data.path+'</b></a>' +
                     '</div>';
 
         $('#item_path_indicator').html(html);
@@ -791,7 +791,7 @@ var structure = {
                 core.loading.unsetLoading('openStructureItem');
             };
 
-            $('#content-primary .page').animate({
+            $('#content-primary').animate({
                 opacity: 0
             }, {
                 duration: 500,
@@ -822,7 +822,7 @@ var structure = {
                                 $('#item_name').html('Редактор узла');
                             };
 
-                            $('#content-primary .page').animate({
+                            $('#content-primary').animate({
                                 opacity: 1
                             }, {
                                 duration: 500,
@@ -938,9 +938,7 @@ var structure = {
             '/admin/resources/img/icons/micro_spinner.gif'
         ]);
 
-        var top_actions =   '<ul class="inner_tools">' +
-                                '<li id="button_gallery_new_album" class="active blue"><a href="javascript:void(0)" class="blue_button"><span class="leftcap"></span>Создать узел<span class="rightcap"></span></a></li>' +
-                            '</ul>';
+        var top_actions =   '<a href="javascript:void(0)" class="button"><span>Создать узел</span></a>';
 
         core.drawTopActions(top_actions);
 

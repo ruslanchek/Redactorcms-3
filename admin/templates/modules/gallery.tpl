@@ -1,3 +1,7 @@
+<h1 class="title">
+   {$core->module.title}
+</h1>
+
 <div class="black_linen_container">
     <div class="header_block">
         <h1 class="header">

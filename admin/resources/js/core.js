@@ -578,23 +578,55 @@ core.form = {
         this.createFormContainer();
     },
 
-    formReady: function(){
+    hideMessage: function(){
         var form = this.options.container_obj.find('form#'+this.options.form_id);
-        var sbmt = form.find('.form_sumbit');
 
-        sbmt.val(sbmt.data('original_text'))
-            .removeAttr('disabled');
+        form.find('.result_message').hide();
+    },
 
+    showMessage: function(result){
+        this.hideMessage();
+
+        var form = this.options.container_obj.find('form#'+this.options.form_id),
+            result_class;
+
+        if(result.status == true){
+            result_class = 'ok';
+        }else{
+            result_class = 'error';
+        };
+
+        form.find('.result_message').attr('class', 'result_message').addClass(result_class).text(result.message).fadeIn(100);
+    },
+
+    formReady: function(result){
+        var form = this.options.container_obj.find('form#'+this.options.form_id),
+            sbmt = form.find('.form_sumbit');
+
+        this.showMessage(result);
+
+        sbmt.removeAttr('disabled');
         sbmt.prev().hide();
+    },
+
+    formLoading: function(){
+        var form = this.options.container_obj.find('form#'+this.options.form_id),
+            sbmt = form.find('.form_sumbit');
+
+        this.hideMessage();
+
+        form.find('.result_message').attr('class', 'result_message').addClass('loading').text('Загрузка...').fadeIn(100);
+        sbmt.attr('disabled', 'disabled');
+        sbmt.prev().show();
     },
 
     //Создание формы
     createFormContainer: function(){
-        var html =  '<div class="section selected">' +
+        var html =  '<div class="form">' +
                         '<form action="javascript:void(0)" class="form-horizontal" id="'+this.options.form_id+'">' +
+                            '<div class="result_message"></div>' +
                             '<fieldset class="form_items"></fieldset>' +
-                            '<hr>' +
-                            '<span class="save_loading"></span><input class="btn form_sumbit" type="submit" name="save" value="Сохранить" data-loadind_text="Сохраняется..." autocomplete="off" />' +
+                            '<div class="buttons"><input class="button" type="submit" name="save" value="Сохранить" autocomplete="off" />' +
                         '</form>' +
                     '</div>';
 
@@ -629,14 +661,7 @@ core.form = {
             core.form.options.beforeSubmit();
 
             if(valid){
-                var sbmt = $(this).find('.form_sumbit');
-
-                sbmt.data('original_text', sbmt.val())
-                    .val(sbmt.data('loadind_text'))
-                    .attr('disabled', 'disabled');
-
-                sbmt.prev().show();
-
+                core.form.formLoading();
                 core.form.options.submit(data);
             };
         });
@@ -646,8 +671,8 @@ core.form = {
     drawCheckboxInput: function(data){
         var id      =   'checkbox_' + data.name,
             checked =   (this.options.data[data.name] == '1') ? 'checked="checked"' : '',
-            html    =   '<div class="control-group">' +
-                            '<label class="control-label" for="'+id+'">' + data.label + '</label>' +
+            html    =   '<div class="item_block">' +
+                            '<label class="label" for="'+id+'">' + data.label + '</label>' +
                             '<div class="controls">' +
                                 '<label class="checkbox"><input type="checkbox" id="' + id + '" '+checked+' name="'+data.name+'"></label>' +
                             '</div>' +
@@ -721,10 +746,10 @@ core.form = {
     drawTextInput: function(data){
         var id          =   'text_' + data.name,
             collapsed   =   (data.collapsed) ? 'collapsed' : '',
-            html        =   '<div class="control-group">' +
-                                '<label class="control-label" for="' + id + '">' + data.label + '</label>' +
+            html        =   '<div class="item_block">' +
+                                '<label class="label" for="' + id + '">' + data.label + '</label>' +
                                 '<div class="controls '+collapsed+'">' +
-                                    '<input class="input-xlarge" type="text" id="' + id + '" name="'+data.name+'" value="'+core.utilities.jsonNullToEmptyString(this.options.data[data.name])+'" />' +
+                                    '<input class="text" type="text" id="' + id + '" name="'+data.name+'" value="'+core.utilities.jsonNullToEmptyString(this.options.data[data.name])+'" />' +
                                 '</div>' +
                             '</div>';
 
@@ -750,8 +775,8 @@ core.form = {
             options += '<option '+selected+' value="'+data.options[i].id+'">'+data.options[i].name+'</option>';
         };
 
-        var html    =   '<div class="control-group">' +
-                            '<label class="control-label" for="' + id + '">' + data.label + '</label>' +
+        var html    =   '<div class="item_block">' +
+                            '<label class="label" for="' + id + '">' + data.label + '</label>' +
                             '<div class="controls">' +
                                 '<select id="' + id + '" name="'+data.name+'">' +
                                     options +

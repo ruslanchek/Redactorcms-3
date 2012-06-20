@@ -6,7 +6,6 @@
 
         <link rel="stylesheet" href="/admin/resources/bootstrap/css/bootstrap.min.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/css/core.css" media="all" />
-        <link rel="stylesheet" href="/admin/resources/css/style.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/chosen/chosen.css" media="all" />
@@ -29,64 +28,84 @@
         <script src="/admin/{$core->module.name}/js/{$core->module.name}.js"></script>
     </head>
     <body>
-        <div id="cc-launchbar">
-    		<div class="wrapper">
-    			<div class="inner">
-    				<ul class="items">
-                        {foreach $core->main_menu as $item}
-    					<li><a href="/admin/{$item.name}" class="cc-launchbar-item home {if $item.name == $core->module.name}selected{/if}">
-    						<span class="icon-selection"></span>
-    						<span class="icon"><img src="/admin/{$item.name}/img/icons/section_big.png"></span>
-    						<span class="title ellipsis">{$item.title}</span>
-    					</a></li>
-                        {/foreach}
-    				</ul>
-    			</div>
-    		</div>
-    	</div>
+        <div id="wrapper">
+            <header id="header">
+                <div class="top overall_padding">
+                    <a href="/admin/" title="" class="logo"></a>
+                    <div class="arrow a1"></div>
+                    <div class="options">
+                        <a class="site" href="/" title="">demo.redactorcms.ru</a>
+                        <div class="arrow a2"></div>
 
-        <div id="header" class="chrome">
-            <span class="header_start"></span>
-            <ul class="buttonbar hierarchy">
-                <li><a href="javascript:void(0)" class="ellipsis" id="main_menu_caller">Меню</a></li>
-                <li><a href="/admin/structure" class="ellipsis">demo.redactorcms.ru</a></li>
-                <li><a href="#" class="ellipsis">Руслан</a></li>
-            </ul>
-            <ul class="buttonbar actions">
-                <li><a href="#" class="download" title="Download this file">Download</a></li>
-                <li><a href="#" class="edit" title="Edit this page" onclick="">Edit</a></li>
-                <li><a href="#" class="add" title="Create new content">Add</a></li>
-                <li><a href="#" class="action" title="Take action on this page">Actions</a></li>
-                <li><a href="#" class="login-logout authenticated" title="Log out (ruslan)">Log out</a></li>
+                        <span class="secure" title="1: 1"></span>
 
-            </ul>
-        </div>
+                        <span class="item">
+                            <a href="/admin/?option=personal&suboption=settings" title="Руслан">Руслан</a> (admin)
+                        </span>
 
-        <div id="main" class="wrapchrome">
-            <span class="main_start chrome"></span>
-            <div id="content" class="wrapchrome">
-                <div id="banner">
-                    <span class="banner_start"></span>
-                    <div class="left">
-                        <div class="icon">
-                            <a href="/admin/{$core->module.name}"><img src="/admin/{$core->module.name}/img/icons/section.png"></a>
-                        </div>
-                        <h1 class="title">
-                            {$core->module.title}
-                        </h1>
+                        <div class="arrow a2"></div>
+
+                        <span class="item">
+                            <a href="/admin/?option=personal&suboption=settings" title="Руслан">Сменить пароль</a>
+                        </span>
                     </div>
-                    <div class="right">
-                        <div class="links" id="top_actions">
-                        </div>
+
+                    <div class="options_r">
+                        <span class="item">
+                            <a class="exit" href="javascript:void(0)">Выйти</a>
+                        </span>
                     </div>
-                    <span class="banner_end"></span>
                 </div>
 
-                {include file="modules/`$core->module.name`.tpl"}
+                <ul class="main_menu">
+                    {foreach $core->main_menu as $item}
+                        {if $item.name == $core->module.name}
+                            <li>
+                                <span class="ml_sprite {$item.name}"></span>
+                                <span class="menu_text_active"><span>{$item.title}</span></span>
+                            </li>
+                        {else}
+                            <li>
+                                <a class="ml_link" href="/admin/?option={$item.name}">
+                                    <span class="ml_sprite {$item.name}"></span>
+                                    <span class="menu_text_link">{$item.title}</span>
+                                </a>
+                            </li>
+                        {/if}
+                    {/foreach}
+                </ul>
 
-                <div class="clear"></div>
+                <div class="menu_shade"></div>
+
+                {if $core->sub_menu}
+                <ul class="main_menu_sublevel overall_padding">
+                    {foreach from=$core->sub_menu item=item}
+                        {if $item.active}
+                            <li class="active_sml">{$item.name}</li>
+                        {else}
+                            <li><a href="{$item.path}">{$item.name}</a></li>
+                        {/if}
+                    {/foreach}
+                </ul>
+                {/if}
+            </header>
+
+            <div id="content" class="overall_padding">
+                {include file="modules/`$core->module.name`.tpl"}
             </div>
-            <span class="main_end chrome"></span>
         </div>
+
+        <footer id="footer">
+            <div class="overall_padding">
+                <div class="copy">
+                    <div class="left">
+                        &copy; 2008&ndash;2012. Редактор CMS
+                    </div>
+                    <div class="right">
+                        Версия 3.0
+                    </div>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

@@ -102,3 +102,7 @@
 #item_path_indicator .top-tool * {
     font-weight: normal !important;
 }
+
+.jstree {
+    margin-left: -7px;
+}
