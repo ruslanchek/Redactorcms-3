@@ -348,41 +348,27 @@ core.modal = {
         var ok;
 
         if(this.options.action != null){
-            ok = '<input class="btn pull-left ok" type="submit" value="ОК" />';
+            ok = '<input class="button ok" type="submit" value="Оk" />';
         }else{
             ok = '';
         };
 
-        var html = '<div id="hide_entity_dialog" class="dialog chrome w_form">' +
-                        '<div class="dialog_contents panel">' +
-                            '<table>' +
-                                '<thead>' +
-                                    '<tr>' +
-                                        '<td colspan="2">' + this.options.header + '</td>' +
-                                    '</tr>' +
-                                '</thead>' +
-                                '<tbody>' +
-                                    '<tr>' +
-                                        '<td class="dialog_description" colspan="2">' + this.options.content + '</td>' +
-                                    '</tr>' +
-                                    '<tr>' +
-                                        '<td colspan="2" class="form_buttons">' +
-                                            '<div class="submit">' +
-                                                ok +
-                                                '<input class="btn pull-left cancel" type="button" value="Закрыть" />' +
-                                            '</div>' +
-                                        '</td>' +
-                                    '</tr>' +
-                                '</tbody>' +
-                            '</table>' +
+        var html = '<div class="window dialog" id="modal_window">' +
+                        '<a href="javascript:void(0)" class="close" id="modal_closer"></a>' +
+                        '<h1>' + this.options.header + '</h1>' +
+                        '<div class="message"></div>' +
+                        '<div class="window_content">' + this.options.content + '</div>' +
+                        '<div class="buttons">' +
+                            ok +
+                            '<input class="button cancel" type="button" value="Закрыть" />' +
+                            '<div class="clear"></div>' +
                         '</div>' +
                     '</div>';
-
 
         $('body').prepend(html);
 
         $('.dialog').css({
-            marginTop: -$('.dialog').height()/2
+            marginTop: -$('.dialog').height()/2 - 28
         });
 
         if(this.options.width > 0){
@@ -626,7 +612,10 @@ core.form = {
                         '<form action="javascript:void(0)" class="form-horizontal" id="'+this.options.form_id+'">' +
                             '<div class="result_message"></div>' +
                             '<fieldset class="form_items"></fieldset>' +
-                            '<div class="buttons"><input class="button" type="submit" name="save" value="Сохранить" autocomplete="off" />' +
+                            '<div class="buttons">' +
+                                '<input class="button" type="submit" name="save" value="Сохранить" autocomplete="off" />' +
+                                '<div class="clear"></div>' +
+                            '</div>' +
                         '</form>' +
                     '</div>';
 

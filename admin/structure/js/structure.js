@@ -374,7 +374,7 @@ var structure = {
                     content_id  = block_data.content_id;
 
                     var aftershow = function(){
-                        $('.dialog .submit').append('<input type="button" class="btn btn-danger pull-right delete_block_button" value="Сбросить">');
+                        $('.dialog .buttons').prepend('<input type="button" class="button delete_block_button right" value="Сбросить">');
 
                         $('.delete_block_button').off('click').on('click', function(){
                             structure.blocksInput.deleteBlock($item_obj);
@@ -384,27 +384,26 @@ var structure = {
                 }; break;
             };
 
-
-            var content =   '<div class="section selected">' +
+            var content =   '<div class="form">' +
                                 '<form>' +
                                     '<fieldset>' +
-                                        '<div class="field">' +
-                                            '<label for="select_block_module">Модуль</label>' +
+                                        '<div class="item_block">' +
+                                            '<label class="label" for="select_block_module">Модуль</label>' +
                                             '<div class="controls" id="select_block_module_placeholder"></div>' +
                                         '</div>' +
 
-                                        '<div class="field">' +
-                                            '<label for="select_block_module_mode">Режим</label>' +
+                                        '<div class="item_block">' +
+                                            '<label class="label" for="select_block_module_mode">Режим</label>' +
                                             '<div class="controls" id="select_block_module_mode_placeholder"></div>' +
                                         '</div>' +
 
-                                        '<div class="field">' +
-                                            '<label for="select_block_mode_template">Шаблон</label>' +
+                                        '<div class="item_block">' +
+                                            '<label class="label" for="select_block_mode_template">Шаблон</label>' +
                                             '<div class="controls" id="select_block_mode_template_placeholder"></div>' +
                                         '</div>' +
 
-                                        '<div class="field">' +
-                                            '<label class="control-label" for="select_block_content_id">Контент-юнит</label>' +
+                                        '<div class="item_block">' +
+                                            '<label class="label" class="control-label" for="select_block_content_id">Контент-юнит</label>' +
                                             '<div class="controls" id="select_block_content_id_placeholder"></div>' +
                                         '</div>' +
                                     '</fieldset>' +

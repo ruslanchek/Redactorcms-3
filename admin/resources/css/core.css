@@ -41,9 +41,9 @@ input,select { vertical-align: middle; }
     border-color: transparent !important; }
 
 /* Floats */
-.left { float: left; }
+.left { float: left !important; }
 
-.right { float: right; }
+.right { float: right !important; }
 
 .cl, .clear { clear: both; }
 
@@ -457,21 +457,17 @@ a:active { color: #e53000; }
 
 	.list_menu_buttons .multiaction_button { display: none; }
 
-input.button {
-    padding: 3px 8px;
-    text-shadow: 0 1px 0 #ffffff;
-    font-size: 1em; }
-
 .button {
 	display: block;
 	outline: none;
 	cursor: default;
 	float: left;
+    font-size: 1em;
 	height: 28px;
 	line-height: 28px;
 	text-decoration: none;
     -webkit-box-shadow: 0 0 3px #ffffff inset, 0 1px 1px rgba(0,0,0,0.1);
-     -moz-box-shadow   : 0 0 3px #ffffff inset, 0 1px 1px rgba(0,0,0,0.1);
+    -moz-box-shadow   : 0 0 3px #ffffff inset, 0 1px 1px rgba(0,0,0,0.1);
     box-shadow        : 0 0 3px #ffffff inset, 0 1px 1px rgba(0,0,0,0.1);
     border: 1px solid #ececec;
     border-bottom: 1px solid #c4c4c4;
@@ -490,6 +486,10 @@ input.button {
 	color: #222;
 	padding: 0 10px;
 	margin: 0 10px 0 0;
+}
+
+input.button {
+    line-height: 22px;
 }
 
 .button:hover {
@@ -834,7 +834,7 @@ a.button:active {
 .form {
 	background: #eee;
 	padding: 15px 0 5px;
-	text-shadow: 0 1px 0 #ffffff;
+	text-shadow: 0 1px 0 #fff;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #ddd;
@@ -928,12 +928,23 @@ a.button:active {
 	.form .textarea { width: 100%; }
 
 	.buttons {
-        padding: 13px 14px;
+        padding: 13px 0 13px 14px;
         background: #ccc url(../img/bg/light.png) repeat-x top;
         border-bottom: 1px solid #f9f9f9;
         border-top: 1px solid #c2c2c2; }
 
 		.buttons input { margin: 0 15px 0 0; }
+
+        .buttons .button {
+            border-color: #ccc;
+            border-bottom-color: #999;
+        }
+
+        .buttons .button:hover {
+            border-color: #cacaca;
+            border-bottom-color: #949494;
+        }
+
 
 	.form .radio_label { margin: 0 20px 0 0; }
 
@@ -2227,9 +2238,9 @@ ul#tag_tree li {
 		display: block; }
 
 /* Window */
-#fs_overlay {
+.overlay {
 	background: #000;
-	opacity: 0.5;
+	opacity: 0.6;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -2295,6 +2306,11 @@ ul#tag_tree li {
 
 	.window .window_content { padding: 0 15px 15px; }
 
+    .window .buttons {
+        -webkit-border-radius: 0px 0px 5px 5px;
+        border-radius: 0px 0px 5px 5px;
+        border-bottom: none;
+    }
 
 #modal_closer {
 	background: url(../img/icons/close.png);
