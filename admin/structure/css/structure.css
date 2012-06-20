@@ -49,9 +49,9 @@
 #blocks {
     padding: 3px 0 0 3px;
     border: 1px solid #ddd;
-    background: #fff;
     border-radius: 5px;
     -moz-border-radius: 5px;
+    background: #fff url(/admin/resources/img/bg/pins.png) 4px 4px;
 }
 
 #blocks .item {
