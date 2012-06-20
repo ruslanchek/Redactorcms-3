@@ -877,7 +877,7 @@ a.button:active {
 	.form .textarea { width: 100%; }
 
 	.buttons {
-        padding: 13px 15px;
+        padding: 13px 14px;
         background: #ccc url(../img/bg/light.png) repeat-x top;
         border-bottom: 1px solid #f9f9f9;
         border-top: 1px solid #c2c2c2; }
