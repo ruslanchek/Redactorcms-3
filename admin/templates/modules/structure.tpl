@@ -6,13 +6,12 @@
 <div class="cl"></div>
 
 <div id="content-primary" class="left_col">
-    <div class="clear"></div>
     <div id="form"><!-- Will be filld by JS (see structure.js) --></div>
 </div>
 
 <div id="content-secondary" class="right_col">
     <div class="right_block">
-        <h2>Дерево узлов</h2>
+        <h2>Дерево узлов <a href="javascript:void(0)" class="action_button right"><b>+</b></a><a href="javascript:void(0)" class="action_button right"><b>&minus;</b></a></h2>
         <div class="inner" id="tree"></div>
     </div>
 </div>

@@ -16,6 +16,39 @@
                 'id'    => 1,
                 'name'  => 'pages',
                 'title' => 'Страницы',
+                'fields'=> array(
+                    array(
+                        'name'          => 'id',
+                        'label'         => 'Код',
+                        'type'          => 'hidden',
+                        'list'          => true,
+                        'width'         => '1%',
+                        'align'         => 'center'
+                    ),
+                    array(
+                        'name'          => 'name',
+                        'label'         => 'Название',
+                        'type'          => 'text',
+                        'list'          => true,
+                        'link'          => true,
+                        'width'         => '98%',
+                        'align'         => 'left',
+                        'validate'      => array(
+                            array(
+                                'method' => 'required',
+                                'message' => 'Заполните название'
+                            )
+                        )
+                    ),
+                    array(
+                        'name'          => 'publish',
+                        'label'         => 'Публиковать',
+                        'type'          => 'checkbox',
+                        'list'          => true,
+                        'width'         => '1%',
+                        'align'         => 'center'
+                    )
+                ),
                 'modes' => array(
                     array(
                         'id'        => 1,

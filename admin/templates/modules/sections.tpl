@@ -1,27 +1,37 @@
-<div>
+<div class="left_col">
     <div class="right_block">
-        <h2>Разделы</h2>
-        <div class="inner sections_inner">
-            <ul class="sections_menu">
-                <li><a href="#">Страницы</a></li>
-                <li class="active"><b>Фотогалерея</b></li>
-                <li><a href="#">Проекты</a></li>
-                <li><a href="#">Проекты</a></li>
-                <li><a href="#">Проекты</a></li>
-                <li><a href="#">Проекты</a></li>
-                <li><a href="#">Проекты</a></li>
-                <li><a href="#">Проекты</a></li>
-            </ul>
-            <div class="sections_content">
+        <h2>xxx</h2>
+        <div class="sections_content">
+            {include file="common/list.tpl"}
 
-            </div>
-            <div class="cl"></div>
+            <script>
+                section.setSortable();
+                core.tableZebra($('.list .table_wrap>table'));
+            </script>
         </div>
     </div>
 </div>
 
-{foreach from=$core->config->modules item=item}
-{/foreach}
+<div class="right_col">
+    <div class="right_block">
+        <h2>xxx</h2>
+        <div class="inner sections_inner">
+            <ul class="sections_menu">
+                {foreach from=$core->config->modules item=item}
+                    {if $item.name == $smarty.get.section}
+                        <li class="active"><b>{$item.title}</b></li>
+                    {else}
+                        <li><a href="/admin/sections?section={$item.name}">{$item.title}</a></li>
+                    {/if}
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="cl"></div>
+
+
 
 {*
 <div class="sections_list_tools list_menu_buttons">

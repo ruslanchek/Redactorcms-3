@@ -670,7 +670,7 @@ var structure = {
 
                 //$('#item_'+data.id).jstree('rename')
 
-                $("#tree").jstree('set_text', $('#item_'+data.id), data.title);
+                $("#tree").jstree('set_text', $('#item_'+data.id), data.name);
 
                 $('#cuutent_item_path').attr('href', result.path).html(result.path);
                 $('#text_part').val(result.part);
@@ -938,10 +938,6 @@ var structure = {
             '/admin/resources/img/bg/popup.png',
             '/admin/resources/img/icons/micro_spinner.gif'
         ]);
-
-        var top_actions =   '<a href="javascript:void(0)" class="button">Создать узел</a>';
-
-        core.drawTopActions(top_actions);
 
         $('.tree_holder').disableSelection();
         this.readBranchesConditions();

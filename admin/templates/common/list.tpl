@@ -25,7 +25,7 @@
     </div>
 
     <div class="pager">
-        <span>
+        <div class="pager_span">
             <a href="#" class="larr">&larr;</a>
             <a href="#">1</a>
             <b>2</b>
@@ -34,6 +34,6 @@
             <a href="#">5</a>
             <a href="#" class="rarr">&rarr;</a>
             <div class="clear"></div>
-        </span>
+        </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-20 19:12:04
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-26 19:26:12
          compiled from "Z:/home/loc/rdclite/admin/templates\modules\structure.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:46294fd07edd2463c6-88885772%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0924efce44043c7c335fa1c7c43c5a65983b764f' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\modules\\structure.tpl',
-      1 => 1340205072,
+      1 => 1340724350,
       2 => 'file',
     ),
   ),
@@ -27,13 +27,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <div class="cl"></div>
 
 <div id="content-primary" class="left_col">
-    <div class="clear"></div>
     <div id="form"><!-- Will be filld by JS (see structure.js) --></div>
 </div>
 
 <div id="content-secondary" class="right_col">
     <div class="right_block">
-        <h2>Дерево узлов</h2>
+        <h2>Дерево узлов <a href="javascript:void(0)" class="action_button right"><b>+</b></a><a href="javascript:void(0)" class="action_button right"><b>&minus;</b></a></h2>
         <div class="inner" id="tree"></div>
     </div>
 </div>
