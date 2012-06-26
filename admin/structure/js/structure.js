@@ -56,7 +56,7 @@ var structure = {
                     selected = '';
                 };
 
-                options += '<option autocomplete="off" '+selected+' value="'+this.modules[i].id+'">'+this.modules[i].name+'</option>';
+                options += '<option autocomplete="off" '+selected+' value="'+this.modules[i].id+'">'+this.modules[i].title+'</option>';
             };
 
             var html = '<select id="select_block_module">' + options + '</select>';
@@ -83,7 +83,7 @@ var structure = {
                     selected = '';
                 };
 
-                options += '<option autocomplete="off" '+selected+' value="'+module.modes[i].id+'">'+module.modes[i].name+'</option>';
+                options += '<option autocomplete="off" '+selected+' value="'+module.modes[i].id+'">'+module.modes[i].title+'</option>';
             };
 
             var html = '<select id="select_block_module_mode">' + options + '</select>';
@@ -236,8 +236,8 @@ var structure = {
 
             blocks_html +=  '<div class="item main_block button" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
                                 '<span class="num">♛</span>' +
-                                '<span class="module_name">' + module.name + '</span>' +
-                                '<span class="module_mode">' + module_mode.name + '</span>' +
+                                '<span class="module_name">' + module.title + '</span>' +
+                                '<span class="module_mode">' + module_mode.title + '</span>' +
                             '</div>';
 
             //Create oher blocks
@@ -247,8 +247,8 @@ var structure = {
 
                 blocks_html +=  '<div class="item btn" rel="' + this.blocks_obj[i].id + '" data-mode_template="' + this.blocks_obj[i].mode_template + '">' +
                                     '<span class="num">' + this.blocks_obj[i].id + '</span>' +
-                                    '<span class="module_name">' + module.name + '</span>' +
-                                    '<span class="module_mode">' + module_mode.name + '</span>' +
+                                    '<span class="module_name">' + module.title + '</span>' +
+                                    '<span class="module_mode">' + module_mode.title + '</span>' +
                                 '</div>';
             };*/
 
@@ -275,8 +275,8 @@ var structure = {
                         module_mode     = this.getblockModuleMode(block.module, block.module_mode);
 
                     id                  = blocks_etalon[i].id;
-                    block_module        = module.name;
-                    block_module_mode   = module_mode.name;
+                    block_module        = module.title;
+                    block_module_mode   = module_mode.title;
                     template            = block.mode_template;
                     block_class         = 'btn-info';
                 }else{
@@ -445,8 +445,8 @@ var structure = {
                     module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
 
                 $block_item = $('#blocks .item[rel="main"]');
-                $block_item.find('span.module_name').html(module.name);
-                $block_item.find('span.module_mode').html(module_mode.name);
+                $block_item.find('span.module_name').html(module.title);
+                $block_item.find('span.module_mode').html(module_mode.title);
                 $block_item.data('mode_template', $('#select_block_mode_template').val());
 
                 $('#hidden_main_block').val(encodeURIComponent(JSON.stringify(this.main_block_obj)));
@@ -495,8 +495,8 @@ var structure = {
                 if(new_block){
                     var new_block_html =    '<div class="btn item popup_effect" rel="' + block_id + '" data-mode_template="'+$('#select_block_mode_template').val()+'">' +
                                                 '<span class="num">' + block_id + '</span>' +
-                                                '<span class="module_name">' + module.name + '</span>' +
-                                                '<span class="module_mode">' + module_mode.name + '</span>' +
+                                                '<span class="module_name">' + module.title + '</span>' +
+                                                '<span class="module_mode">' + module_mode.title + '</span>' +
                                             '</div>';
 
                     $('#blocks .item[rel="new"]').before(new_block_html);
@@ -504,8 +504,8 @@ var structure = {
                     var $block_item  = $('#blocks .item[rel="'+block_id+'"]');
 
                     $block_item.removeClass('empty_block').addClass('btn-info');
-                    $block_item.find('span.module_name').html(module.name);
-                    $block_item.find('span.module_mode').html(module_mode.name);
+                    $block_item.find('span.module_name').html(module.title);
+                    $block_item.find('span.module_mode').html(module_mode.title);
                     $block_item.data('mode_template', $('#select_block_mode_template').val());
                 };
 
@@ -664,13 +664,13 @@ var structure = {
                     status_class = 'hidden';
                 };
 
-                /*$('#leaf_' + data.id + '>a>span').html(data.name);
+                /*$('#leaf_' + data.id + '>a>span').html(data.title);
                 $('#leaf_' + data.id + '>a').removeClass('published').removeClass('hidden').addClass(status_class);
                 $('#leaf_' + data.id + '>a i.item_icon').attr('class', 'item_icon ' + module_icon_class);*/
 
                 //$('#item_'+data.id).jstree('rename')
 
-                $("#tree").jstree('set_text', $('#item_'+data.id), data.name);
+                $("#tree").jstree('set_text', $('#item_'+data.id), data.title);
 
                 $('#cuutent_item_path').attr('href', result.path).html(result.path);
                 $('#text_part').val(result.part);

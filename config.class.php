@@ -10,68 +10,83 @@
             'pass'  => ''
         );
 
-
         //Modules
         public $modules = array(
-            array('id' => 1, 'class' => 'page', 'name' => 'Страницы', 'modes' => array(
-                array(
-                    'id'        => 1,
-                    'name'      => 'HTML-страница',
-                    'action'    => 'get_pages',
-                    'template'  => 'page.simple.tpl'
-                )
+            array(
+                'id'    => 1,
+                'name'  => 'pages',
+                'title' => 'Страницы',
+                'modes' => array(
+                    array(
+                        'id'        => 1,
+                        'title'     => 'HTML-страница',
+                        'action'    => 'get_pages',
+                        'template'  => 'page.simple.tpl'
+                    )
             )),
 
-            array('id' => 2, 'class' => 'menu', 'name' => 'Меню', 'modes' => array(
-                array(
-                    'id'        => 1,
+            array(
+                'id'    => 2,
+                'name'  => 'menu',
+                'title' => 'Меню',
+                'modes' => array(
+                    array(
+                        'id'        => 1,
 
-                    'name'      => 'Одноуровневое',
-                    'action'    => 'get_menu_list',
-                    'template'  => 'menu.one_level.tpl'
-                ),
-                array(
-                    'id'        => 2,
-                    'name'      => 'Многоуровневое',
-                    'action'    => 'get_menu_list',
-                    'template'  => 'menu.multi_level.tpl'
-                )
+                        'title'     => 'Одноуровневое',
+                        'action'    => 'get_menu_list',
+                        'template'  => 'menu.one_level.tpl'
+                    ),
+                    array(
+                        'id'        => 2,
+                        'title'     => 'Многоуровневое',
+                        'action'    => 'get_menu_list',
+                        'template'  => 'menu.multi_level.tpl'
+                    )
             )),
 
-            array('id' => 3, 'class' => 'news', 'name' => 'Новости', 'modes' => array(
-                array(
-                    'id'        => 1,
-                    'name'      => 'Список линеек',
-                    'action'    => false,
-                    'template'  => 'news.list.tpl'
-                ),
-                array(
-                    'id'        => 2,
-                    'name'      => 'Линейка',
-                    'action'    => 'get_news_section',
-                    'template'  => 'news.section.tpl'
-                )
+            array(
+                'id'    => 3,
+                'name'  => 'news',
+                'title' => 'Новости',
+                'modes' => array(
+                    array(
+                        'id'        => 1,
+                        'title'     => 'Список линеек',
+                        'action'    => false,
+                        'template'  => 'news.list.tpl'
+                    ),
+                    array(
+                        'id'        => 2,
+                        'title'     => 'Линейка',
+                        'action'    => 'get_news_section',
+                        'template'  => 'news.section.tpl'
+                    )
             )),
 
-            array('id' => 4, 'class' => 'gallery', 'name' => 'Галерея', 'modes' => array(
-                array(
-                    'id'        => 1,
-                    'name'      => 'Вся галерея',
-                    'action'    => false,
-                    'template'  => 'gallery.full.tpl'
-                ),
-                array(
-                    'id'        => 2,
-                    'name'      => 'Альбом',
-                    'action'    => 'get_albums',
-                    'template'  => 'gallery.album.tpl'
-                ),
-                array(
-                    'id'        => 3,
-                    'name'      => 'Случайная фотография',
-                    'action'    => false,
-                    'template'  => 'gallery.random_photo.tpl'
-                )
+            array(
+                'id'    => 4,
+                'name'  => 'gallery',
+                'title' => 'Галерея',
+                'modes' => array(
+                    array(
+                        'id'        => 1,
+                        'title'     => 'Вся галерея',
+                        'action'    => false,
+                        'template'  => 'gallery.full.tpl'
+                    ),
+                    array(
+                        'id'        => 2,
+                        'title'     => 'Альбом',
+                        'action'    => 'get_albums',
+                        'template'  => 'gallery.album.tpl'
+                    ),
+                    array(
+                        'id'        => 3,
+                        'title'     => 'Случайная фотография',
+                        'action'    => false,
+                        'template'  => 'gallery.random_photo.tpl'
+                    )
             ))
         );
     };

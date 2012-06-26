@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-20 18:09:29
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-26 15:41:47
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40444fd07edd159ad3-17617668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1340201362,
+      1 => 1340710906,
       2 => 'file',
     ),
   ),
@@ -103,7 +103,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                             </li>
                         <?php }else{ ?>
                             <li>
-                                <a class="ml_link" href="/admin/?option=<?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
+                                <a class="ml_link" href="/admin/<?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
 ">
                                     <span class="ml_sprite <?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
 "></span>

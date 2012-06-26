@@ -66,7 +66,7 @@
                             </li>
                         {else}
                             <li>
-                                <a class="ml_link" href="/admin/?option={$item.name}">
+                                <a class="ml_link" href="/admin/{$item.name}">
                                     <span class="ml_sprite {$item.name}"></span>
                                     <span class="menu_text_link">{$item.title}</span>
                                 </a>

@@ -2,17 +2,16 @@
     Class Core{
         protected
             $template = 'main.tpl',
-            $ajax_mode = false,
-            $config;
+            $ajax_mode = false;
 
         public
+            $config,
             $utilities,
             $ajax_action,
             $module,
             $main_menu = array(
                 array('name' => 'structure',    'title' => 'Структура'),
-                array('name' => 'sections',     'title' => 'Разделы'),
-                array('name' => 'pages',        'title' => 'Страницы')
+                array('name' => 'sections',     'title' => 'Разделы')
             );
 
         // Свойства - Классы API
