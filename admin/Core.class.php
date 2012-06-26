@@ -11,7 +11,10 @@
             $module,
             $main_menu = array(
                 array('name' => 'structure',    'title' => 'Структура'),
-                array('name' => 'sections',     'title' => 'Разделы')
+                array('name' => 'sections',     'title' => 'Разделы'),
+                array('name' => 'templates',    'title' => 'Шаблоны'),
+                array('name' => 'users',        'title' => 'Пользователи'),
+                array('name' => 'config',       'title' => 'Настройка')
             );
 
         // Свойства - Классы API

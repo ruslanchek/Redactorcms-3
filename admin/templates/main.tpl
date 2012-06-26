@@ -58,6 +58,20 @@
                 </div>
 
                 <ul class="main_menu">
+                    {if $core->module.name == 'home'}
+                        <li>
+                            <span class="ml_sprite home"></span>
+                            <span class="menu_text_active"><span>Главная</span></span>
+                        </li>
+                    {else}
+                        <li>
+                            <a class="ml_link" href="/admin">
+                                <span class="ml_sprite home"></span>
+                                <span class="menu_text_link">Главная</span>
+                            </a>
+                        </li>
+                    {/if}
+
                     {foreach $core->main_menu as $item}
                         {if $item.name == $core->module.name}
                             <li>

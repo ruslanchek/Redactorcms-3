@@ -11,7 +11,12 @@
 
 <div id="content-secondary" class="right_col">
     <div class="right_block">
-        <h2>Дерево узлов <a href="javascript:void(0)" class="action_button right"><b>+</b></a><a href="javascript:void(0)" class="action_button right"><b>&minus;</b></a></h2>
+        <h2>
+            Дерево узлов
+            <a href="javascript:void(0)" class="action_button right"><b>+</b></a>
+            <a href="javascript:void(0)" class="action_button right"><b>&minus;</b></a>
+            <div class="clear"></div>
+        </h2>
         <div class="inner" id="tree"></div>
     </div>
 </div>

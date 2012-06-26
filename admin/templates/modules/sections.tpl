@@ -1,6 +1,12 @@
 <div class="left_col">
     <div class="right_block">
-        <h2>xxx</h2>
+        <h2>
+            <a href="javascript:void(0)" class="action_button left"><b>Создать</b></a>
+            <a href="javascript:void(0)" class="action_button left">Удалить</a>
+            <a href="javascript:void(0)" class="action_button left">Скрыть</a>
+            <a href="javascript:void(0)" class="action_button left">Опубликовать</a>
+            <div class="clear"></div>
+        </h2>
         <div class="sections_content">
             {include file="common/list.tpl"}
 
@@ -14,7 +20,12 @@
 
 <div class="right_col">
     <div class="right_block">
-        <h2>xxx</h2>
+        <h2>
+            Список разделов
+            <a href="javascript:void(0)" class="action_button right"><b>+</b></a>
+            <a href="javascript:void(0)" class="action_button right"><b>&minus;</b></a>
+            <div class="clear"></div>
+        </h2>
         <div class="inner sections_inner">
             <ul class="sections_menu">
                 {foreach from=$core->config->modules item=item}
