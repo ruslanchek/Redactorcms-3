@@ -1,10 +1,10 @@
 <div class="left_col">
     <div class="right_block">
         <h2>
-            <a href="javascript:void(0)" class="action_button left"><b>Создать</b></a>
-            <a href="javascript:void(0)" class="action_button left">Удалить</a>
+            <a href="javascript:void(0)" class="action_button left" style="margin-right: 16px"><b>Создать</b></a>
             <a href="javascript:void(0)" class="action_button left">Скрыть</a>
-            <a href="javascript:void(0)" class="action_button left">Опубликовать</a>
+            <a href="javascript:void(0)" class="action_button left" style="margin-right: 16px">Опубликовать</a>
+            <a href="javascript:void(0)" class="action_button left">Удалить</a>
             <div class="clear"></div>
         </h2>
         <div class="sections_content">
