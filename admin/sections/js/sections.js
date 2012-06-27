@@ -1,27 +1,29 @@
 'use strict';
 
 var sections = {
-    listHaveChecked: function(ho_animation){
-        var checkeds = false;
-        var hiddens = false;
-        var showeds = false;
+    listHaveChecked: function(no_animation){
+        var checkeds    = false,
+            hiddens     = false,
+            showeds     = false;
 
-        $('.list_table .checkbox').not('#list_checkbox_master').each(function(){
-           if($(this).is(':checked')){
-               checkeds = true;
+        $('.list .checkbox').each(function(){
+            if($(this).is(':checked')){
+                checkeds = true;
 
-               if($(this).attr('publish') == '1'){
-                   showeds = true;
-               }else{
-                   hiddens = true;
-               };
-           };
+                if($(this).parent().parent().hasClass('publish')){
+                    showeds = true;
+                };
+
+                if($(this).parent().parent().hasClass('hidden')){
+                    hiddens = true;
+                };
+            };
         });
 
-        if(ho_animation){
+        if(no_animation){
            var speed = 0;
         }else{
-           var speed = 150;
+           var speed = 120;
         };
 
         if(checkeds){
@@ -42,7 +44,17 @@ var sections = {
     },
 
     init: function(){
-        $('.list .checkbox').not('#list_checkbox_master').click(function(){
+        $('.list .checkbox').live('click', function(){
+            sections.listHaveChecked();
+        });
+
+        $('#list_checkbox_master').live('click', function(){
+            if($(this).is(':checked')){
+                $('.list .checkbox').attr('checked', true);
+            }else{
+                $('.list .checkbox').attr('checked', false);
+            };
+
             sections.listHaveChecked();
         });
 

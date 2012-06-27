@@ -2,9 +2,9 @@
     <div class="table_wrap">
         <table>
             <tr>
-                <th class="ta_center"><input type="checkbox" /></th>
+                <th class="ta_center"><input id="list_checkbox_master" type="checkbox" /></th>
                 {foreach $cols as $col}
-                <th width="{$col.data.width}" class="ta_{$col.data.align} filterable">
+                <th width="{$col.data.width}" class="ta_{$col.data.align} sortable">
                     {if $col.name == 'publish'}
                         <a href="javascript:void(0)" class="action_button mini"><b class="hide" title="Скрыть"></b></a>
                     {else}
@@ -16,14 +16,14 @@
             </tr>
 
             {foreach $list as $item}
-            <tr>
-                <td class="ta_center"><input type="checkbox" /></td>
+            <tr class="{if $item['publish'] == '1'}publish{else}hidden{/if}">
+                <td class="ta_center"><input class="checkbox" type="checkbox" /></td>
                 {foreach from=$cols item=col key=col_iteration}
                 <td class="ta_{$col.data.align}">
                     {if $col_iteration == 0}<i class="sortable_handler"></i>{/if}
 
                     {if $col.name == 'publish'}
-                        {if $item[$col.name] == '1'}
+                        {if $item['publish'] == '1'}
                             <a href="javascript:void(0)" class="action_button mini"><b class="hide" title="Скрыть"></b></a>
                         {else}
                             <a href="javascript:void(0)" class="action_button mini"><b class="show" title="Опубликовать"></b></a>

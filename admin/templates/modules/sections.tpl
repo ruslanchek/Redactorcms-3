@@ -1,26 +1,33 @@
 <div class="left_col">
     <div class="right_block">
-        <h2>
+        <h2 id="primary_content_header">
+            {if $smarty.get.section}
             <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить объект"></b></a>
-            <a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранные объекты"></b></a>
-            <a href="javascript:void(0)" class="action_button left" style="margin-left: 16px"><b class="show" title="Опубликовать выбранные объекты"></b></a>
-            <a href="javascript:void(0)" class="action_button left"><b class="hide" title="Скрыть выбранные объекты"></b></a>
+            <a href="javascript:void(0)" class="action_button multiaction_button left" rel="delete" style="margin-right: 16px"><b class="minus" title="Удалить выбранные объекты"></b></a>
+            <a href="javascript:void(0)" class="action_button multiaction_button left" rel="show"><b class="show" title="Опубликовать выбранные объекты"></b></a>
+            <a href="javascript:void(0)" class="action_button multiaction_button left" rel="hide"><b class="hide" title="Скрыть выбранные объекты"></b></a>
+            {/if}
+
             <div class="clear"></div>
         </h2>
         <div class="sections_content">
+            {if $smarty.get.section}
             {include file="common/list.tpl"}
 
             <script>
                 section.setSortable();
                 core.tableZebra($('.list .table_wrap>table'));
             </script>
+            {else}
+                <p>ыыы</p>
+            {/if}
         </div>
     </div>
 </div>
 
 <div class="right_col">
     <div class="right_block">
-        <h2>
+        <h2 id="secondary_content_header">
             <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить новый раздел"></b></a>
             {if $smarty.get.section}<a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранный раздел"></b></a>{/if}
             <div class="clear"></div>

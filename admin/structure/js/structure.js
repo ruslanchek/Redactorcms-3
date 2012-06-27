@@ -642,9 +642,12 @@ var structure = {
                 if(structure.save_item_request != null){
                     structure.save_item_request.abort();
                 };
+
+                core.loading.setHeaderLoading($('#primary_content_header'));
             },
             success     : function(result){
                 setTimeout(function(){
+                    core.loading.unsetHeaderLoading($('#primary_content_header'));
                     core.form.formReady({status: true, message: 'Данные сохранены!'});
                 }, 450);
 
@@ -672,7 +675,8 @@ var structure = {
 
                 $("#tree").jstree('set_text', $('#item_'+data.id), data.name);
 
-                $('#cuutent_item_path').attr('href', result.path).html(result.path);
+                $('#current_item_path').attr('href', result.path).html(result.path).fadeIn();
+                $('#item_path_indicator').fadeIn();
                 $('#text_part').val(result.part);
 
                 structure.setMarkerToActivePosition();
@@ -697,11 +701,7 @@ var structure = {
             }
         });
 
-        var html =  '<div class="">' +
-                        '<a title="Открыть узел в новом окне" target="_blank" href="'+data.node_data.path+'" class="">'+data.domain_name+'<b id="cuutent_item_path">'+data.node_data.path+'</b></a>' +
-                    '</div>';
-
-        $('#item_path_indicator').html(html);
+        $('#item_path_indicator').attr('href', data.node_data.path).html(data.node_data.path).fadeIn();
 
         core.form.drawHiddenInput({
             name    : 'id'
@@ -789,7 +789,7 @@ var structure = {
         if(this.current_leaf_opened != leaf_id){
             if(structure.item_request != null){
                 structure.item_request.abort();
-                core.loading.unsetLoading('openStructureItem');
+                core.loading.unsetHeaderLoading($('#primary_content_header'));
             };
 
             $('#content-primary').animate({
@@ -809,28 +809,30 @@ var structure = {
                         },
                         dataType: 'json',
                         beforeSend: function(){
-                            core.loading.setLoadingToElementCenter('openStructureItem', $('#content-primary'));
+                            core.loading.setHeaderLoading($('#primary_content_header'));
                             structure.resizeing();
                         },
                         success: function(data){
-                            core.loading.unsetLoading('openStructureItem');
+                            setTimeout(function(){
+                                core.loading.unsetHeaderLoading($('#primary_content_header'));
 
-                            if(data.node_data != null){
-                                structure.createEditItemForm(data);
-                                structure.resizeing();
-                            }else{
-                                $('#form').html('<div class="alert alert-warning">Узла с ID '+leaf_id+' не существует. Выберите или создайте другой узел.</div>');
-                                $('#item_name').html('Редактор узла');
-                            };
+                                if(data.node_data != null){
+                                    structure.createEditItemForm(data);
+                                    structure.resizeing();
+                                }else{
+                                    $('#form').html('<div class="alert alert-warning">Узла с ID '+leaf_id+' не существует. Выберите или создайте другой узел.</div>');
+                                    $('#item_name').html('Редактор узла');
+                                };
 
-                            $('#content-primary').animate({
-                                opacity: 1
-                            }, {
-                                duration: 500,
-                                specialEasing: {
-                                    opacity : 'easeOutExpo'
-                                }
-                            });
+                                $('#content-primary').animate({
+                                    opacity: 1
+                                }, {
+                                    duration: 500,
+                                    specialEasing: {
+                                        opacity : 'easeOutExpo'
+                                    }
+                                });
+                            }, 450);
                         }
                     });
 

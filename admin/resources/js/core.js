@@ -169,6 +169,14 @@ core.keyboard = {
 };
 
 core.loading = {
+    setHeaderLoading: function(header_obj){
+        header_obj.addClass('loading');
+    },
+
+    unsetHeaderLoading: function(header_obj){
+        header_obj.removeClass('loading');
+    },
+
     unsetLoading: function(name, micro){
         if($('.notify .loading_area').html() != ''){
             var kill_notify = true;
@@ -566,8 +574,7 @@ core.form = {
 
     hideMessage: function(){
         var form = this.options.container_obj.find('form#'+this.options.form_id);
-
-        form.find('.result_message').hide();
+        form.find('.result_message').fadeOut(250);
     },
 
     showMessage: function(result){
@@ -582,7 +589,10 @@ core.form = {
             result_class = 'error';
         };
 
-        form.find('.result_message').attr('class', 'result_message').addClass(result_class).text(result.message).fadeIn(100);
+        form.find('.result_message').attr('class', 'result_message').addClass(result_class).html(result.message+'<a class="close_message" href="javascript:void(0)" title="Закрыть"></a>').fadeIn(250);
+        $('.close_message').off('click').on('click', function(){
+            core.form.hideMessage();
+        });
     },
 
     formReady: function(result){
@@ -595,22 +605,12 @@ core.form = {
         sbmt.prev().hide();
     },
 
-    formLoading: function(){
-        var form = this.options.container_obj.find('form#'+this.options.form_id),
-            sbmt = form.find('.form_sumbit');
-
-        this.hideMessage();
-
-        form.find('.result_message').attr('class', 'result_message').addClass('loading').text('Отправка данных...').fadeIn(100);
-        sbmt.attr('disabled', 'disabled');
-        sbmt.prev().show();
-    },
-
     //Создание формы
     createFormContainer: function(){
         var html =  '<div class="form">' +
                         '<form action="javascript:void(0)" class="form-horizontal" id="'+this.options.form_id+'">' +
                             '<div class="result_message"></div>' +
+
                             '<fieldset class="form_items"></fieldset>' +
                             '<div class="buttons">' +
                                 '<input class="button" type="submit" name="save" value="Сохранить" autocomplete="off" />' +
@@ -650,7 +650,6 @@ core.form = {
             core.form.options.beforeSubmit();
 
             if(valid){
-                core.form.formLoading();
                 core.form.options.submit(data);
             };
         });
