@@ -1,39 +1,58 @@
 <div class="list">
     <div class="table_wrap">
-        <table class="table table-striped table-bordered table-condensed">
+        <table>
             <tr>
+                <th class="ta_center"><input type="checkbox" /></th>
                 {foreach $cols as $col}
-                <th width="{$col.data.width}" class="ta{$col.data.align}">{$col.data.label}</th>
+                <th width="{$col.data.width}" class="ta_{$col.data.align} filterable">
+                    {if $col.name == 'publish'}
+                        <a href="javascript:void(0)" class="action_button mini"><b class="hide" title="Скрыть"></b></a>
+                    {else}
+                        {$col.data.label}
+                    {/if}
+                </th>
                 {/foreach}
+                <th></th>
             </tr>
 
             {foreach $list as $item}
             <tr>
+                <td class="ta_center"><input type="checkbox" /></td>
                 {foreach from=$cols item=col key=col_iteration}
-                <td class="ta{$col.data.align}">
-                    {if $col_iteration == 0}<i class="sortable_hanler"></i>{/if}
-                    {if $col.data.link}
-                        <a href="?item_id={$item.id}">{$item[$col.name]}</a>
+                <td class="ta_{$col.data.align}">
+                    {if $col_iteration == 0}<i class="sortable_handler"></i>{/if}
+
+                    {if $col.name == 'publish'}
+                        {if $item[$col.name] == '1'}
+                            <a href="javascript:void(0)" class="action_button mini"><b class="hide" title="Скрыть"></b></a>
+                        {else}
+                            <a href="javascript:void(0)" class="action_button mini"><b class="show" title="Опубликовать"></b></a>
+                        {/if}
                     {else}
-                        {$item[$col.name]}
+                        {if $col.data.link}
+                            <a href="?item_id={$item.id}">{$item[$col.name]}</a>
+                        {else}
+                            {$item[$col.name]}
+                        {/if}
                     {/if}
                 </td>
                 {/foreach}
+                <td><a href="javascript:void(0)" class="action_button mini"><b class="minus" title="Удалить"></b></a></td>
             </tr>
             {/foreach}
         </table>
     </div>
+</div>
 
-    <div class="pager">
-        <div class="pager_span">
-            <a href="#" class="larr">&larr;</a>
-            <a href="#">1</a>
-            <b>2</b>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#" class="rarr">&rarr;</a>
-            <div class="clear"></div>
-        </div>
+<div class="pager">
+    <div class="pager_span">
+        <a href="#" class="larr">&larr;</a>
+        <a href="#">1</a>
+        <b>2</b>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#" class="rarr">&rarr;</a>
+        <div class="clear"></div>
     </div>
 </div>

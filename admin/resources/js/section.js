@@ -4,7 +4,7 @@ var section = {
     setSortable: function(){
         $('.list .table_wrap>table').sortable({
             items       : 'tr:not(:first)',
-            handle      : 'i.sortable_hanler',
+            handle      : 'i.sortable_handler',
             revert      : false,
             tolerance   : 'intersect',
             placeholder : 'highlight',

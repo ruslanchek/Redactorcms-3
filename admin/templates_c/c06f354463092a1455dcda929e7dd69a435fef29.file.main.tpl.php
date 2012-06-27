@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-26 15:41:47
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-27 12:07:05
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40444fd07edd159ad3-17617668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1340710906,
+      1 => 1340784418,
       2 => 'file',
     ),
   ),
@@ -89,6 +89,20 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 </div>
 
                 <ul class="main_menu">
+                    <?php if ($_smarty_tpl->tpl_vars['core']->value->module['name']=='home'){?>
+                        <li>
+                            <span class="ml_sprite home"></span>
+                            <span class="menu_text_active"><span>Главная</span></span>
+                        </li>
+                    <?php }else{ ?>
+                        <li>
+                            <a class="ml_link" href="/admin">
+                                <span class="ml_sprite home"></span>
+                                <span class="menu_text_link">Главная</span>
+                            </a>
+                        </li>
+                    <?php }?>
+
                     <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['core']->value->main_menu; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value){

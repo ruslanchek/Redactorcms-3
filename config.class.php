@@ -7,7 +7,7 @@
             'host'  => 'localhost',
             'db'    => 'rdclite',
             'user'  => 'root',
-            'pass'  => '123'
+            'pass'  => ''
         );
 
         //Modules

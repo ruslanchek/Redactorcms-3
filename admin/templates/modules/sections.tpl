@@ -1,10 +1,10 @@
 <div class="left_col">
     <div class="right_block">
         <h2>
-            <a href="javascript:void(0)" class="action_button left" style="margin-right: 16px"><b>Создать</b></a>
-            <a href="javascript:void(0)" class="action_button left">Скрыть</a>
-            <a href="javascript:void(0)" class="action_button left" style="margin-right: 16px">Опубликовать</a>
-            <a href="javascript:void(0)" class="action_button left">Удалить</a>
+            <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить объект"></b></a>
+            <a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранные объекты"></b></a>
+            <a href="javascript:void(0)" class="action_button left" style="margin-left: 16px"><b class="show" title="Опубликовать выбранные объекты"></b></a>
+            <a href="javascript:void(0)" class="action_button left"><b class="hide" title="Скрыть выбранные объекты"></b></a>
             <div class="clear"></div>
         </h2>
         <div class="sections_content">
@@ -21,9 +21,8 @@
 <div class="right_col">
     <div class="right_block">
         <h2>
-            Список разделов
-            <a href="javascript:void(0)" class="action_button right"><b>+</b></a>
-            <a href="javascript:void(0)" class="action_button right"><b>&minus;</b></a>
+            <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить новый раздел"></b></a>
+            {if $smarty.get.section}<a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранный раздел"></b></a>{/if}
             <div class="clear"></div>
         </h2>
         <div class="inner sections_inner">
@@ -41,8 +40,6 @@
 </div>
 
 <div class="cl"></div>
-
-
 
 {*
 <div class="sections_list_tools list_menu_buttons">
