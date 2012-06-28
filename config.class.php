@@ -84,16 +84,16 @@
                 'title' => 'Новости',
                 'modes' => array(
                     array(
-                        'id'        => 1,
-                        'title'     => 'Список линеек',
-                        'action'    => false,
-                        'template'  => 'news.list.tpl'
-                    ),
-                    array(
                         'id'        => 2,
                         'title'     => 'Линейка',
                         'action'    => 'get_news_section',
-                        'template'  => 'news.section.tpl'
+                        'template'  => 'news.section_items.tpl'
+                    ),
+                    array(
+                        'id'        => 1,
+                        'title'     => 'Список линеек',
+                        'action'    => false,
+                        'template'  => 'news.sections.tpl'
                     )
             )),
 
@@ -120,7 +120,26 @@
                         'action'    => false,
                         'template'  => 'gallery.random_photo.tpl'
                     )
-            ))
+            )),
+
+            array(
+                'id'    => 5,
+                'name'  => 'catalog',
+                'title' => 'Каталог',
+                'modes' => array(
+                    array(
+                        'id'        => 1,
+                        'title'     => 'Список содержимого категории',
+                        'action'    => 'get_categories',
+                        'template'  => 'catalog.category_items.tpl'
+                    ),
+                    array(
+                        'id'        => 2,
+                        'title'     => 'Список категорий',
+                        'action'    => false,
+                        'template'  => 'catalog.categories.tpl'
+                    )
+            )),
         );
     };
 ?>

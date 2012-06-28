@@ -107,10 +107,56 @@
     font-weight: normal !important;
 }
 
-.jstree {
-    margin-left: -7px;
-}
-
 #item_path_indicator {
     float: right;
+}
+
+#tree {
+    position: relative;
+}
+
+#tree ul {
+    position: relative;
+    z-index: 3;
+}
+
+#tree .selected>div span {
+    color: #fff !important;
+    text-shadow: 0 -1px 0 rgba(38, 89, 167, 0.75);
+    font-weight: bold;
+}
+
+#tree .selected>div a.toggler {
+    background-position: -16px -9px;
+    height: 9px;
+}
+
+#tree .selected.closed>div a.toggler {
+    background-position: -16px 0;
+    height: 9px;
+}
+
+#active_tree_item_marker {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 19px;
+    box-shadow: 0 -1px 0 rgba(17, 46, 97, 0.03),0 1px 0 rgba(17, 46, 97, 0.15) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#4B98EA), to(#397ACD));
+    background-image: -moz-linear-gradient(top, #4B98EA, #397ACD);
+    background-image: -o-linear-gradient(top, #4B98EA, #397ACD);
+    border-top: 1px solid #408CE6;
+    border-bottom: 1px solid #2659A7;
+}
+
+#hover_marker {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    width: 100%;
+    height: 19px;
+    box-shadow: 0 0 2px rgba(180, 180, 180, 1);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#F0F2F5));
+    background-image: -moz-linear-gradient(top, white, #F0F2F5);
+    background-image: -o-linear-gradient(top, white, #F0F2F5);
 }

@@ -413,7 +413,7 @@ var structure = {
             core.modal.showDialog({
                 content: content,
                 header: header,
-                width: 455,
+                width: 550,
                 action: function(){
                     structure.blocksInput.getAndSetBlockParams(block_id);
                 }
@@ -553,10 +553,52 @@ var structure = {
 
             if(id > 0){
                 this.openStructureItem(id);
+
+                if(id > 1){
+                    $('#add_item, #remove_item').show(120);
+                }else{
+                    $('#add_item').show(120);
+                    $('#remove_item').hide(200);
+                };
+            }else{
+                $('#add_item, #remove_item').hide(120);
             };
         }else{
-            var html = '<div class="alert alert-info">Выберите узел структуры, чтобы его отредактировать, либо создайте новый.</div>';
+            var html = '<p class="no_items">Выберите узел структуры, чтобы его отредактировать, либо создайте новый</з>';
             $('#form').html(html);
+            $('#item_path_indicator').fadeOut(100)
+        };
+    },
+
+    addItem: function(){
+        if(structure.current_node_id > 0){
+            this.add_item_request = $.ajax({
+                url         : '/admin/structure/?ajax&action=addchild',
+                data        : {
+                    id      : structure.current_node_id
+                },
+                type        : 'GET',
+                beforeSend  : function(){
+                    if(structure.add_item_request != null){
+                        structure.add_item_request.abort();
+                    };
+
+                    core.loading.setHeaderLoading($('#secondary_content_header'));
+                },
+                success     : function(result){
+                    setTimeout(function(){
+                        core.loading.unsetHeaderLoading($('#secondary_content_header'));
+
+                        var $tree = $('#tree'),
+                            parent_node = $tree.tree('getNodeById', structure.current_node_id);
+
+                        $tree.tree('appendNode', {
+                            id: result,
+                            label: 'Узел ' + result + ' (новый)'
+                        }, parent_node);
+                    }, 450);
+                }
+            });
         };
     },
 
@@ -565,17 +607,27 @@ var structure = {
             structure.expandCollapseStructureItem($(this));
         });
 
+        $('#add_item').on('click', function(){
+            structure.addItem();
+        });
+
+        $('#remove_item').on('click', function(){
+            if(confirm('Удалить узел и все его дочерние узлы?')){
+                var $tree = $('#tree'),
+                    node = $tree.tree('getNodeById', structure.current_node_id);
+
+                $tree.tree('removeNode', node);
+
+                document.location.hash = '';
+
+                $('#add_item, #remove_item').hide(120);
+                $('#active_tree_item_marker').remove();
+            };
+        });
+
         $(window).on('hashchange', function(){
             structure.openItemByHash();
         });
-    },
-
-    showHideMarker: function(){
-        if($('.tree li.active a').is(':visible')){
-            $('#active_tree_item_marker').fadeIn(100);
-        }else{
-            $('#active_tree_item_marker').fadeOut(100);
-        };
     },
 
     saveBranchesConditions: function(){
@@ -614,7 +666,6 @@ var structure = {
             obj.removeClass('opened').addClass('closed');
 
             sub.slideUp(100, function(){
-                structure.setMarkerToActivePosition(0);
                 sub.addClass('closed');
                 structure.saveBranchesConditions();
                 structure.resizeing();
@@ -624,7 +675,6 @@ var structure = {
             obj.removeClass('closed').addClass('opened');
 
             sub.slideDown(100, function(){
-                structure.setMarkerToActivePosition(0);
                 sub.removeClass('closed');
                 structure.saveBranchesConditions();
                 structure.resizeing();
@@ -667,19 +717,13 @@ var structure = {
                     status_class = 'hidden';
                 };
 
-                /*$('#leaf_' + data.id + '>a>span').html(data.title);
-                $('#leaf_' + data.id + '>a').removeClass('published').removeClass('hidden').addClass(status_class);
-                $('#leaf_' + data.id + '>a i.item_icon').attr('class', 'item_icon ' + module_icon_class);*/
+                var $tree = $('#tree'),
+                    node = $tree.tree('getNodeById', data.id);
 
-                //$('#item_'+data.id).jstree('rename')
+                $(node.element).find('span:first').text(data.name);
 
-                $("#tree").jstree('set_text', $('#item_'+data.id), data.name);
-
-                $('#current_item_path').attr('href', result.path).html(result.path).fadeIn();
-                $('#item_path_indicator').fadeIn();
+                $('#current_item_path').attr('href', result.path).html(result.path);
                 $('#text_part').val(result.part);
-
-                structure.setMarkerToActivePosition();
             }
         });
     },
@@ -774,19 +818,16 @@ var structure = {
         this.blocksInput.init();
     },
 
-    openStructureItem: function(leaf_id){
-        $('.tree li.active').removeClass('active');
+    openStructureItem: function(id){
+        if(structure.current_node_id != id){
+            var $tree = $('#tree'),
+                node = $tree.tree('getNodeById', id);
 
-        var parent = $('li#leaf_'+leaf_id);
+            if(node){
+                $tree.tree('selectNode', node, true);
+                structure.setMarkerToActivePosition($(node.element), 0);
+            };
 
-        //$('.arrow_hider').remove();
-
-        //parent.parents().find('>i.arrow').after('<div class="arrow_hider"></div>');
-
-        parent.addClass('active');
-        this.setMarkerToActivePosition(150);
-
-        if(this.current_leaf_opened != leaf_id){
             if(structure.item_request != null){
                 structure.item_request.abort();
                 core.loading.unsetHeaderLoading($('#primary_content_header'));
@@ -805,12 +846,13 @@ var structure = {
                         type: 'get',
                         data: {
                             action: 'get_node_data',
-                            id: leaf_id
+                            id: id
                         },
                         dataType: 'json',
                         beforeSend: function(){
                             core.loading.setHeaderLoading($('#primary_content_header'));
                             structure.resizeing();
+                            $('#item_path_indicator').fadeOut(100)
                         },
                         success: function(data){
                             setTimeout(function(){
@@ -819,8 +861,9 @@ var structure = {
                                 if(data.node_data != null){
                                     structure.createEditItemForm(data);
                                     structure.resizeing();
+                                    $('#item_path_indicator').fadeIn(100);
                                 }else{
-                                    $('#form').html('<div class="alert alert-warning">Узла с ID '+leaf_id+' не существует. Выберите или создайте другой узел.</div>');
+                                    $('#form').html('<p class="no_items">Узла с ID '+id+' не существует. Выберите другой или создайте новый узел.</p>');
                                     $('#item_name').html('Редактор узла');
                                 };
 
@@ -836,28 +879,32 @@ var structure = {
                         }
                     });
 
-                    structure.current_leaf_opened = leaf_id;
+                    structure.current_node_id = id;
                 }
             });
         };
     },
 
-    setMarkerToActivePosition: function(speed){
-        var tree_active_item = $('.tree li.active a'),
-            maker            = $('#active_tree_item_marker');
+    setMarkerToActivePosition: function(o, speed){
+        var tree_active_item = null;
 
-        this.showHideMarker();
+        if(o){
+            tree_active_item = o;
+        }else if($('#tree .selected').length > 0){
+            tree_active_item = $('#tree li.selected');
+        };
 
-        if(tree_active_item.length > 0){
-            var top     = tree_active_item.offset().top - $('.tree').offset().top + 8,
-                height  = tree_active_item.height() + 4;
+        if(tree_active_item != null){
+            tree_active_item.addClass('active');
 
-            if(maker.css('opacity') <= 0){
-                maker.css({
-                    top     : top,
-                    height  : height
-                });
-            };
+            var maker   = $('#active_tree_item_marker'),
+                top     = tree_active_item.offset().top - $('#tree').offset().top + 2,
+                height  = tree_active_item.find('>div').height() + 3;
+
+            maker.css({
+                top     : top,
+                height  : height
+            });
 
             maker.animate({
                 top     : top,
@@ -875,63 +922,79 @@ var structure = {
     },
 
     drawTree: function(){
-        var init_id;
+        $.ajax({
+            url         : '/admin/structure/?ajax&action=get_tree',
+            type        : 'GET',
+            dataType    : 'json',
+            beforeSend  : function(){
+                core.loading.setHeaderLoading($('#secondary_content_header'));
+            },
+            success     : function(result){
+                setTimeout(function(){
+                    core.loading.unsetHeaderLoading($('#secondary_content_header'));
 
-        if(structure.getIdFromHash() > 0){
-            init_id = 'item_'+structure.getIdFromHash();
-        };
+                    var $tree = $('#tree').tree({
+                        data        : result,
+                        saveState   : true,
+                        dragAndDrop : true,
+                        selectable  : true
+                    });
 
-        $("#tree").jstree({
-            "core" : {
-                "initially_open" : [init_id],
-                "animation" : 200
-            },
-            "json_data" : {
-                "ajax" : {
-                    "url" : "/admin/structure/?ajax&action=get_tree",
-                    "data" : function (n) {
-                        return { id : n.attr ? n.attr("id") : 0 };
-                    }
-                }
-            },
-            "ui" : {
-                "select_limit" : 1,
-                "initially_select" : [init_id]
-            },
-            "dnd" : {
-                "drop_finish" : function () {
-                    alert("DROP");
-                },
-                "drag_check" : function (data) {
-                    if(data.r.attr("id") == "phtml_1") {
-                        return false;
-                    }
-                    return {
-                        after : false,
-                        before : false,
-                        inside : true
+                    $tree.bind('tree.click', function(event) {
+                        var node = event.node;
+
+                        document.location.hash = node.id;
+
+                        if($('#active_tree_item_marker').length == 0){
+                            $tree.append('<div id="active_tree_item_marker"></div>');
+                        };
+
+                        structure.setMarkerToActivePosition($(node.element), 0);
+
+                        return true;
+                    });
+
+                    $('#tree .toggler').on('click', function(){
+                        if(!$(this).hasClass('closed') && $(this).parent().parent().find('.selected').length > 0){
+                            $('#active_tree_item_marker').remove();
+                            $tree.tree('selectNode', null, true);
+                            document.location.hash = '';
+                        };
+                    });
+
+                    if(structure.getIdFromHash() > 0){
+                        var node = $tree.tree('getNodeById', structure.getIdFromHash());
+                        $tree.tree('selectNode', node, true);
+
+                        if($('#active_tree_item_marker').length == 0){
+                            $tree.append('<div id="active_tree_item_marker"></div>');
+                        };
+
+                        structure.setMarkerToActivePosition($(node.element), 0);
+                    }else{
+                        $tree.tree('selectNode', null, true);
                     };
-                },
-                "drag_finish" : function (data) {
-                    alert("DRAG OK");
-                }
-            },
-            "themes" : {
-                "theme" : "default",
-                "dots" : false,
-                "icons" : false
-            },
-            "plugins" : [
-                "themes",
-                "json_data",
-                "ui",
-                "cookies",
-                "dnd",
-                "types",
-                "themes"
-            ]
-        }).bind("select_node.jstree", function(event, data){
-            window.location.hash = $(data.rslt.obj[0]).attr('rel');
+
+                    $tree.append('<div id="hover_marker"></div>');
+
+                    $('#tree li>div').hover(function(){
+                        $('#hover_marker').show();
+
+                        var maker   = $('#hover_marker'),
+                            top     = $(this).offset().top - $('#tree').offset().top + 3,
+                            height  = $(this).height() + 3;
+
+                        maker.css({
+                            top     : top,
+                            height  : height
+                        });
+
+                    }, function(){
+                        $('#hover_marker').hide();
+                    });
+
+                }, 450);
+            }
         });
     },
 
@@ -941,9 +1004,7 @@ var structure = {
             '/admin/resources/img/icons/micro_spinner.gif'
         ]);
 
-        $('.tree_holder').disableSelection();
         this.readBranchesConditions();
-        this.setMarkerToActivePosition(0);
         this.binds();
         this.resizeing();
         this.openItemByHash();
@@ -951,7 +1012,7 @@ var structure = {
     },
 
     resizeing: function(){
-        this.setMarkerToActivePosition(0);
+
     }
 };
 

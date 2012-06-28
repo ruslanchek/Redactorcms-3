@@ -922,6 +922,10 @@ a.button:active {
         float: right;
     }
 
+    .form label.checkbox input {
+        vertical-align: middle;
+    }
+
 	.form .separator {
 		height: 1px;
 		font-size: 0;
@@ -2594,9 +2598,10 @@ ul#tag_tree li {
 	border-bottom: 1px solid #ccc;
 }
 
-
-
-#top_actions {
-    margin: 0 0 1em;
-    height: 30px;
+.no_items {
+    text-align: center;
+    padding: 30px;
+    font-size: 20px;
+    color: #999;
+    line-height: 1.3em;
 }

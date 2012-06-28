@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-27 12:07:05
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-28 15:10:27
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40444fd07edd159ad3-17617668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1340784418,
+      1 => 1340881819,
       2 => 'file',
     ),
   ),
@@ -36,6 +36,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/chosen/chosen.css" media="all" />
+        <link rel="stylesheet" href="/admin/resources/plugins/jqtree/jqtree.css" media="all" />
         <link rel="stylesheet" href="/admin/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 /css/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 .css" media="all" />
@@ -44,7 +45,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <script src="/admin/resources/js/jquery.cookie.js"></script>
         <script src="/admin/resources/bootstrap/js/bootstrap.min.js"></script>
         <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
-        <script src="/admin/resources/plugins/jstree/jquery.jstree.js"></script>
+        <script src="/admin/resources/plugins/jqtree/tree.jquery.js"></script>
         <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
         <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
         <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>

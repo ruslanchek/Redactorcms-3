@@ -1,5 +1,3 @@
-<h1 class="title selectable" id="item_name"></h1>
-
 <div class="left_col">
     <div class="right_block">
         <h2 id="primary_content_header">
@@ -17,11 +15,13 @@
 <div id="content-secondary" class="right_col">
     <div class="right_block">
         <h2 id="secondary_content_header">
-            <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить дочерний узел"></b></a>
-            <a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранный узел и все его дочерние узлы"></b></a>
+            <a id="add_item" style="display: none" href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить дочерний узел"></b></a>
+            <a id="remove_item" style="display: none" href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранный узел и все его дочерние узлы"></b></a>
             <div class="clear"></div>
         </h2>
-        <div class="inner" id="tree"></div>
+        <div id="tree">
+            <p class="no_items">Загрузка узлов...</p>
+        </div>
     </div>
 </div>
 

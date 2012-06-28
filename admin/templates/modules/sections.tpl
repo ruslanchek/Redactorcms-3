@@ -19,7 +19,7 @@
                 core.tableZebra($('.list .table_wrap>table'));
             </script>
             {else}
-                <p>ыыы</p>
+                <p class="no_items">Выберите нужный раздел справа, чтобы увидеть его содержимое</p>
             {/if}
         </div>
     </div>

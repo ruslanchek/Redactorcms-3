@@ -170,10 +170,13 @@ core.keyboard = {
 
 core.loading = {
     setHeaderLoading: function(header_obj){
+        header_obj.data('actions', header_obj.find('a:visible'));
+        header_obj.data('actions').fadeOut(80);
         header_obj.addClass('loading');
     },
 
     unsetHeaderLoading: function(header_obj){
+        header_obj.data('actions').fadeIn(80);
         header_obj.removeClass('loading');
     },
 

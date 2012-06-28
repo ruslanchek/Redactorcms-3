@@ -66,7 +66,7 @@
                     }; break;
 
                     case 'addchild' : {
-                        $this->insertNode($_GET['id']);
+                        print $this->insertNode($_GET['id']);
                     }; break;
 
                     case 'move' : {
@@ -223,7 +223,7 @@
                     WHERE
                         `structure`.`pid` = ".intval($result['pid'])." &&
                         `structure_data`.`part` = '".$this->db->quote($part)."' &&
-                        `structure`.`id` NOT IN (".$this->db->quote($id).") &&
+                        `structure`.`id` != ".intval($id)." &&
                         `structure`.`id` = `structure_data`.`id`
                 ";
             }else{
@@ -350,7 +350,7 @@
             $this->db->query($query);
 
 
-            $id = $this->getMysqlInsertId();
+            $id = $this->db->getMysqlInsertId();
 
             $query = "
                 INSERT INTO `structure_data`
@@ -375,7 +375,9 @@
                 SET
                     `part` = '".$this->db->quote($part)."',
                     `path` = '".$this->db->quote($path)."',
-                    `name` = '".$this->db->quote($new_item_name)."'
+                    `name` = '".$this->db->quote($new_item_name)."',
+                    `blocks` = '[]',
+                    `main_block` = '{\"module\":1,\"module_mode\":1,\"content_id\":3,\"mode_template\":\"page.simple.tpl\"}'
                 WHERE
                     `id` = ".intval($id);
 
@@ -504,8 +506,7 @@
                     `structure`.`id`,
                     `structure_data`.`sort`,
                     `structure_data`.`name`,
-                    `structure_data`.`publish`,
-                    `structure_data`.`main_block`
+                    `structure_data`.`publish`
                 FROM
                     `structure`,
                     `structure_data`
@@ -521,9 +522,6 @@
 
             while($row = $sql->fetch_assoc()){
                 $row['children'] = $this->getBranchArray($row['id']);
-                $row['data'] = $row['name'];
-                $row['attr'] = array('id' => 'item_'.$row['id'], 'rel' => $row['id']);
-                $row['metadata'] = array('id' => $row['id']);
                 $result[] = $row;
             };
 

@@ -1,0 +1,146 @@
+ul.tree {
+    padding: 3px 10px 5px 26px;
+}
+
+ul.tree,
+ul.tree ul {
+    list-style: none outside;
+    margin-bottom: 0;
+}
+
+ul.tree ul {
+    display: block;
+    margin-left: 12px;
+    margin-right: 0;
+}
+
+ul.tree li.closed > ul {
+    display: none;
+}
+
+ul.tree li {
+    clear: both;
+}
+
+ul.tree .toggler {
+    background-image: url(jqtree-icons.png);
+    background-repeat: no-repeat;
+    background-position: -8px 0;
+    width: 8px;
+    height: 8px;
+    display: block;
+    position: absolute;
+    left: -15px;
+    top: 40%;
+    text-indent: -9999px;
+    border-bottom: none;
+}
+
+ul.tree div {
+    cursor: pointer;
+    padding: 3px 0;
+}
+
+ul.tree .title {
+    color: #1C4257;
+    vertical-align: middle;
+}
+
+ul.tree li.folder {
+    margin-bottom: 0;
+}
+
+ul.tree li.folder.closed {
+    margin-bottom: 0px;
+}
+
+ul.tree li.folder .title {
+    margin-left: 0;
+}
+
+ul.tree .toggler.closed {
+    background-position: 0 0;
+}
+
+span.tree-dragging {
+    color: #fff;
+    font-weight: bold;
+    background: #999;
+    opacity: 0.85;
+    cursor: pointer;
+    padding: 2px 8px;
+    text-shadow: 0 -1px 0 #555;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.4);
+    z-index: 4;
+}
+
+ul.tree li.ghost {
+    position: relative;
+    z-index: 10;
+    margin-right: 10px;
+}
+
+ul.tree li.ghost span {
+    display: block;
+}
+
+ul.tree li.ghost span.circle {
+    background-image: url(jqtree-icons.png);
+    background-repeat: no-repeat;
+    background-position: 0 -8px;
+    height: 8px;
+    width: 8px;
+    position: absolute;
+    top: -4px;
+    left: 2px;
+}
+
+ul.tree li.ghost span.line {
+    background-color: #999;
+    height: 2px;
+    padding: 0;
+    position: absolute;
+    top: -1px;
+    left: 10px;
+    width: 100%;
+}
+
+ul.tree li.ghost.inside {
+    margin-left: 48px;
+}
+
+ul.tree span.tree-hit {
+    position: absolute;
+    display: block;
+}
+
+ul.tree span.border {
+    position: absolute;
+    display: block;
+    left: -5px;
+    top: 3px;
+    border: solid 2px #999;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 0;
+    padding: 1px 3px 1px 0;
+}
+
+ul.tree div {
+    width: 100%;
+    position: relative;
+}
+
+ul.tree li.selected > div,
+ul.tree li.selected > div:hover {
+    left: 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+ul.tree .moving > div .title {
+    opacity: 0.4;
+}
