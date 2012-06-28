@@ -2,12 +2,26 @@
     //error_reporting(E_ALL | E_STRICT);
 
     Class Config{
+        public function __construct(){
+
+        }
+
+        private function addModule($o){
+
+        }
+
         //DB params
         public $db_vars = array(
             'host'  => 'localhost',
             'db'    => 'rdclite',
             'user'  => 'root',
-            'pass'  => ''
+            'pass'  => '123'
+        );
+
+        public $modules_groups = array(
+            array('id' => 1, 'title' => 'Структура',    'modules' => array(1, 2)),
+            array('id' => 2, 'title' => 'Публикации',   'modules' => array(3, 4)),
+            array('id' => 2, 'title' => 'Каталог',      'modules' => array(5)),
         );
 
         //Modules
@@ -139,7 +153,7 @@
                         'action'    => false,
                         'template'  => 'catalog.categories.tpl'
                     )
-            )),
+            ))
         );
     };
 ?>

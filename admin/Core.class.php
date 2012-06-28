@@ -12,8 +12,9 @@
             $main_menu = array(
                 array('name' => 'structure',    'title' => 'Структура'),
                 array('name' => 'sections',     'title' => 'Разделы'),
-                array('name' => 'templates',    'title' => 'Шаблоны'),
+                array('name' => 'shop',         'title' => 'Магазин'),
                 array('name' => 'users',        'title' => 'Пользователи'),
+                array('name' => 'templates',    'title' => 'Шаблоны'),
                 array('name' => 'config',       'title' => 'Настройка')
             );
 

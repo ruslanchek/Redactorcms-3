@@ -34,12 +34,19 @@
         </h2>
         <div class="inner sections_inner">
             <ul class="sections_menu">
-                {foreach from=$core->config->modules item=item}
-                    {if $item.name == $smarty.get.section}
-                        <li class="active"><b>{$item.title}</b></li>
-                    {else}
-                        <li><a href="/admin/sections?section={$item.name}">{$item.title}</a></li>
-                    {/if}
+                {foreach $core->config->modules_groups as $group}
+                    {assign var="i" value=0}
+                    {foreach $core->config->modules as $item}
+                        {if in_array($item.id, $group.modules)}
+                            {if $i == 0}<li class="separator">{$group.title}</li>{/if}
+                            {if $item.name == $smarty.get.section}
+                                <li class="active"><b>{$item.title}</b></li>
+                            {else}
+                                <li><a href="/admin/sections?section={$item.name}">{$item.title}</a></li>
+                            {/if}
+                            {$i = $i + 1}
+                        {/if}
+                    {/foreach}
                 {/foreach}
             </ul>
         </div>
