@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-28 15:10:27
+<?php /* Smarty version Smarty-3.1.7, created on 2012-06-28 21:17:41
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40444fd07edd159ad3-17617668%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1340881819,
+      1 => 1340903860,
       2 => 'file',
     ),
   ),
@@ -31,7 +31,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <link rel="stylesheet" href="/admin/resources/bootstrap/css/bootstrap.min.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/css/core.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
@@ -43,7 +42,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <script src="/admin/resources/js/jquery.js"></script>
 
         <script src="/admin/resources/js/jquery.cookie.js"></script>
-        <script src="/admin/resources/bootstrap/js/bootstrap.min.js"></script>
         <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
         <script src="/admin/resources/plugins/jqtree/tree.jquery.js"></script>
         <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>

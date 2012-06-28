@@ -45,6 +45,14 @@ p:last-child { margin: 0; }
 
 .cl, .clear { clear: both; }
 
+/* Loadings */
+body i.loading.micro {
+    display: block;
+    background: url(../img/icons/spinner_transparent_small.gif);
+    width: 18px;
+    height: 18px;
+}
+
 /* Links */
 a:link,
 a:visited { color: #1e69a4; }

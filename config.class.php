@@ -53,7 +53,7 @@
                     array(
                         'id'        => 1,
                         'title'     => 'HTML-страница',
-                        'action'    => 'get_pages',
+                        'action'    => 'pages',
                         'template'  => 'page.simple.tpl'
                     )
             )),
@@ -67,13 +67,13 @@
                         'id'        => 1,
 
                         'title'     => 'Одноуровневое',
-                        'action'    => 'get_menu_list',
+                        'action'    => 'menu',
                         'template'  => 'menu.one_level.tpl'
                     ),
                     array(
                         'id'        => 2,
                         'title'     => 'Многоуровневое',
-                        'action'    => 'get_menu_list',
+                        'action'    => 'menu',
                         'template'  => 'menu.multi_level.tpl'
                     )
             )),
@@ -86,7 +86,7 @@
                     array(
                         'id'        => 2,
                         'title'     => 'Линейка',
-                        'action'    => 'get_news_section',
+                        'action'    => 'news',
                         'template'  => 'news.section_items.tpl'
                     ),
                     array(
@@ -111,7 +111,7 @@
                     array(
                         'id'        => 2,
                         'title'     => 'Альбом',
-                        'action'    => 'get_albums',
+                        'action'    => 'albums',
                         'template'  => 'gallery.album.tpl'
                     ),
                     array(
@@ -130,7 +130,7 @@
                     array(
                         'id'        => 1,
                         'title'     => 'Список содержимого категории',
-                        'action'    => 'get_categories',
+                        'action'    => 'categories',
                         'template'  => 'catalog.category_items.tpl'
                     ),
                     array(

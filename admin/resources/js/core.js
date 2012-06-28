@@ -754,7 +754,8 @@ core.form = {
     //Рисование текстового поля
     drawSelectInput: function(data){
         var id      =   'select_' + data.name,
-            options =   '<option value="">&mdash;</option>';
+            options =   '',
+            multiple = '';
 
         for(var i = 0, l = data.options.length; i < l; i++){
             var selected = new String();
@@ -766,10 +767,14 @@ core.form = {
             options += '<option '+selected+' value="'+data.options[i].id+'">'+data.options[i].name+'</option>';
         };
 
+        if(data.multiple_mode){
+            multiple = 'multiple';
+        };
+
         var html    =   '<div class="item_block">' +
                             '<label class="label" for="' + id + '">' + data.label + '</label>' +
                             '<div class="controls">' +
-                                '<select id="' + id + '" name="'+data.name+'">' +
+                                '<select '+multiple+' id="' + id + '" name="'+data.name+'">' +
                                     options +
                                 '</select>' +
                             '</div>' +

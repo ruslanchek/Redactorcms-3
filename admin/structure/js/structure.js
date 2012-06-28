@@ -139,7 +139,10 @@ var structure = {
 
             if(module_mode.action !== false){
                 $.ajax({
-                    url         : '/admin/structure/?ajax&action='+module_mode.action,
+                    url         : '/admin/structure/?ajax&action=get_content_items',
+                    data        : {
+                        module_action: module_mode.action
+                    },
                     type        : 'GET',
                     dataType    : 'json',
                     beforeSend  : function(){

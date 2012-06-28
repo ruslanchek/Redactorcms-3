@@ -17,12 +17,8 @@
 
             if($this->ajax_mode){
                 switch($_GET['action']){
-                    case 'get_albums' : {
-                        print json_encode($this->getAlbums());
-                    }; break;
-
-                    case 'get_pages' : {
-                        print json_encode($this->getPages());
+                    case 'get_content_items' : {
+                        print json_encode($this->getContentItems($_GET['module_action']));
                     }; break;
 
                     case 'check_part_ajax' : {
@@ -100,25 +96,13 @@
         }
 
         //Get albums
-        private function getAlbums(){
+        private function getContentItems($action){
             $query = "
                 SELECT
                     `id`,
                     `name`
                 FROM
-                    `gallery_albums`
-            ";
-
-            return $this->db->assocMulti($query);
-        }
-
-        private function getPages(){
-            $query = "
-                SELECT
-                    `id`,
-                    `name`
-                FROM
-                    `pages`
+                    `".$this->db->quote($action)."`
             ";
 
             return $this->db->assocMulti($query);
@@ -661,7 +645,7 @@
                 SELECT
                     *
                 FROM
-                    `structure_menus`
+                    `menu`
             ";
 
             return $this->db->assocMulti($query);
