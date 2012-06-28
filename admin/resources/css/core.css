@@ -1908,6 +1908,11 @@ a.icon_dimensions_x:active { background: url(../img/icons/dimensions.png) -34px 
     display: block;
 }
 
+.sections_menu li a {
+    color: #1C4257;
+    text-decoration: none;
+}
+
 .sections_menu li:hover {
     border-top: 1px solid rgba(156, 165, 181, 0.25);
     border-bottom: 1px solid #CACDD3;
