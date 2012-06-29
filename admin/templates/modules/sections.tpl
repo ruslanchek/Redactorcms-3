@@ -12,12 +12,12 @@
         </h2>
         <div class="sections_content">
             {if $smarty.get.section}
-            {include file="common/list.tpl"}
+                {include file="common/list.tpl"}
 
-            <script>
-                section.setSortable();
-                core.tableZebra($('.list .table_wrap>table'));
-            </script>
+                <script>
+                    section.setSortable();
+                    core.tableZebra($('.list .table_wrap>table'));
+                </script>
             {else}
                 <p class="no_items">Выберите нужный раздел справа, чтобы увидеть его содержимое</p>
             {/if}
@@ -34,15 +34,15 @@
         </h2>
         <div class="inner sections_inner">
             <ul class="sections_menu">
-                {foreach $core->config->modules_groups as $group}
+                {foreach $core->config->groups as $group}
                     {assign var="i" value=0}
-                    {foreach $core->config->modules as $item}
-                        {if in_array($item.id, $group.modules)}
+                    {foreach $core->config->sections as $section}
+                        {if $section.group_name == $group.name}
                             {if $i == 0}<li class="separator">{$group.title}</li>{/if}
-                            {if $item.name == $smarty.get.section}
-                                <li class="active"><b>{$item.title}</b></li>
+                            {if $section.name == $smarty.get.section}
+                                <li class="active"><b>{$section.title}</b></li>
                             {else}
-                                <li><a href="/admin/sections?section={$item.name}">{$item.title}</a></li>
+                                <li><a href="/admin/sections?section={$section.name}">{$section.title}</a></li>
                             {/if}
                             {$i = $i + 1}
                         {/if}

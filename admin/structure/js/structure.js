@@ -576,7 +576,7 @@ var structure = {
     addItem: function(){
         if(structure.current_node_id > 0){
             this.add_item_request = $.ajax({
-                url         : '/admin/structure/?ajax&action=addchild',
+                url         : '/admin/structure/?ajax&action=add_child',
                 data        : {
                     id      : structure.current_node_id
                 },
@@ -599,6 +599,44 @@ var structure = {
                             id: result,
                             label: 'Узел ' + result + ' (новый)'
                         }, parent_node);
+
+                        $tree.tree('selectNode', $tree.tree('getNodeById', result), true);
+
+                        document.location.hash = result;
+                    }, 450);
+                }
+            });
+        };
+    },
+
+    delItem: function(id){
+        if(structure.current_node_id > 0){
+            this.del_item_request = $.ajax({
+                url         : '/admin/structure/?ajax&action=del_child',
+                data        : {
+                    id      : id
+                },
+                type        : 'GET',
+                beforeSend  : function(){
+                    if(structure.del_item_request != null){
+                        structure.del_item_request.abort();
+                    };
+
+                    core.loading.setHeaderLoading($('#secondary_content_header'));
+                },
+                success     : function(result){
+                    setTimeout(function(){
+                        core.loading.unsetHeaderLoading($('#secondary_content_header'));
+
+                        var $tree = $('#tree'),
+                            node = $tree.tree('getNodeById', id);
+
+                        $tree.tree('removeNode', node);
+
+                        document.location.hash = '';
+
+                        $('#add_item, #remove_item').hide(120);
+                        $('#active_tree_item_marker').remove();
                     }, 450);
                 }
             });
@@ -616,15 +654,7 @@ var structure = {
 
         $('#remove_item').on('click', function(){
             if(confirm('Удалить узел и все его дочерние узлы?')){
-                var $tree = $('#tree'),
-                    node = $tree.tree('getNodeById', structure.current_node_id);
-
-                $tree.tree('removeNode', node);
-
-                document.location.hash = '';
-
-                $('#add_item, #remove_item').hide(120);
-                $('#active_tree_item_marker').remove();
+                structure.delItem(structure.current_node_id);
             };
         });
 
@@ -725,8 +755,7 @@ var structure = {
 
                 $(node.element).find('span:first').text(data.name);
 
-                $('#current_item_path').attr('href', result.path).html(result.path);
-                $('#text_part').val(result.part);
+                $('#item_path_indicator').attr('href', result.path).html(result.path);
             }
         });
     },

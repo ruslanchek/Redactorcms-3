@@ -57,11 +57,11 @@
                         ));
                     }; break;
 
-                    case 'delete' : {
+                    case 'del_child' : {
                         $this->deleteNode($_GET['id']);
                     }; break;
 
-                    case 'addchild' : {
+                    case 'add_child' : {
                         print $this->insertNode($_GET['id']);
                     }; break;
 
@@ -80,6 +80,7 @@
 
                 exit;
             };
+
 
             /*
                 DO NOT UNCOMMENT, THIS IS A DEBUG METHODS,
@@ -118,7 +119,7 @@
             while($i < $leafs){
                 $i++;
 
-                $result = $this->getRandomItems('structure', 1, array('id'));
+                $result = $this->db->getRandomItems('structure', 1, array('id'));
 
                 $this->insertNode($result[0]['id']);
             };

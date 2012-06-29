@@ -1,31 +1,213 @@
 <?php
     //error_reporting(E_ALL | E_STRICT);
+    Class Module{
+        private $data;
+
+        public function __construct($id, $name, $title){
+            $this->data = array(
+                'id'            => $id,
+                'name'          => $name,
+                'title'         => $title,
+                'modes'         => array()
+            );
+        }
+
+        public function mode($m){
+            array_push($this->data['modes'], (array) $m);
+        }
+
+        public function getData(){
+            return $this->data;
+        }
+    }
+
+
+    Class Section{
+        private $data;
+
+        public function __construct($name, $title, $group_name){
+            $this->data = array(
+                'name'          => $name,
+                'title'         => $title,
+                'group_name'    => $group_name,
+                'fields'        => array()
+            );
+        }
+
+        public function field($f){
+            array_push($this->data['fields'], (array) $f);
+        }
+
+        public function getData(){
+            return $this->data;
+        }
+    }
+
+
+    Class Group{
+        private $data;
+
+        public function __construct($name, $title){
+            $this->data = array(
+                'name'          => $name,
+                'title'         => $title
+            );
+
+            $this->getData();
+        }
+
+        public function getData(){
+            return $this->data;
+        }
+    }
+
 
     Class Config{
-        public function __construct(){
-
-        }
-
-        private function addModule($o){
-
-        }
+        public
+            $modules,
+            $sections,
+            $groups;
 
         //DB params
         public $db_vars = array(
             'host'  => 'localhost',
             'db'    => 'rdclite',
             'user'  => 'root',
-            'pass'  => '123'
+            'pass'  => ''
         );
 
-        public $modules_groups = array(
-            array('id' => 1, 'title' => 'Структура',    'modules' => array(1, 2)),
-            array('id' => 2, 'title' => 'Публикации',   'modules' => array(3, 4)),
-            array('id' => 2, 'title' => 'Каталог',      'modules' => array(5)),
-        );
+        public function __construct(){
+            /*******************************************************************************
+             * Modules
+            */
+
+            //Pages
+            $mo = new Module(1, 'pages', 'Страницы');
+
+            $md             = new stdClass();
+            $md->id         = 1;
+            $md->title      = 'HTML-страница';
+            $md->action     = 'pages';
+            $md->template   = 'page.simple.tpl';
+            $mo->mode($md);
+
+            $this->modules[] = $mo->getData();
+
+
+            //Menu
+            $mo = new Module(2, 'menu', 'Меню');
+
+            $md             = new stdClass();
+            $md->id         = 1;
+            $md->title      = 'Одноуровневое';
+            $md->action     = 'menu';
+            $md->template   = 'menu.one_level.tpl';
+            $mo->mode($md);
+
+            $md             = new stdClass();
+            $md->id         = 2;
+            $md->title      = 'Многоуровневое';
+            $md->action     = 'menu';
+            $md->template   = 'menu.multi_level.tpl';
+            $mo->mode($md);
+
+            $this->modules[] = $mo->getData();
+
+
+            /*******************************************************************************
+             * Groups
+            */
+            $g = new Group('structure', 'Структура');
+            $this->groups[] = $g->getData();
+
+            $g = new Group('publications', 'Публикации');
+            $this->groups[] = $g->getData();
+
+            $g = new Group('catalog', 'Каталог');
+            $this->groups[] = $g->getData();
+
+
+            /*******************************************************************************
+             * Sections
+            */
+            //Pages
+            $s = new Section('pages', 'Страницы', 'structure');
+
+            $f              = new stdClass();
+            $f->name        = 'id';
+            $f->label       = 'Код';
+            $f->type        = 'hidden';
+            $f->list        = true;
+            $f->width       = '1%';
+            $f->align       = 'center';
+            $s->field($f);
+
+
+            $f              = new stdClass();
+            $f->name        = 'name';
+            $f->label       = 'Название';
+            $f->type        = 'text';
+            $f->list        = true;
+            $f->link        = true;
+            $f->width       = '98%';
+            $f->align       = 'left';
+            $f->validate    = array(
+                                array(
+                                    'method'    => 'required',
+                                    'message'   => 'Заполните название'
+                                )
+                              );
+            $s->field($f);
+
+
+            $f              = new stdClass();
+            $f->name        = 'publish';
+            $f->label       = 'Публиковать';
+            $f->type        = 'checkbox';
+            $f->list        = true;
+            $f->link        = true;
+            $f->width       = '1%';
+            $f->align       = 'center';
+            $s->field($f);
+
+
+            $this->sections[] = $s->getData();
+
+            //Menu
+            $s = new Section('menu', 'Меню', 'structure');
+
+            $f              = new stdClass();
+            $f->name        = 'id';
+            $f->label       = 'Код';
+            $f->type        = 'hidden';
+            $f->list        = true;
+            $f->width       = '1%';
+            $f->align       = 'center';
+            $s->field($f);
+
+
+            $f              = new stdClass();
+            $f->name        = 'name';
+            $f->label       = 'Название';
+            $f->type        = 'text';
+            $f->list        = true;
+            $f->link        = true;
+            $f->width       = '98%';
+            $f->align       = 'left';
+            $f->validate    = array(
+                                array(
+                                    'method'    => 'required',
+                                    'message'   => 'Заполните название'
+                                )
+                              );
+            $s->field($f);
+
+
+            $this->sections[] = $s->getData();
+        }
 
         //Modules
-        public $modules = array(
+        /*$modules = array(
             array(
                 'id'    => 1,
                 'name'  => 'pages',
@@ -154,6 +336,6 @@
                         'template'  => 'catalog.categories.tpl'
                     )
             ))
-        );
+        );*/
     };
 ?>

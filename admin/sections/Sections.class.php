@@ -16,9 +16,9 @@
         }
 
         private function getSection($section){
-            foreach($this->config->modules as $module){
-                if($section == $module['name']){
-                    return $module;
+            foreach($this->config->sections as $s){
+                if($section == $s['name']){
+                    return $s;
                 };
             };
         }

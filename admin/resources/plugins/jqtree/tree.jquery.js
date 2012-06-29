@@ -1694,13 +1694,16 @@ limitations under the License.
           }
           event = $.Event('tree.open');
           event.node = _this.node;
+
+            structure.setMarkerToActivePosition();
+
           return _this.tree_element.trigger(event);
         };
         if (skip_slide) {
           this.getUl().show();
           return doOpen();
         } else {
-          return this.getUl().slideDown('fast', doOpen);
+          return this.getUl().slideDown(100, doOpen);
         }
       }
     };
@@ -1716,13 +1719,14 @@ limitations under the License.
           _this.getLi().addClass('closed');
           event = $.Event('tree.close');
           event.node = _this.node;
+            structure.setMarkerToActivePosition();
           return _this.tree_element.trigger(event);
         };
         if (skip_slide) {
           this.getUl().hide();
           return doClose();
         } else {
-          return this.getUl().slideUp('fast', doClose);
+          return this.getUl().slideUp(100, doClose);
         }
       }
     };
