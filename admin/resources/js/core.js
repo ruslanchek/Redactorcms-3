@@ -715,14 +715,14 @@ core.form = {
     drawTextarea: function(data){
         var id          =   'textarea_' + data.name,
             collapsed   =   (data.collapsed) ? 'collapsed' : '',
-            html        =   '<label>' +
-                                data.label +
-                                '<div class="textarea input_holder '+collapsed+'">' +
+            html        =   '<div class="item_block">' +
+                                '<label class="label" for="'+id+'">' + data.label + '</label>' +
+                                '<div class="controls">' +
                                     '<textarea id="' + id + '" name="'+data.name+'" rows="' + data.rows + '">' +
                                         core.utilities.jsonNullToEmptyString(this.options.data[data.name]) +
                                     '</textarea>' +
                                 '</div>' +
-                            '</label>';
+                            '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
 

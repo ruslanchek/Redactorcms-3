@@ -603,7 +603,7 @@ var structure = {
                         $tree.tree('selectNode', $tree.tree('getNodeById', result), true);
 
                         document.location.hash = result;
-                    }, 450);
+                    }, 250);
                 }
             });
         };
@@ -637,7 +637,7 @@ var structure = {
 
                         $('#add_item, #remove_item').hide(120);
                         $('#active_tree_item_marker').remove();
-                    }, 450);
+                    }, 250);
                 }
             });
         };
@@ -732,7 +732,7 @@ var structure = {
                 setTimeout(function(){
                     core.loading.unsetHeaderLoading($('#primary_content_header'));
                     core.form.formReady({status: true, message: 'Данные сохранены!'});
-                }, 450);
+                }, 250);
 
                 var status_class,
                     module_icon_class,
@@ -847,6 +847,21 @@ var structure = {
             structure.blocksInput.drawBlocks();
         });
 
+        core.form.drawTextInput({
+            label       : 'Титул',
+            name        : 'seo_title'
+        });
+
+        core.form.drawTextarea({
+            label       : 'Ключевые слова',
+            name        : 'seo_keywords'
+        });
+
+        core.form.drawTextarea({
+            label       : 'Описание',
+            name        : 'seo_description'
+        });
+
         this.blocksInput.init();
     },
 
@@ -907,7 +922,7 @@ var structure = {
                                         opacity : 'easeOutExpo'
                                     }
                                 });
-                            }, 450);
+                            }, 250);
                         }
                     });
 
@@ -1025,7 +1040,7 @@ var structure = {
                         $('#hover_marker').hide();
                     });
 
-                }, 450);
+                }, 250);
             }
         });
     },

@@ -1,7 +1,6 @@
 <?php
     Class Core{
         protected
-            $template,
             $ajax_mode = false,
             $config;
 
@@ -96,24 +95,37 @@
             };
 
             $this->error_404 = true;
-            $this->template = '404.tpl';
+            $this->page->template->template_file = '404.tpl';
+        }
+
+        private function getPageContentData(){
+            $c = new stdClass();
+
+            $c->seo_title           = $this->page->data->seo_title          ? $this->page->data->seo_title          : $this->page->data->name;
+            $c->seo_keywords        = $this->page->data->seo_keywords       ? $this->page->data->seo_keywords       : $this->page->data->name;
+            $c->seo_description     = $this->page->data->seo_description    ? $this->page->data->seo_description    : $this->page->data->name;
+
+            return $c;
         }
 
         //Check route and if it present - return the data, otherwise trigger the 404 error
         private function checkAndSetRouteData(){
             $query = "
                 SELECT
-                    `s`.`id`            AS `id`,
-                    `s`.`pid`           AS `pid`,
-                    `sd`.`name`         AS `name`,
-                    `sd`.`path`         AS `path`,
-                    `sd`.`part`         AS `part`,
-                    `sd`.`menu_id`      AS `menu_id`,
-                    `sd`.`template_id`  AS `template_id`,
-                    `sd`.`blocks`       AS `blocks`,
-                    `sd`.`main_block`   AS `main_block`,
-                    `t`.`file`          AS `template_file`,
-                    `t`.`blocks`        AS `template_blocks`
+                    `s`.`id`                AS `id`,
+                    `s`.`pid`               AS `pid`,
+                    `sd`.`name`             AS `name`,
+                    `sd`.`path`             AS `path`,
+                    `sd`.`part`             AS `part`,
+                    `sd`.`menu_id`          AS `menu_id`,
+                    `sd`.`template_id`      AS `template_id`,
+                    `sd`.`blocks`           AS `blocks`,
+                    `sd`.`main_block`       AS `main_block`,
+                    `sd`.`seo_title`        AS `seo_title`,
+                    `sd`.`seo_keywords`     AS `seo_keywords`,
+                    `sd`.`seo_description`  AS `seo_description`,
+                    `t`.`file`              AS `template_file`,
+                    `t`.`blocks`            AS `template_blocks`
                 FROM
                     `structure` `s`
                 LEFT JOIN
@@ -125,15 +137,15 @@
                     `sd`.`publish` = 1
             ";
 
-            $data = $this->db->assocItem($query);
+            $this->page->data = (object) $this->db->assocItem($query);
 
-            if(!empty($data)){
-                $data['blocks']         = json_decode($data['blocks'], true);
-                $data['main_block']     = json_decode($data['main_block'], true);
-                $data['blocks_count']   = $data['template_blocks'];
+            if(!empty($this->page->data)){
+                $this->page->template->template_file        = $this->page->data->template_file;
+                $this->page->template->template_blocks      = $this->page->data->template_blocks;
+                $this->page->template->blocks               = json_decode($this->page->data->blocks, true);
+                $this->page->template->main_block           = json_decode($this->page->data->main_block, true);
 
-                $this->page->template = $data;
-                $this->template = $data['template_file'];
+                $this->page->content = $this->getPageContentData();
             }else{
                 $this->error404();
             };
@@ -153,16 +165,19 @@
             if(!$this->ajax_mode){
                 $this->checkAndSetRouteData();
                 $this->smarty->assign('core', $this);
-                $this->smarty->display($this->template);
+                $this->smarty->display($this->page->template->template_file);
             };
         }
 
         public function drawBlock($block_id){
-            if(intval($block_id) <= intval($this->page->template['blocks_count']) || $this->page->template['blocks_count'] == 'main'){
+            if(
+                intval($block_id) <= intval($this->page->template->template_blocks) ||
+                $this->page->template->template_blocks == 'main'
+            ){
                 if($block_id == 'main'){
-                    $block_obj = $this->page->template['main_block'];
+                    $block_obj = $this->page->template->main_block;
                 }else{
-                    foreach($this->page->template['blocks'] as $block){
+                    foreach($this->page->template->blocks as $block){
                         if($block['id'] == $block_id){
                             $block_obj = $block;
                         };
@@ -170,7 +185,6 @@
                 };
 
                 $this->smarty->assign('block', $block_obj);
-
                 return $this->smarty->fetch('blocks/'.$block_obj['mode_template']);
             };
         }

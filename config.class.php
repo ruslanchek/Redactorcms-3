@@ -25,11 +25,12 @@
     Class Section{
         private $data;
 
-        public function __construct($name, $title, $group_name){
+        public function __construct($id, $name, $title, $group_id){
             $this->data = array(
+                'id'            => $id,
                 'name'          => $name,
                 'title'         => $title,
-                'group_name'    => $group_name,
+                'group_id'      => $group_id,
                 'fields'        => array()
             );
         }
@@ -47,8 +48,9 @@
     Class Group{
         private $data;
 
-        public function __construct($name, $title){
+        public function __construct($id, $name, $title){
             $this->data = array(
+                'id'            => $id,
                 'name'          => $name,
                 'title'         => $title
             );
@@ -117,13 +119,13 @@
             /*******************************************************************************
              * Groups
             */
-            $g = new Group('structure', 'Структура');
+            $g = new Group(1, 'structure', 'Структура');
             $this->groups[] = $g->getData();
 
-            $g = new Group('publications', 'Публикации');
+            $g = new Group(2, 'publications', 'Публикации');
             $this->groups[] = $g->getData();
 
-            $g = new Group('catalog', 'Каталог');
+            $g = new Group(3, 'catalog', 'Каталог');
             $this->groups[] = $g->getData();
 
 
@@ -131,7 +133,7 @@
              * Sections
             */
             //Pages
-            $s = new Section('pages', 'Страницы', 'structure');
+            $s = new Section(1, 'pages', 'Страницы', 1);
 
             $f              = new stdClass();
             $f->name        = 'id';
@@ -174,7 +176,7 @@
             $this->sections[] = $s->getData();
 
             //Menu
-            $s = new Section('menu', 'Меню', 'structure');
+            $s = new Section(2, 'menu', 'Меню', 1);
 
             $f              = new stdClass();
             $f->name        = 'id';

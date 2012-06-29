@@ -37,7 +37,7 @@
                 {foreach $core->config->groups as $group}
                     {assign var="i" value=0}
                     {foreach $core->config->sections as $section}
-                        {if $section.group_name == $group.name}
+                        {if $section.group_id == $group.id}
                             {if $i == 0}<li class="separator">{$group.title}</li>{/if}
                             {if $section.name == $smarty.get.section}
                                 <li class="active"><b>{$section.title}</b></li>
