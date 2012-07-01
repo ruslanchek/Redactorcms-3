@@ -3,22 +3,31 @@
         <table>
             <tr>
                 {foreach $cols as $col}
-                <th width="{$col.data.width}" class="ta{$col.data.align}">{$col.data.label}</th>
+                    {if $col.data.name == 'publish'}
+
+                    {else}
+                        <th width="{$col.data.width}" class="ta{$col.data.align}">{$col.data.label}</th>
+                    {/if}
                 {/foreach}
+                <th></th>
             </tr>
 
             {foreach $list as $item}
             <tr>
                 {foreach from=$cols item=col key=col_iteration}
-                <td class="ta{$col.data.align}">
-                    {if $col_iteration == 0}<i class="sortable_hanler"></i>{/if}
-                    {if $col.data.link}
-                        <a href="?item_id={$item.id}">{$item[$col.name]}</a>
+                    {if $col.name == 'publish'}
                     {else}
-                        {$item[$col.name]}
+                        <td class="ta{$col.data.align}">
+                            {if $col_iteration == 0}<i class="sortable_hanler"></i>{/if}
+                            {if $col.data.link}
+                                <a href="?item_id={$item.id}">{$item[$col.name]}</a>
+                            {else}
+                                {$item[$col.name]}
+                            {/if}
+                        </td>
                     {/if}
-                </td>
                 {/foreach}
+                <td><input type="checkbox"></td>
             </tr>
             {/foreach}
         </table>
@@ -27,8 +36,8 @@
     <div class="pager">
         <span>
             <a href="#" class="larr">&larr;</a>
-            <a href="#">1</a>
-            <b>2</b>
+            <b>1</b>
+            <a href="#">2</a>
             <a href="#">3</a>
             <a href="#">4</a>
             <a href="#">5</a>

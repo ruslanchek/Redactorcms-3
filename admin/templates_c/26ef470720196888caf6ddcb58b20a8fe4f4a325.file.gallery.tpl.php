@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-03-12 20:28:47
+<?php /* Smarty version Smarty-3.1.7, created on 2012-07-01 10:53:52
          compiled from "Z:/home/loc/rdclite/admin/templates\modules\gallery.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:6694f5c5b59a615f0-21798287%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '26ef470720196888caf6ddcb58b20a8fe4f4a325' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\modules\\gallery.tpl',
-      1 => 1331564775,
+      1 => 1341124882,
       2 => 'file',
     ),
   ),

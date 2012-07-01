@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-04-11 13:09:45
+<?php /* Smarty version Smarty-3.1.7, created on 2012-07-01 10:52:39
          compiled from "Z:/home/loc/rdclite/admin/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:126154f5c5b57237dd5-02547425%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c06f354463092a1455dcda929e7dd69a435fef29' => 
     array (
       0 => 'Z:/home/loc/rdclite/admin/templates\\main.tpl',
-      1 => 1334059309,
+      1 => 1341124882,
       2 => 'file',
     ),
   ),
@@ -35,6 +35,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/iphone_checkboxes/style.css" media="all" />
+        <link rel="stylesheet" href="/admin/resources/plugins/chosen/chosen.css" media="all" />
         <link rel="stylesheet" href="/admin/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 /css/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 .css" media="all" />
@@ -46,12 +47,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
         <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>
         <script src="/admin/resources/plugins/iphone_checkboxes/iphone-style-checkboxes.js"></script>
+        <script src="/admin/resources/plugins/chosen/chosen.jquery.js"></script>
 
         <script src="/admin/resources/plugins/upload/js/vendor/jquery.ui.widget.js"></script>
         <script src="/admin/resources/plugins/upload/js/jquery.iframe-transport.js"></script>
         <script src="/admin/resources/plugins/upload/js/jquery.fileupload.js"></script>
 
         <script src="/admin/resources/js/core.js"></script>
+        <script src="/admin/resources/js/section.js"></script>
         <script src="/admin/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 /js/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 .js"></script>

@@ -24,6 +24,17 @@
 
             $this->dsmdl->add(
                 array(
+                    'name'          => 'publish',
+                    'label'         => 'Публиковать',
+                    'type'          => 'checkbox',
+                    'list'          => true,
+                    'width'         => '1%',
+                    'align'         => 'center'
+                )
+            );
+
+            $this->dsmdl->add(
+                array(
                     'name'          => 'name',
                     'label'         => 'Название',
                     'type'          => 'text',
@@ -42,14 +53,15 @@
 
             $this->dsmdl->add(
                 array(
-                    'name'          => 'publish',
-                    'label'         => 'Публиковать',
-                    'type'          => 'checkbox',
-                    'list'          => true,
-                    'width'         => '1%',
-                    'align'         => 'center'
+                    'name'          => 'content',
+                    'label'         => 'Текст',
+                    'type'          => 'textarea',
+                    'visywig'       => true,
+                    'rows'          => 15
                 )
             );
+
+
 
             if(!isset($_GET['item_id'])){
                 $this->tmdl->setData($this->dataset);

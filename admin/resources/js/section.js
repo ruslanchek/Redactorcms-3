@@ -81,6 +81,15 @@ var section = {
                                 name        : item.name
                             });
                         }; break;
+
+                        case 'textarea' : {
+                            core.form.drawTextarea({
+                                label       : item.label,
+                                name        : item.name,
+                                visywig     : item.visywig,
+                                rows        : item.rows
+                            });
+                        }; break;
                     };
                 };
             }
