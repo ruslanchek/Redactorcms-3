@@ -10,27 +10,13 @@
             $this->deInit();
         }
 
-        /*
-         * Base site functionality API
-         * */
-
-        //Get menu - list
-        public function getMenuInline($menu_id, $parent_id){
-            return $this->getStructureBranch($menu_id, $parent_id, false);
-        }
-
-        //Get menu - tree
-        public function getMenuTree($menu_id, $parent_id){
-            return $this->getStructureBranch($menu_id, $parent_id, true);
-        }
-
         //Get branch
         private function getStructureBranch($menu_id, $parent_id, $get_children){
             if(intval($menu_id) > 0 || $menu_id === false){
                 if(intval($parent_id) > 0){
                     $where = "`structure`.`pid` = ".intval($parent_id)." && ";
                 }else{
-                    $where = "`structure`.`id` = 1 && ";
+                    $where = "`structure`.`pid` = 1 && ";
                 };
 
                 if($menu_id !== false){
@@ -61,7 +47,7 @@
                     if($get_children){
                         $row['children'] = $this->getMenuTree($menu_id, $row['id']);
                     };
-                    $result[] = $row;
+                    $result[] = (object) $row;
                 };
 
                 $sql->free();
@@ -69,6 +55,39 @@
             }else{
                 return 'Ошибка 1283422: неправильный ID меню';
             };
+        }
+
+        private function getParentId($id){
+            $query = "
+                SELECT
+                    `structure`.`pid` AS `pid`
+                FROM
+                    `structure`
+                WHERE
+                    `structure`.`id` = ".intval($id);
+
+            $result = (object) $this->db->assocItem($query.intval($id));
+            return $result->pid;
+        }
+
+        /*
+         * Base site functionality API
+         * */
+
+
+        //Get menu - list
+        public function getMenu($menu_id, $parent_id){
+            return $this->getStructureBranch($menu_id, $parent_id, false);
+        }
+
+        //Get menu - tree
+        public function getMenuTree($menu_id, $parent_id){
+            return $this->getStructureBranch($menu_id, $parent_id, true);
+        }
+
+        //Get menu - list
+        public function getSubMenu($menu_id, $parent_id){
+            return $this->getStructureBranch($menu_id, $this->getParentId($parent_id), false);
         }
 
         //Return a breadcrumbs
@@ -96,9 +115,7 @@
 
             while($pid > 0){
                 $result = $this->db->assocItem($query.intval($pid));
-
                 array_push($breadcrumbs, $result);
-
                 $pid = $result['pid'];
             };
 

@@ -90,6 +90,10 @@ a:active { color: #e53000; }
 
 .red_link:active { color: #ff6a6a !important; }
 
+.gray {
+    color: #999;
+}
+
 /* Text items */
 .gray_text { color: #777; }
 
@@ -992,6 +996,22 @@ a.button:active {
         left: 14px;
         text-align: right;
         width: 134px;
+    }
+
+    .form .item_block em {
+        padding: 0 0.25em;
+        display: block;
+    }
+
+    .form .item_block em.gray {
+        background: #eee;
+        color: #888;
+        text-shadow: 0 1px 0 #fff;
+        display: inline-block;
+        -webkit-border-radius: 5px;
+                border-radius: 5px;
+        padding: .25em 1ex !important;
+        font-style: normal;
     }
 
 	.form .item_block_no_padding {

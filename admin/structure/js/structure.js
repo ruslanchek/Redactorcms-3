@@ -69,7 +69,28 @@ var structure = {
                 structure.blocksInput.drawSelectContentId(      $(this).val(), 1, '');
                 structure.blocksInput.drawSelectModuleTemplate( $(this).val(), 1);
                 structure.blocksInput.drawSelectMenuParentId(   $(this).val(), 1);
+                structure.blocksInput.drawOptions(              $(this).val(), 1);
             });
+        },
+
+        drawOptions: function(module, module_mode){
+            var module_mode = this.getblockModuleMode(module, module_mode),
+                options_html = '';
+
+            if(module_mode.options && module_mode.options.length > 0){
+                for(var i = 0, l = module_mode.options.length; i < l; i++){
+                    options_html += '<div class="item_block">' +
+                                        '<label class="label" class="control-label" for="block_option_'+module_mode.options[i].name+'">'+module_mode.options[i].title+'</label>' +
+                                        '<div class="controls" id="block_option_'+module_mode.options[i].name+'_placeholder">' +
+                                            '<input data-name="'+module_mode.options[i].name+'" class="text" type="text" value="'+this.getBlockOptionParam(this.current_block_id, module_mode.options[i].name)+'">' +
+                                        '</div>' +
+                                    '</div>';
+                };
+
+                $('#block_options').show().html(options_html);
+            }else{
+                $('#block_options').hide().html('');
+            };
         },
 
         drawSelectMenuParentId: function(module, module_mode, menu_parent_id){
@@ -148,6 +169,7 @@ var structure = {
                 structure.blocksInput.drawSelectContentId(      $('#select_block_module').val(), $(this).val(), '');
                 structure.blocksInput.drawSelectModuleTemplate( $('#select_block_module').val(), $(this).val());
                 structure.blocksInput.drawSelectMenuParentId(   $('#select_block_module').val(), $(this).val());
+                structure.blocksInput.drawOptions(              $('#select_block_module').val(), $(this).val());
             });
         },
 
@@ -206,6 +228,7 @@ var structure = {
 
                         $('#select_block_content_id_placeholder').html('').parent().show();
                         core.loading.setLoadingToElementByAppend('drawSelectContentId', $('#select_block_content_id_placeholder'), true);
+                        $('#select_block_content_id_placeholder').prev().text(module_mode.c_id_label);
                     },
                     success     : function(result){
                         core.loading.unsetLoading('drawSelectContentId');
@@ -399,7 +422,8 @@ var structure = {
                 module,
                 module_mode,
                 content_id,
-                menu_parent_id;
+                menu_parent_id,
+                options;
 
             if($item_obj.hasClass('empty_block')){
                 block_id = 'empty';
@@ -412,6 +436,7 @@ var structure = {
                     module_mode     = this.main_block_obj.module_mode;
                     content_id      = this.main_block_obj.content_id;
                     menu_parent_id  = this.main_block_obj.menu_parent_id;
+                    options         = this.main_block_obj.options;
                 }; break;
 
                 case 'new' : {
@@ -420,6 +445,7 @@ var structure = {
                     module_mode     = 1;
                     content_id      = 0;
                     menu_parent_id  = 1;
+                    options         = [];
                 }; break;
 
                 case 'empty' : {
@@ -429,6 +455,7 @@ var structure = {
                     content_id      = 0;
                     menu_parent_id  = 1;
                     block_id        = $item_obj.data('id');
+                    options         = [];
                 }; break;
 
                 default : {
@@ -438,6 +465,7 @@ var structure = {
                     module_mode     = block_data.module_mode;
                     content_id      = block_data.content_id;
                     menu_parent_id  = block_data.menu_parent_id;
+                    options         = block_data.options;
 
                     var aftershow = function(){
                         $('.dialog .buttons').prepend('<input type="button" class="button delete_block_button right" value="Сбросить">');
@@ -476,7 +504,10 @@ var structure = {
                                         '<div style="display: none" class="item_block">' +
                                             '<label class="label" class="control-label" for="select_block_menu_parent_id">Родительский узел</label>' +
                                             '<div class="controls" id="select_block_menu_parent_id_placeholder"></div>' +
+                                            '<input type="hidden" id="select_block_options">' +
                                         '</div>' +
+
+                                        '<div id="block_options" style="display: none"></div>' +
                                     '</fieldset>' +
                                 '</form>' +
                             '</div>';
@@ -494,11 +525,51 @@ var structure = {
                 aftershow();
             };
 
+            this.current_block_id = block_id;
+
             this.drawSelectModule(module);
             this.drawSelectModuleMode(module, module_mode);
             this.drawSelectModuleTemplate(module, module_mode, mode_template);
             this.drawSelectContentId(module, module_mode, content_id);
             this.drawSelectMenuParentId(module, module_mode, menu_parent_id);
+            this.drawOptions(module, module_mode);
+        },
+
+        getBlockOptionParam: function(block_id, option_name){
+            if(block_id == 'main'){
+                if(this.main_block_obj.options){
+                    for(var i = 0, l = this.main_block_obj.options.length; i < l; i++){
+                        if(option_name == this.main_block_obj.options[i].name){
+                            return this.main_block_obj.options[i].value;
+                        };
+                    };
+                };
+            }else{
+                for(var i = 0, l = this.blocks_obj.length; i < l; i++){
+                    if(this.blocks_obj[i].id == block_id){
+                        if(this.blocks_obj[i].options){
+                            for(var i2 = 0, l = this.blocks_obj[i].options.length; i2 < l; i2++){
+                                if(this.blocks_obj[i].options[i2].name == option_name){
+                                    return this.blocks_obj[i].options[i2].value;
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+        },
+
+        getBlockOptions: function(){
+            var options = [];
+
+            $('#block_options input').each(function(){
+                options.push({
+                    name: $(this).data('name'),
+                    value: $(this).val()
+                });
+            });
+
+            return options;
         },
 
         getAndSetBlockParams: function(block_id){
@@ -511,6 +582,7 @@ var structure = {
                 this.main_block_obj.mode_template   = $('#select_block_mode_template').val();
                 this.main_block_obj.content_id      = parseInt($('#select_block_content_id').val());
                 this.main_block_obj.menu_parent_id  = parseInt($('#select_block_menu_parent_id').val());
+                this.main_block_obj.options         = this.getBlockOptions();
 
                 block_data = this.main_block_obj;
 
@@ -535,7 +607,8 @@ var structure = {
                         module_mode     : parseInt($('#select_block_module_mode').val()),
                         mode_template   : $('#select_block_mode_template').val(),
                         content_id      : parseInt($('#select_block_content_id').val()),
-                        menu_parent_id  : parseInt($('#select_block_menu_parent_id').val())
+                        menu_parent_id  : parseInt($('#select_block_menu_parent_id').val()),
+                        options         : this.getBlockOptions()
                     });
                 };
 
@@ -546,6 +619,7 @@ var structure = {
                         this.blocks_obj[i].mode_template    = $('#select_block_mode_template').val();
                         this.blocks_obj[i].content_id       = parseInt($('#select_block_content_id').val());
                         this.blocks_obj[i].menu_parent_id   = parseInt($('#select_block_menu_parent_id').val());
+                        this.blocks_obj[i].options          = this.getBlockOptions();
 
                         block_data = this.blocks_obj[i];
                         break;
@@ -559,7 +633,8 @@ var structure = {
                         module_mode     : parseInt($('#select_block_module_mode').val()),
                         mode_template   : $('#select_block_mode_template').val(),
                         content_id      : parseInt($('#select_block_content_id').val()),
-                        menu_parent_id  : parseInt($('#select_block_menu_parent_id').val())
+                        menu_parent_id  : parseInt($('#select_block_menu_parent_id').val()),
+                        options         : this.getBlockOptions()
                     };
 
                     this.blocks_obj.push(block_data);

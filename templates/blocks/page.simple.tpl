@@ -1,1 +1,1 @@
-{$core->getSimplePageContent($block.content_id)}
+{$core->getSimplePageContent($block->content_id)}

@@ -69,7 +69,7 @@
     display: block;
     text-align: center;
     font-size: 2.4em;
-    margin: 0 0 0.4em;
+    margin: 0 0 0.2em;
 }
 
 #blocks .main_block .num {
@@ -80,7 +80,7 @@
     display: block;
     text-align: center;
     font-weight: bold;
-    margin: 0 0 0.4em;
+    margin: 0 0 0.2em;
 }
 
 #blocks .item .module_mode {

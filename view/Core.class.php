@@ -141,8 +141,8 @@
             if($this->page->data->id > 0){
                 $this->page->template->template_file        = $this->page->data->template_file;
                 $this->page->template->template_blocks      = $this->page->data->template_blocks;
-                $this->page->template->blocks               = json_decode($this->page->data->blocks, true);
-                $this->page->template->main_block           = json_decode($this->page->data->main_block, true);
+                $this->page->template->blocks               = json_decode($this->page->data->blocks);
+                $this->page->template->main_block           = json_decode($this->page->data->main_block);
 
                 $this->page->content = $this->getPageContentData();
             }else{
@@ -179,14 +179,22 @@
                     $block_obj = $this->page->template->main_block;
                 }else{
                     foreach($this->page->template->blocks as $block){
-                        if($block['id'] == $block_id){
-                            $block_obj = $block;
+                        if($block->id == $block_id){
+                            $block_obj = (object) $block;
                         };
                     };
                 };
 
+                $o = array();
+
+                foreach($block_obj->options as $option){
+                    $o[$option->name] = $option->value;
+                };
+
+                $block_obj->options = (object) $o;
+
                 $this->smarty->assign('block', $block_obj);
-                return $this->smarty->fetch('blocks/'.$block_obj['mode_template']);
+                return $this->smarty->fetch('blocks/'.$block_obj->mode_template);
             };
         }
     }
