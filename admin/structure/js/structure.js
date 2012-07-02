@@ -965,7 +965,7 @@ var structure = {
                 top     = tree_active_item.offset().top - $('#tree').offset().top + 1,
                 height  = tree_active_item.find('>div').height() + 10;
 
-            if(tree_active_item.offset().top + tree_active_item.height() == $("#tree").offset().top + $("#tree").height()){
+            if(tree_active_item.find('>div').offset().top + tree_active_item.find('>div').height() + 12 == $("#tree").offset().top + $("#tree").height()){
                 maker.addClass('last');
             }else{
                 maker.removeClass('last');
@@ -1054,7 +1054,7 @@ var structure = {
                             top     = $(this).offset().top - $('#tree').offset().top + 2,
                             height  = $(this).height() + 10;
 
-                        if($(this).parent().offset().top + $(this).parent().height() == $("#tree").offset().top + $("#tree").height()){
+                        if($(this).offset().top + $(this).height() + 12 == $("#tree").offset().top + $("#tree").height()){
                             maker.addClass('last');
                         }else{
                             maker.removeClass('last');
