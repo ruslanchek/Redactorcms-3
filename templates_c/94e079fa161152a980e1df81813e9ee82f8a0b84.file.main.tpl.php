@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.7, created on 2012-06-29 18:44:18
+<?php /* Smarty version Smarty-3.1.7, created on 2012-07-02 15:25:03
          compiled from "Z:/home/loc/rdclite/templates\main.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:64644f8550085f9719-21869202%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '94e079fa161152a980e1df81813e9ee82f8a0b84' => 
     array (
       0 => 'Z:/home/loc/rdclite/templates\\main.tpl',
-      1 => 1340981057,
+      1 => 1341228302,
       2 => 'file',
     ),
   ),
@@ -58,9 +58,22 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         </div>
 
         <div class="container">
+
+            <div class="thumbnail">
+                <h4>Block 6</h4>
+                <?php echo $_smarty_tpl->tpl_vars['core']->value->drawBlock(6);?>
+
+            </div>
+
             <div class="page-header">
                 <h1><?php echo $_smarty_tpl->tpl_vars['core']->value->page->content->seo_title;?>
 </h1>
+            </div>
+
+            <div class="thumbnail">
+                <h4>Block 7</h4>
+                <?php echo $_smarty_tpl->tpl_vars['core']->value->drawBlock(7);?>
+
             </div>
 
             <div class="row">
@@ -132,6 +145,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     <br>
                 </div>
             </div>
+            <pre>
+                <?php echo print_r($_smarty_tpl->tpl_vars['core']->value->page);?>
+
+            </pre>
         </div>
     </body>
 </html>

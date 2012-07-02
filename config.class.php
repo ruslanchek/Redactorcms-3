@@ -97,23 +97,38 @@
 
 
             //Menu
-            $mo = new Module(2, 'menu', 'Меню');
+            $mo = new Module(2, 'navigation', 'Навигация');
 
             $md             = new stdClass();
             $md->id         = 1;
-            $md->title      = 'Одноуровневое';
+            $md->title      = 'Меню &mdash; ветка';
             $md->action     = 'menu';
-            $md->template   = 'menu.one_level.tpl';
+            $md->template   = 'navigation.menu.one_level.tpl';
             $mo->mode($md);
 
             $md             = new stdClass();
             $md->id         = 2;
-            $md->title      = 'Многоуровневое';
+            $md->title      = 'Меню &mdash; дерево';
             $md->action     = 'menu';
-            $md->template   = 'menu.multi_level.tpl';
+            $md->template   = 'navigation.menu.multi_level.tpl';
+            $mo->mode($md);
+
+            $md             = new stdClass();
+            $md->id         = 3;
+            $md->title      = 'Хлебные крошки';
+            $md->action     = false;
+            $md->template   = 'navigation.breadcrumbs.tpl';
+            $mo->mode($md);
+
+            $md             = new stdClass();
+            $md->id         = 4;
+            $md->title      = 'Карта сайта';
+            $md->action     = false;
+            $md->template   = 'navigation.sitemap.tpl';
             $mo->mode($md);
 
             $this->modules[] = $mo->getData();
+
 
 
             /*******************************************************************************
@@ -161,7 +176,7 @@
                               );
             $s->field($f);
 
-
+/*
             $f              = new stdClass();
             $f->name        = 'publish';
             $f->label       = 'Публиковать';
@@ -171,7 +186,7 @@
             $f->width       = '1%';
             $f->align       = 'center';
             $s->field($f);
-
+*/
 
             $this->sections[] = $s->getData();
 

@@ -95,7 +95,6 @@
             };
 
             $this->error_404 = true;
-            $this->page->template->template_file = '404.tpl';
         }
 
         private function getPageContentData(){
@@ -139,7 +138,7 @@
 
             $this->page->data = (object) $this->db->assocItem($query);
 
-            if(!empty($this->page->data)){
+            if($this->page->data->id > 0){
                 $this->page->template->template_file        = $this->page->data->template_file;
                 $this->page->template->template_blocks      = $this->page->data->template_blocks;
                 $this->page->template->blocks               = json_decode($this->page->data->blocks, true);
@@ -147,6 +146,7 @@
 
                 $this->page->content = $this->getPageContentData();
             }else{
+                $this->page->template->template_file = '404.tpl';
                 $this->error404();
             };
         }
@@ -165,6 +165,7 @@
             if(!$this->ajax_mode){
                 $this->checkAndSetRouteData();
                 $this->smarty->assign('core', $this);
+
                 $this->smarty->display($this->page->template->template_file);
             };
         }

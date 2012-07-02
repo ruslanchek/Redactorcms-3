@@ -17,6 +17,7 @@
 
             if($this->ajax_mode){
                 switch($_GET['action']){
+
                     case 'get_content_items' : {
                         print json_encode($this->getContentItems($_GET['module_action']));
                     }; break;
@@ -76,6 +77,10 @@
                     case 'get_tree' : {
                         print json_encode($this->getBranchArray());
                     }; break;
+
+                    case 'get_all_structure_items' : {
+                        print json_encode($this->getAllStructureItems());
+                    }; break;
                 };
 
                 exit;
@@ -83,9 +88,9 @@
 
 
             /*
-                DO NOT UNCOMMENT, THIS IS A DEBUG METHODS,
+                DO NOT UNCOMMENT! THIS IS A DEBUG METHODS,
                 IT WILL CLEAN YOUR STRUCTURE COMPLETELY,
-                AND CREATE A NEW RANDOM STRUCTURE
+                AND CREATE A NEW RANDOM STRUCTURE!
 
                 $this->resetStructure();
                 $this->createRandomStructure(15);
@@ -107,6 +112,24 @@
             ";
 
             return $this->db->assocMulti($query);
+        }
+
+        //Get all items
+        private function getAllStructureItems(){
+            $q = "
+                SELECT
+                    `structure`.`id`,
+                    `structure_data`.`name`
+                FROM
+                    `structure`,
+                    `structure_data`
+                WHERE
+                    `structure`.`id` = `structure_data`.`id`
+                ORDER BY
+                    `structure_data`.`sort` ASC
+            ";
+
+            return $this->db->assocMulti($q);
         }
 
         //Create ramdom structure
@@ -572,37 +595,6 @@
 
             return $this->db->assocItem($query);
 		}
-
-        //Return a breadcrumbs
-        public function getBreadCrumbs($id){
-            $query = "
-                SELECT
-                    `structure`.`pid`               AS `pid`,
-                    `structure_data`.`id`           AS `id`,
-                    `structure_data`.`name`         AS `name`
-                FROM
-                    `structure`,
-                    `structure_data`
-                WHERE
-                    `structure`.`id` = `structure_data`.`id` &&
-                    `structure`.`id` = ".intval($id);
-
-            $result = $this->db->assocMulti($query);
-
-            $breadcrumbs = array();
-            $result['current'] = true;
-            array_push($breadcrumbs, $result);
-
-            $pid = $result['pid'];
-
-            while($pid > 0){
-                $result = $this->db->assocMulti($query);
-                array_push($breadcrumbs, $result);
-                $pid = $result['pid'];
-            };
-
-            return array_reverse($breadcrumbs);
-        }
 
         //Return a tree items count
 		public function getTreeCount(){

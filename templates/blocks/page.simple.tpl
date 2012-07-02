@@ -1,3 +1,1 @@
-page.simple.tpl
-
-{$block|print_r}
+{$core->getSimplePageContent($block.content_id)}

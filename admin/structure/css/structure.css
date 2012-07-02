@@ -120,6 +120,10 @@
     z-index: 3;
 }
 
+#tree li>div {
+    padding: 6px 0;
+}
+
 #tree .selected>div span {
     color: #fff !important;
     text-shadow: 0 -1px 0 rgba(38, 89, 167, 0.75);
@@ -149,6 +153,11 @@
     border-bottom: 1px solid #2659A7;
 }
 
+#active_tree_item_marker.last {
+    -webkit-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
+}
+
 #hover_marker {
     position: absolute;
     display: none;
@@ -159,4 +168,9 @@
     background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#F0F2F5));
     background-image: -moz-linear-gradient(top, white, #F0F2F5);
     background-image: -o-linear-gradient(top, white, #F0F2F5);
+}
+
+#hover_marker.last {
+    -webkit-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
 }

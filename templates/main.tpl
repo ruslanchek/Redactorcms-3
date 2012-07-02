@@ -30,8 +30,19 @@
         </div>
 
         <div class="container">
+
+            <div class="thumbnail">
+                <h4>Block 6</h4>
+                {$core->drawBlock(6)}
+            </div>
+
             <div class="page-header">
                 <h1>{$core->page->content->seo_title}</h1>
+            </div>
+
+            <div class="thumbnail">
+                <h4>Block 7</h4>
+                {$core->drawBlock(7)}
             </div>
 
             <div class="row">
@@ -97,6 +108,9 @@
                     <br>
                 </div>
             </div>
+            <pre>
+                {$core->page|print_r}
+            </pre>
         </div>
     </body>
 </html>

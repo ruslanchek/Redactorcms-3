@@ -1,5 +1,5 @@
 ul.tree {
-    padding: 3px 10px 5px 26px;
+    padding: 0 10px 0 26px;
 }
 
 ul.tree,
@@ -121,13 +121,13 @@ ul.tree span.border {
     position: absolute;
     display: block;
     left: -5px;
-    top: 3px;
+    top: 4px;
     border: solid 2px #999;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     margin: 0;
-    padding: 1px 3px 1px 0;
+    padding: 3px 3px 3px 0;
 }
 
 ul.tree div {
