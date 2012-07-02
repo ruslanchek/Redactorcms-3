@@ -557,6 +557,8 @@ var structure = {
                     };
                 };
             };
+
+            return '';
         },
 
         getBlockOptions: function(){
