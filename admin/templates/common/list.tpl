@@ -13,6 +13,7 @@
                 </th>
                 {/foreach}
                 <th></th>
+                <th></th>
             </tr>
 
             {foreach $list as $item}
@@ -20,8 +21,6 @@
                 <td class="ta_center"><input class="checkbox" type="checkbox" /></td>
                 {foreach from=$cols item=col key=col_iteration}
                 <td class="ta_{$col.data.align}">
-                    {if $col_iteration == 0}<i class="sortable_handler"></i>{/if}
-
                     {if $col.name == 'publish'}
                         {if $item['publish'] == '1'}
                             <a href="javascript:void(0)" class="action_button mini"><b class="hide" title="Скрыть"></b></a>
@@ -38,6 +37,7 @@
                 </td>
                 {/foreach}
                 <td><a href="javascript:void(0)" class="action_button mini"><b class="minus" title="Удалить"></b></a></td>
+                <td><i class="sortable_handler"></i></td>
             </tr>
             {/foreach}
         </table>

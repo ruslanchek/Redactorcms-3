@@ -35,8 +35,10 @@ p:last-child { margin: 0; }
 .overall_padding { padding: 0 4%; }
 
 .highlight {
-    background: #FC3 !important;
-    border-color: transparent !important; }
+    background: #FC3 url(../img/bg/light.png) repeat-x top !important;
+    border: none;
+    text-shadow: 0 1px 0 #ffe998;
+}
 
 /* Floats */
 .left { float: left !important; }
@@ -529,6 +531,19 @@ a:active { color: #e53000; }
 .list table tr th:last-child {
     border-right: none;
     padding-left: 14px;
+}
+
+.list .sortable_handler {
+    display: block;
+    background: url(../img/icons/drag.png);
+    height: 18px;
+    width: 18px;
+    opacity: 0.5;
+    cursor: move;
+}
+
+.list .ui-sortable-helper {
+    display: none;
 }
 
 /* Buttons */
@@ -2050,7 +2065,9 @@ a.icon_dimensions_x:active { background: url(../img/icons/dimensions.png) -34px 
 		position: relative;
         background: #eee url(../img/frames/draggable_marker.gif) no-repeat 4px 4px; }
 
-    .form_editor_items li.highlight { padding: 1px 0 0 0; }
+    .form_editor_items li.highlight {
+        padding: 1px 0 0 0;
+    }
 
 	.form_editor_items .expand_collapse {
 		height: 16px;
