@@ -319,9 +319,14 @@ var structure = {
                 blocks_html         = '';
 
             blocks_html +=  '<div class="item main_block button" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
-                                '<span class="num">♛</span>' +
-                                '<span class="module_name">' + module.title + '</span>' +
-                                '<span class="module_mode">' + module_mode.title + '</span>' +
+                                '<table>' +
+                                    '<tr>' +
+                                        '<td class="num_col"><span class="num">♛</span></td>' +
+                                        '<td class="name_col"><span class="module_name">' + module.title + '</span></td>' +
+                                        '<td class="mode_col"><span class="module_mode">' + module_mode.title + '</span></td>' +
+                                        '<td class="delete_col"></td>' +
+                                    '</tr>' +
+                                '</table>' +
                             '</div>';
 
             //Create oher blocks
@@ -371,9 +376,14 @@ var structure = {
                 };
 
                 blocks_html +=  '<div class="item button '+block_class+'" rel="'+id+'" data-id="'+id+'" data-mode_template="' + template + '">' +
-                                    '<span class="num">' + blocks_etalon[i].id + '</span>' +
-                                    '<span class="module_name">' + block_module + '</span>' +
-                                    '<span class="module_mode">' + block_module_mode + '</span>' +
+                                    '<table>' +
+                                        '<tr>' +
+                                            '<td class="num_col"><span class="num">' + blocks_etalon[i].id + '</span></td>' +
+                                            '<td class="name_col"><span class="module_name">' + block_module + '</span></td>' +
+                                            '<td class="mode_col"><span class="module_mode">' + block_module_mode + '</span></td>' +
+                                            '<td class="delete_col"><a id="add_item" href="javascript:void(0)" class="action_button"><b class="minus" title="Очистить блок"></b></a></td>' +
+                                        '</tr>' +
+                                    '</table>' +
                                 '</div>';
             };
 

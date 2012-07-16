@@ -75,7 +75,7 @@
             'host'  => 'localhost',
             'db'    => 'rdclite',
             'user'  => 'root',
-            'pass'  => ''
+            'pass'  => '123'
         );
 
         public function __construct(){

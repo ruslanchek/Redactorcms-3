@@ -47,47 +47,59 @@
 
 /* Form */
 #blocks {
-    padding: 3px 0 0 3px;
+    padding: 3px 1px 0 3px;
     border: 1px solid #ddd;
     border-radius: 5px;
     -moz-border-radius: 5px;
-    background: #fff url(/admin/resources/img/bg/pins_mini.png) 2px 2px;
 }
 
 #blocks .item {
     margin: 0 2px 3px 0;
-    float: left;
-    padding: 10px 5px 0;
-    width: 95px;
-    height: 80px;
+    padding: 5px 0;
+    display: block;
     cursor: pointer;
-    line-height: 1.7em;
     color: #444;
+    float: none;
+    line-height: 24px;
+    position: relative;
+}
+
+#blocks .item table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#blocks .item .num_col {
+    width: 45px;
+    text-align: center;
+}
+
+#blocks .item .name_col {
+    width: 32%;
+}
+
+#blocks .item .mode_col {
+
+}
+
+#blocks .item .delete_col {
+    width: 30px;
 }
 
 #blocks .item .num {
-    display: block;
+    display: inline;
     text-align: center;
-    font-size: 2.4em;
-    margin: 0 0 0.2em;
-}
-
-#blocks .main_block .num {
-
+    font-size: 2em;
 }
 
 #blocks .item .module_name {
-    display: block;
-    text-align: center;
+    display: inline;
     font-weight: bold;
     margin: 0 0 0.2em;
 }
 
 #blocks .item .module_mode {
-    display: block;
-    text-align: center;
-    font-size: 0.85em;
-    line-height: 1.1em;
+    display: inline;
 }
 
 .block_setup table {
