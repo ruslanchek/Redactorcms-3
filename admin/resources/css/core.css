@@ -1063,6 +1063,11 @@ a.button:active {
         border-bottom: 1px solid #999999;
         -webkit-border-radius: 0px 0px 3px 3px;
                 border-radius: 0px 0px 3px 3px;
+        height: 28px;
+    }
+
+    .buttons.loading {
+        background: #dcdcdc url(../img/bg/messages_loading.gif) top;
     }
 
 		.buttons input { margin: 0 15px 0 0; }
@@ -1075,6 +1080,11 @@ a.button:active {
         .buttons .button:hover {
             border-color: #cacaca;
             border-bottom-color: #949494;
+        }
+
+        .buttons .button:active {
+            border-color: #ccc;
+            border-bottom-color: #999;
         }
 
 

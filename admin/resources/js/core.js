@@ -173,11 +173,21 @@ core.loading = {
         header_obj.data('actions', header_obj.find('a:visible'));
         header_obj.data('actions').fadeOut(80);
         header_obj.addClass('loading');
+
+        if($('.buttons').length > 0){
+            $('.buttons').addClass('loading');
+            $('.buttons *').fadeOut(50);
+        };
     },
 
     unsetHeaderLoading: function(header_obj){
         header_obj.data('actions').fadeIn(80);
         header_obj.removeClass('loading');
+
+        if($('.buttons').length > 0){
+            $('.buttons').removeClass('loading');
+            $('.buttons *').fadeIn(50);
+        };
     },
 
     unsetLoading: function(name, micro){
