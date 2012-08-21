@@ -83,6 +83,7 @@
             if($this->ajax_mode){
                 switch($_GET['action']){
                     case 'getItemFieldsAndData' : {
+                        header('Content-type: application/json');
                         print json_encode($this->dataset);
                     }; break;
                 };

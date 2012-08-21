@@ -1,5 +1,6 @@
 <?php
     usleep(500000);
+    header('Content-type: application/json');
     print json_encode(
         array(
             'id'            => $_GET['id'],

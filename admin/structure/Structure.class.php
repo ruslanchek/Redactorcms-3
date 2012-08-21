@@ -19,14 +19,17 @@
                 switch($_GET['action']){
 
                     case 'get_content_items' : {
+                        header('Content-type: application/json');
                         print json_encode($this->getContentItems($_GET['module_action']));
                     }; break;
 
                     case 'check_part_ajax' : {
+                        header('Content-type: application/json');
                         print json_encode($this->checkPartBoolean($_POST['id'], $_POST['pid'], $_POST['value']));
                     }; break;
 
                     case 'get_templates_list' : {
+                        header('Content-type: application/json');
                         print json_encode($this->getTemplatesList());
                     }; break;
 
@@ -39,10 +42,12 @@
                         $result['blocks_templates'] = $this->getBlockTemplates();
                         $result['domain_name']      = $this->utils->getDomainName();
 
+                        header('Content-type: application/json');
                         print json_encode($result);
                     }; break;
 
                     case 'set_node_data' : {
+                        header('Content-type: application/json');
                         print json_encode($this->setNodeData());
                     }; break;
 

@@ -13,14 +13,17 @@
             if($this->ajax_mode){
                 switch($_GET['action']){
                     case 'get_image_data' : {
+                        header('Content-type: application/json');
                         print json_encode($this->getImageData($_GET['id']));
                     }; break;
 
                     case 'set_image_data' : {
+                        header('Content-type: application/json');
                         print json_encode($this->setImageData());
                     }; break;
 
                     case 'move_image_to_album' : {
+                        header('Content-type: application/json');
                         print json_encode($this->moveImageToAlbum());
                     }; break;
 
