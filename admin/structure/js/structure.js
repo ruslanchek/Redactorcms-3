@@ -1138,13 +1138,14 @@ var structure = {
                                 success     : function(){
                                     core.loading.unsetHeaderLoading($('#secondary_content_header'));
 
+                                    structure.current_node_id = '';
                                     document.location.hash = event.move_info.moved_node.id;
+                                    structure.openStructureItem(event.move_info.moved_node.id);
 
                                     if($('#active_tree_item_marker').length == 0){
                                         $tree.append('<div id="active_tree_item_marker"></div>');
                                     };
 
-                                    $tree.tree('selectNode', node, true);
                                     structure.setMarkerToActivePosition($(event.move_info.moved_node.element), 0);
                                 }
                             });
