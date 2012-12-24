@@ -109,7 +109,7 @@
                 </div>
             </div>
             <pre>
-                {$core->page|print_r}
+                $core->page : {$core->page|print_r}
             </pre>
         </div>
     </body>

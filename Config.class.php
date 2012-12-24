@@ -1,6 +1,6 @@
 <?php
+//error_reporting(E_ALL | E_STRICT);
 
-error_reporting(E_ALL | E_STRICT);
 session_start();
 date_default_timezone_set('Europe/Moscow');
 
