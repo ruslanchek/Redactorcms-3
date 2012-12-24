@@ -324,7 +324,7 @@ var structure = {
                                         '<td class="num_col"><span class="num">♛</span></td>' +
                                         '<td class="name_col"><span class="module_name">' + module.title + '</span></td>' +
                                         '<td class="mode_col"><span class="module_mode">' + module_mode.title + '</span></td>' +
-                                        '<td class="delete_col"></td>' +
+                                        //'<td class="delete_col"></td>' +
                                     '</tr>' +
                                 '</table>' +
                             '</div>';
@@ -381,7 +381,7 @@ var structure = {
                                             '<td class="num_col"><span class="num">' + blocks_etalon[i].id + '</span></td>' +
                                             '<td class="name_col"><span class="module_name">' + block_module + '</span></td>' +
                                             '<td class="mode_col"><span class="module_mode">' + block_module_mode + '</span></td>' +
-                                            '<td class="delete_col"><a id="add_item" href="javascript:void(0)" class="action_button"><b class="minus" title="Очистить блок"></b></a></td>' +
+                                            //'<td class="delete_col"><a id="add_item" href="javascript:void(0)" class="action_button"><b class="minus" title="Очистить блок"></b></a></td>' +
                                         '</tr>' +
                                     '</table>' +
                                 '</div>';
@@ -478,7 +478,7 @@ var structure = {
                     options         = block_data.options;
 
                     var aftershow = function(){
-                        $('.dialog .buttons').prepend('<input type="button" class="button delete_block_button right" value="Сбросить">');
+                        $('.dialog .buttons').prepend('<input type="button" class="button button-red delete_block_button right" value="Сбросить">');
 
                         $('.delete_block_button').off('click').on('click', function(){
                             structure.blocksInput.deleteBlock($item_obj);
@@ -1086,15 +1086,69 @@ var structure = {
             beforeSend  : function(){
                 core.loading.setHeaderLoading($('#secondary_content_header'));
             },
-            success     : function(result){
+            success     : function(data){
                 setTimeout(function(){
                     core.loading.unsetHeaderLoading($('#secondary_content_header'));
 
                     var $tree = $('#tree').tree({
-                        data        : result,
+                        data        : data,
                         saveState   : true,
                         dragAndDrop : true,
                         selectable  : true
+                    });
+
+                    $tree.bind('tree.move', function(event) {
+                        if(event.move_info.moved_node.id <= 1 || event.move_info.target_node.id <= 0){
+                            event.preventDefault();
+                        }else{
+                            $('#tree li').each(function(){
+                                if(typeof $(this).data('node') != 'undefined'){
+                                    $(this).attr('rel', $(this).data('node').id);
+                                };
+                            });
+
+                            var $elem = $('#tree li[rel="'+event.move_info.moved_node.id+'"]');
+
+                            var order = [];
+
+                            var i = 0;
+
+                            $elem.parent().find('li').each(function(){
+                                if($(this).attr('rel') > 0){
+                                    i++;
+                                    order.push({
+                                        id: $(this).attr('rel'),
+                                        sort: i
+                                    });
+                                };
+                            });
+
+                            $.ajax({
+                                url         : '/admin/structure/?ajax&action=order',
+                                type        : 'GET',
+                                dataType    : 'json',
+                                data        : {
+                                    order   : JSON.stringify(order),
+                                    parent  : $elem.parent().parent().attr('rel'),
+                                    id      : event.move_info.moved_node.id
+                                },
+                                beforeSend  : function(){
+                                    core.loading.setHeaderLoading($('#secondary_content_header'));
+                                },
+                                success     : function(){
+                                    core.loading.unsetHeaderLoading($('#secondary_content_header'));
+
+                                    document.location.hash = event.move_info.moved_node.id;
+
+                                    if($('#active_tree_item_marker').length == 0){
+                                        $tree.append('<div id="active_tree_item_marker"></div>');
+                                    };
+
+                                    $tree.tree('selectNode', node, true);
+                                    structure.setMarkerToActivePosition($(event.move_info.moved_node.element), 0);
+                                }
+                            });
+                        };
                     });
 
                     $tree.bind('tree.click', function(event) {
@@ -1154,6 +1208,10 @@ var structure = {
 
                     }, function(){
                         $('#hover_marker').hide();
+                    });
+
+                    $('#tree li').each(function(){
+                        $(this).attr('rel', $(this).data('node').id);
                     });
 
                 }, 250);

@@ -76,7 +76,7 @@
                     }; break;
 
                     case 'order' : {
-                        $this->orderNodes(json_decode(urldecode($_GET['order_items']), true));
+                        $this->orderNodes(json_decode(urldecode($_GET['order']), true), $_GET['parent'], $_GET['id']);
                     }; break;
 
                     case 'get_tree' : {
@@ -383,12 +383,26 @@
             };
 
             $query = "
+                SELECT
+                    MAX(`structure_data`.`sort`) AS `max_sort`
+                FROM
+                    `structure`,
+                    `structure_data`
+                WHERE
+                    `structure`.`pid` = ".intval($pid)." &&
+                    `structure`.`id` = `structure_data`.`id`
+            ";
+
+            $max_sort_item = $this->db->assocItem($query);
+
+            $query = "
                 UPDATE
                     `structure_data`
                 SET
                     `part` = '".$this->db->quote($part)."',
                     `path` = '".$this->db->quote($path)."',
                     `name` = '".$this->db->quote($new_item_name)."',
+                    `sort` = '".(intval($max_sort_item['max_sort']) + 1)."',
                     `blocks` = '[]',
                     `main_block` = '{\"module\":1,\"module_mode\":1,\"content_id\":3,\"mode_template\":\"page.simple.tpl\"}'
                 WHERE
@@ -413,7 +427,8 @@
                         `structure`.`id` = ".intval($id)." &&
                         `structure`.`id` = `structure_data`.`id`
                 ";
-                $result = $this->db->assocMulti($query);
+
+                $result = $this->db->assocItem($query);
 
                 if($result['pid'] != $pid){
                     $part = $this->checkPart($pid, $result['part'], true);
@@ -432,7 +447,7 @@
                         UPDATE
                             `structure_data`
                         SET
-                            `part` = '".intval($part)."'
+                            `part` = '".$this->db->quote($part)."'
                         WHERE
                             `id` = ".intval($id)."
                     ";
@@ -615,8 +630,8 @@
 		}
 
         //Set order to the node
-        public function orderNodes($order_items){
-            print_r($order_items);
+        public function orderNodes($order_items, $parent, $id){
+            $this->moveBranch($id, $parent);
 
             foreach($order_items as $item){
                 $this->updateNode($item['id'], array(
