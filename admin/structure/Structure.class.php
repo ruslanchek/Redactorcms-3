@@ -77,6 +77,7 @@
 
                     case 'order' : {
                         $this->orderNodes(json_decode(urldecode($_GET['order']), true), $_GET['parent'], $_GET['id']);
+
                     }; break;
 
                     case 'get_tree' : {
