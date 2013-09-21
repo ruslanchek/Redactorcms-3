@@ -199,22 +199,23 @@ Class Core
             } else {
                 foreach ($this->page->template->blocks as $block) {
                     if ($block->id == $block_id) {
-                        $block_obj = (object)$block;
+                        $block_obj = (object) $block;
                     };
                 };
-            };
+            }
+
+            $block_obj->block_id = $block_id;
 
             $o = array();
 
             foreach ($block_obj->options as $option) {
                 $o[$option->name] = $option->value;
-            };
+            }
 
-            $block_obj->options = (object)$o;
-
-            $this->smarty->assign('block', $block_obj);
+            $block_obj->options = (object) $o;
 
             if(file_exists($this->smarty->template_dir[0] . 'blocks/' . $block_obj->mode_template)){
+                $this->smarty->assign('block', $block_obj);
                 return $this->smarty->fetch('blocks/' . $block_obj->mode_template);
             }else{
                 return $this->utils->displayError(
@@ -223,6 +224,6 @@ Class Core
                     'Отсутствует файл шаблона блока <strong>' . $block_obj->mode_template . '</strong>
                 ');
             }
-        };
+        }
     }
 }

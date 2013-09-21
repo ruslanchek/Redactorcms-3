@@ -10,7 +10,7 @@
     <br>
     <div class="navbar navbar-default">
         <div class="navbar-header">
-            <span class="navbar-brand" href="/">Project name</span>
+            <a class="navbar-brand" href="/">Project name</a>
         </div>
 
         {$core->drawBlock(1)}

@@ -23,6 +23,10 @@ var structure = {
         getblockModuleMode: function(module_id, mode_id){
             var module = this.getblockModule(module_id);
 
+            if(!module){
+                return false;
+            }
+
             for(var i = 0, l = module.modes.length; i < l; i++){
                 if(module.modes[i].id == mode_id){
                     return module.modes[i];
@@ -79,10 +83,17 @@ var structure = {
 
             if(module_mode.options && module_mode.options.length > 0){
                 for(var i = 0, l = module_mode.options.length; i < l; i++){
+
+                    var value = this.getBlockOptionParam(this.current_block_id, module_mode.options[i].name);
+
+                    if(!value || value == ''){
+                        value = module_mode.options[i].default;
+                    }
+
                     options_html += '<div class="item_block">' +
-                                        '<label class="label" class="control-label" for="block_option_'+module_mode.options[i].name+'">'+module_mode.options[i].title+'</label>' +
-                                        '<div class="controls" id="block_option_'+module_mode.options[i].name+'_placeholder">' +
-                                            '<input data-name="'+module_mode.options[i].name+'" class="text" type="text" value="'+this.getBlockOptionParam(this.current_block_id, module_mode.options[i].name)+'">' +
+                                        '<label class="label" class="control-label" for="block_option_' + module_mode.options[i].name + '">' + module_mode.options[i].title + '</label>' +
+                                        '<div class="controls" id="block_option_' + module_mode.options[i].name + '_placeholder">' +
+                                            '<input data-name="' + module_mode.options[i].name + '" class="text" type="text" value="' + value + '">' +
                                         '</div>' +
                                     '</div>';
                 }
@@ -134,7 +145,7 @@ var structure = {
                             }else{
                                 $('#select_block_menu_parent_id_placeholder').html('<em class="gray">Нет объектов</em>');
                                 $('#select_block_menu_parent_id_placeholder').parent().show();
-                            };
+                            }
                         }else{
                             $('#select_block_menu_parent_id_placeholder').parent().hide();
                         }
@@ -173,6 +184,7 @@ var structure = {
             });
         },
 
+        //TODO: Сделать так, чтобы по умолчанию все шаблоны, не относящиеся к модулю не показывались (navigation.menu...)
         drawSelectModuleTemplate: function(module, module_mode, mode_template){
             var module_mode = this.getblockModuleMode(module, module_mode),
                 default_template = module_mode.template,
@@ -185,7 +197,7 @@ var structure = {
                 selected = '';
             }
 
-            options += '<option autocomplete="off" '+selected+' value="'+default_template+'">Стандартный &mdash; '+default_template+'</option>';
+            options += '<option autocomplete="off" '+selected+' value="'+default_template+'">★ '+default_template+'</option>';
 
             selected = '';
 
@@ -303,7 +315,7 @@ var structure = {
         createBlocksEtalon: function(){
             var blocks_etalon = [];
 
-            for(var i = 1, l = this.blocks_count+1; i < l; i++){
+            for(var i = 1, l = this.blocks_count + 1; i < l; i++){
                 blocks_etalon.push({
                     id: i
                 });

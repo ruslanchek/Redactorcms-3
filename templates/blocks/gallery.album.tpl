@@ -1,3 +1,1 @@
-gallery.album.tpl
-
-{$block|print_r}
+<pre>{$block|print_r}</pre>

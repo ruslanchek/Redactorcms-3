@@ -93,7 +93,7 @@
             };
 
 
-            /*
+            /* TODO
                 DO NOT UNCOMMENT! THIS IS A DEBUG METHODS,
                 IT WILL CLEAN YOUR STRUCTURE COMPLETELY,
                 AND CREATE A NEW RANDOM STRUCTURE!
@@ -353,6 +353,22 @@
             };
         }
 
+        private function getDefaultTemplateId(){
+            $query = "
+                SELECT
+                    `id`
+                FROM
+                    `templates`
+                WHERE
+                    `default` = 1
+                LIMIT 1
+            ";
+
+            $result = $this->db->assocItem($query);
+
+            return $result['id'];
+        }
+
         //Creates a node in the tree, with specified parent
         public function insertNode($pid = 1){
             $query = "
@@ -396,6 +412,13 @@
 
             $max_sort_item = $this->db->assocItem($query);
 
+            // TODO: Сделать что-то с дефолтами для страницы (возможно настройка через конфиг или просто правильные значения...)
+            $defaults = new stdClass();
+            $defaults->module           = 1;
+            $defaults->module_mode      = 1;
+            $defaults->content_id       = 3;
+            $defaults->mode_template    = 'page.simple.tpl';
+
             $query = "
                 UPDATE
                     `structure_data`
@@ -404,8 +427,9 @@
                     `path` = '".$this->db->quote($path)."',
                     `name` = '".$this->db->quote($new_item_name)."',
                     `sort` = '".(intval($max_sort_item['max_sort']) + 1)."',
+                    `template_id` = " . intval($this->getDefaultTemplateId()) . ",
                     `blocks` = '[]',
-                    `main_block` = '{\"module\":1,\"module_mode\":1,\"content_id\":3,\"mode_template\":\"page.simple.tpl\"}'
+                    `main_block` = '" . $this->db->quote(json_encode($defaults)) . "'
                 WHERE
                     `id` = ".intval($id);
 

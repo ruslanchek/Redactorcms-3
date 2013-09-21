@@ -1,3 +1,1 @@
-gallery.random_photo.tpl
-
-{$block|print_r}
+<pre>{$block|print_r}</pre>

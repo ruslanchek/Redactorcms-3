@@ -97,7 +97,7 @@ $md->id         = 1;
 $md->title      = 'Все новости';
 $md->action     = false;
 $md->template   = 'news.news_all_items.tpl';
-$md->options    = array(array('name' => 'limit', 'title' => 'Лимит'));
+$md->options    = array(array('name' => 'limit', 'title' => 'Лимит', 'default' => 10));
 $mo->mode($md);
 
 $md             = new stdClass();
@@ -106,7 +106,7 @@ $md->title      = 'Линейка';
 $md->c_id_label = 'Линейка';
 $md->action     = 'news_lines';
 $md->template   = 'news.news_items.tpl';
-$md->options    = array(array('name' => 'limit', 'title' => 'Лимит'));
+$md->options    = array(array('name' => 'limit', 'title' => 'Лимит', 'default' => 10));
 $mo->mode($md);
 
 $md             = new stdClass();
