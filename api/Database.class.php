@@ -20,10 +20,10 @@
             );
 
             if(mysqli_connect_errno()){
-                $this->utils->debug('
-                    <b>MySQL connect failed:</b><br>
-                    '.mysqli_connect_error().'
-                ');
+                $this->utils->fatalError('0001',
+                    'MySQL error',
+                    mysqli_connect_error()
+                );
             };
 
             $this->link->set_charset("utf8");
@@ -65,12 +65,11 @@
         //Perform a query
         public function query($query){
             $result = $this->link->query($query) or die(
-                $this->utils->debug('
-                    <b>MySQL Error:</b><br>
-                    '.$this->link->error.'<br><br>
-                    <b>Query that been requested:</b><br>
-                    <code>'.$query.'</code>
-                ')
+                $this->utils->displayError(
+                    '0002',
+                    'MySQL error',
+                    $this->link->error . '<h4>Query<h4><pre>' . $query . '</pre>'
+                )
             );
 
             return $result;

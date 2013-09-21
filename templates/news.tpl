@@ -51,7 +51,6 @@
             </div>
         </div>
 
-
         <div class="span6">
             <div class="thumbnail">
                 <div class="caption">
@@ -95,7 +94,6 @@
     </div>
 
     <hr>
-
     {include file='includes/footer.tpl'}
 </div>
 </body>

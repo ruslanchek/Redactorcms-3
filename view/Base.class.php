@@ -10,34 +10,39 @@
             $this->deInit();
         }
 
-        //Get branch
+        //Get structure branch
         private function getStructureBranch($menu_id, $parent_id, $get_children){
             if(intval($menu_id) > 0 || $menu_id === false){
+                $where = '';
+
                 if(intval($parent_id) > 0){
-                    $where = "`structure`.`pid` = ".intval($parent_id)." && ";
+                    $where = "`s`.`pid` = " . intval($parent_id) . " && ";
                 }else{
-                    $where = "`structure`.`pid` = 1 && ";
+                    $where = "`s`.`pid` = 1 && ";
                 };
 
                 if($menu_id !== false){
-                    $where .= "`structure_data`.`menu_id` = ".intval($menu_id)." && ";
+                    $where .= "`sd`.`menu_id` = " . intval($menu_id) . " && ";
                 };
 
                 $query = "
                     SELECT
-                        `structure`.`id`,
-                        `structure_data`.`sort`,
-                        `structure_data`.`name`,
-                        `structure_data`.`path`,
-                        `structure_data`.`publish`
+                        `s`.`id`,
+                        `sd`.`sort`,
+                        `sd`.`name`,
+                        `sd`.`path`,
+                        `sd`.`publish`
                     FROM
-                        `structure`,
-                        `structure_data`
+                        `structure` `s`
+                    LEFT JOIN
+                        `structure_data` `sd`
+                    ON
+                        `s`.`id` = `sd`.`id`
                     WHERE
-                        ".$where."
-                        `structure`.`id` = `structure_data`.`id`
+                        " . $where . "
+                        `sd`.`publish` = 1
                     ORDER BY
-                        `structure_data`.`sort` ASC
+                        `sd`.`sort` ASC
                 ";
 
                 $sql = $this->db->query($query);
@@ -47,10 +52,12 @@
                     if($get_children){
                         $row['children'] = $this->getMenuTree($menu_id, $row['id']);
                     };
+
                     $result[] = (object) $row;
                 };
 
                 $sql->free();
+
                 return $result;
             }else{
                 return 'Ошибка 1283422: неправильный ID меню';
@@ -70,10 +77,11 @@
             return $result->pid;
         }
 
-        /*
-         * Base site functionality API
-         * */
 
+
+        /***************************************************************************************************************
+         * Base site functionality API
+         **************************************************************************************************************/
 
         //Get menu - list
         public function getMenu($menu_id, $parent_id){

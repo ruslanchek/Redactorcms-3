@@ -16,8 +16,8 @@ var structure = {
             for(var i = 0, l = this.modules.length; i < l; i++){
                 if(this.modules[i].id == module_id){
                     return this.modules[i];
-                };
-            };
+                }
+            }
         },
 
         getblockModuleMode: function(module_id, mode_id){
@@ -26,16 +26,16 @@ var structure = {
             for(var i = 0, l = module.modes.length; i < l; i++){
                 if(module.modes[i].id == mode_id){
                     return module.modes[i];
-                };
-            };
+                }
+            }
         },
 
         getBlockData: function(id){
             for(var i = 0, l = this.blocks_obj.length; i < l; i++){
                 if(this.blocks_obj[i].id == id){
                     var block = this.blocks_obj[i];
-                };
-            };
+                }
+            }
 
             return block;
         },
@@ -46,7 +46,7 @@ var structure = {
         },
 
         drawSelectModule: function(module){
-            var options = new String(),
+            var options = '',
                 selected;
 
             for(var i = 0, l = this.modules.length; i < l; i++){
@@ -54,10 +54,10 @@ var structure = {
                     selected = 'selected="selected"';
                 }else{
                     selected = '';
-                };
+                }
 
                 options += '<option autocomplete="off" '+selected+' value="'+this.modules[i].id+'">'+this.modules[i].title+'</option>';
-            };
+            }
 
             var html = '<select id="select_block_module">' + options + '</select>';
 
@@ -85,12 +85,12 @@ var structure = {
                                             '<input data-name="'+module_mode.options[i].name+'" class="text" type="text" value="'+this.getBlockOptionParam(this.current_block_id, module_mode.options[i].name)+'">' +
                                         '</div>' +
                                     '</div>';
-                };
+                }
 
                 $('#block_options').show().html(options_html);
             }else{
                 $('#block_options').hide().html('');
-            };
+            }
         },
 
         drawSelectMenuParentId: function(module, module_mode, menu_parent_id){
@@ -104,7 +104,7 @@ var structure = {
                     beforeSend  : function(){
                         if(this.block_menu_parents_request){
                             this.block_menu_parents_request.abort();
-                        };
+                        }
 
                         $('#select_block_menu_parent_id_placeholder').html('').parent().show();
                         core.loading.setLoadingToElementByAppend('drawSelectSelectMenu', $('#select_block_menu_parent_id_placeholder'), true);
@@ -121,10 +121,10 @@ var structure = {
                                         selected = 'selected="selected"';
                                     }else{
                                         selected = '';
-                                    };
+                                    }
 
                                     options += '<option '+selected+' value="'+result[i].id+'">'+result[i].name+'</option>';
-                                };
+                                }
 
                                 var html = '<select id="select_block_menu_parent_id">' + options + '</select>';
 
@@ -137,16 +137,16 @@ var structure = {
                             };
                         }else{
                             $('#select_block_menu_parent_id_placeholder').parent().hide();
-                        };
+                        }
                     }
                 });
             }else{
                 $('#select_block_menu_parent_id_placeholder').parent().hide();
-            };
+            }
         },
 
         drawSelectModuleMode: function(module, module_mode){
-            var options = new String(),
+            var options = '',
                 selected,
                 module = this.getblockModule(module);
 
@@ -155,10 +155,10 @@ var structure = {
                     selected = 'selected="selected"';
                 }else{
                     selected = '';
-                };
+                }
 
                 options += '<option autocomplete="off" '+selected+' value="'+module.modes[i].id+'">'+module.modes[i].title+'</option>';
-            };
+            }
 
             var html = '<select id="select_block_module_mode">' + options + '</select>';
 
@@ -176,14 +176,14 @@ var structure = {
         drawSelectModuleTemplate: function(module, module_mode, mode_template){
             var module_mode = this.getblockModuleMode(module, module_mode),
                 default_template = module_mode.template,
-                options = new String(),
+                options = '',
                 selected;
 
             if(!mode_template){
                 selected = 'selected="selected"';
             }else{
                 selected = '';
-            };
+            }
 
             options += '<option autocomplete="off" '+selected+' value="'+default_template+'">Стандартный &mdash; '+default_template+'</option>';
 
@@ -195,11 +195,11 @@ var structure = {
                         selected = 'selected="selected"';
                     }else{
                         selected = '';
-                    };
+                    }
 
                     options += '<option autocomplete="off" '+selected+' value="'+this.blocks_templates[i]+'">'+this.blocks_templates[i]+'</option>';
-                };
-            };
+                }
+            }
 
             var html = '<select id="select_block_mode_template">' + options + '</select>';
 
@@ -209,8 +209,8 @@ var structure = {
 
         drawSelectContentId: function(module, module_mode, content_id){
             var module_mode = this.getblockModuleMode(module, module_mode),
-                options = new String(),
-                html = new String(),
+                options = '',
+                html = '',
                 selected;
 
             if(module_mode.action !== false){
@@ -262,10 +262,10 @@ var structure = {
                                                 selected = 'selected="selected"';
                                             }else{
                                                 selected = '';
-                                            };
+                                            }
 
                                             options += '<option '+selected+' value="'+result[i].id+'">'+result[i].name+'</option>';
-                                        };
+                                        }
 
                                         html = '<select id="select_block_content_id">' + options + '</select>';
 
@@ -275,17 +275,17 @@ var structure = {
                                     }else{
                                         $('#select_block_content_id_placeholder').html('<em class="gray">Нет объектов</em>');
                                         $('#select_block_content_id_placeholder').parent().show();
-                                    };
+                                    }
                                 }else{
                                     $('#select_block_content_id_placeholder').parent().hide();
-                                };
-                            }; break;
-                        };
+                                }
+                            } break;
+                        }
                     }
                 });
             }else{
                 $('#select_block_content_id_placeholder').parent().hide();
-            };
+            }
         },
 
         setBlocksCount: function(value){
@@ -294,8 +294,8 @@ var structure = {
             for(var i = 0, l = structure.templates.length; i < l; i++){
                 if(structure.templates[i].id == value){
                     count = structure.templates[i].blocks;
-                };
-            };
+                }
+            }
 
             this.blocks_count = parseInt(count);
         },
@@ -307,7 +307,7 @@ var structure = {
                 blocks_etalon.push({
                     id: i
                 });
-            };
+            }
 
             return blocks_etalon;
         },
@@ -318,12 +318,18 @@ var structure = {
                 module_mode         = this.getblockModuleMode(this.main_block_obj.module, this.main_block_obj.module_mode),
                 blocks_html         = '';
 
+            var separate = '';
+
+            if(module_mode.title && module_mode.title != ''){
+                separate = ' &mdash; ';
+            }
+
             blocks_html +=  '<div class="item main_block button" rel="main" data-mode_template="' + this.main_block_obj.mode_template + '">' +
                                 '<table>' +
                                     '<tr>' +
-                                        '<td class="num_col"><span class="num">♛</span></td>' +
-                                        '<td class="name_col"><span class="module_name">' + module.title + '</span></td>' +
-                                        '<td class="mode_col"><span class="module_mode">' + module_mode.title + '</span></td>' +
+                                        '<td class="num_col"><span class="num">M</span></td>' +
+                                        '<td class="name_col"><span class="module_name">' + module.title + '</span><span class="separate">' + separate + '</span><span class="module_mode">' + module_mode.title + '</span></td>' +
+                                        '<td class="name_col">&nbsp;</td>' +
                                         //'<td class="delete_col"></td>' +
                                     '</tr>' +
                                 '</table>' +
@@ -356,8 +362,8 @@ var structure = {
                     if(this.blocks_obj[i2].id == blocks_etalon[i].id){
                         present = true;
                         block = this.blocks_obj[i2];
-                    };
-                };
+                    }
+                }
 
                 if(block){
                     var module          = this.getblockModule(block.module),
@@ -373,19 +379,25 @@ var structure = {
                     block_module        = 'Пустой блок';
                     block_module_mode   = '';
                     block_class         = 'empty_block';
-                };
+                }
+
+                var separate = '';
+
+                if(block_module_mode && block_module_mode != ''){
+                    separate = ' &mdash; ';
+                }
 
                 blocks_html +=  '<div class="item button '+block_class+'" rel="'+id+'" data-id="'+id+'" data-mode_template="' + template + '">' +
                                     '<table>' +
                                         '<tr>' +
                                             '<td class="num_col"><span class="num">' + blocks_etalon[i].id + '</span></td>' +
-                                            '<td class="name_col"><span class="module_name">' + block_module + '</span></td>' +
-                                            '<td class="mode_col"><span class="module_mode">' + block_module_mode + '</span></td>' +
+                                            '<td class="name_col"><span class="module_name">' + block_module + '</span><span class="separate">' + separate + '</span><span class="module_mode">' + block_module_mode + '</span></td>' +
+                                            //'<td class="mode_col"><span class="module_mode">' + block_module_mode + '</span></td>' +
                                             //'<td class="delete_col"><a id="add_item" href="javascript:void(0)" class="action_button"><b class="minus" title="Очистить блок"></b></a></td>' +
                                         '</tr>' +
                                     '</table>' +
                                 '</div>';
-            };
+            }
 
 
             /*blocks_html +=   '<div class="item btn" rel="new">' +
@@ -407,8 +419,8 @@ var structure = {
                 if(this.blocks_obj[i].id != $o.data('id')){
                     var new_o = this.blocks_obj[i];
                     new_obj.push(new_o);
-                };
-            };
+                }
+            }
 
             this.blocks_obj = new_obj;
 
@@ -417,6 +429,8 @@ var structure = {
                 .addClass('empty_block')
                 .find('.module_name')
                 .text('Пустой блок');
+
+            $o.find('.separate').html('');
 
             $o
                 .find('.module_mode')
@@ -437,7 +451,7 @@ var structure = {
 
             if($item_obj.hasClass('empty_block')){
                 block_id = 'empty';
-            };
+            }
 
             switch(block_id){
                 case 'main' : {
@@ -447,7 +461,7 @@ var structure = {
                     content_id      = this.main_block_obj.content_id;
                     menu_parent_id  = this.main_block_obj.menu_parent_id;
                     options         = this.main_block_obj.options;
-                }; break;
+                } break;
 
                 case 'new' : {
                     header          = 'Новый блок №' + (this.blocks_obj.length+1);
@@ -456,7 +470,7 @@ var structure = {
                     content_id      = 0;
                     menu_parent_id  = 1;
                     options         = [];
-                }; break;
+                } break;
 
                 case 'empty' : {
                     header          = 'Настройка пустого блока №'+$item_obj.data('id');
@@ -466,7 +480,7 @@ var structure = {
                     menu_parent_id  = 1;
                     block_id        = $item_obj.data('id');
                     options         = [];
-                }; break;
+                } break;
 
                 default : {
                     var block_data  = this.getBlockData(block_id);
@@ -485,8 +499,8 @@ var structure = {
                             core.modal.closeDialog();
                         });
                     };
-                }; break;
-            };
+                } break;
+            }
 
             var content =   '<div class="form">' +
                                 '<form>' +
@@ -533,7 +547,7 @@ var structure = {
 
             if(aftershow){
                 aftershow();
-            };
+            }
 
             this.current_block_id = block_id;
 
@@ -551,9 +565,9 @@ var structure = {
                     for(var i = 0, l = this.main_block_obj.options.length; i < l; i++){
                         if(option_name == this.main_block_obj.options[i].name){
                             return this.main_block_obj.options[i].value;
-                        };
-                    };
-                };
+                        }
+                    }
+                }
             }else{
                 for(var i = 0, l = this.blocks_obj.length; i < l; i++){
                     if(this.blocks_obj[i].id == block_id){
@@ -561,12 +575,12 @@ var structure = {
                             for(var i2 = 0, l = this.blocks_obj[i].options.length; i2 < l; i2++){
                                 if(this.blocks_obj[i].options[i2].name == option_name){
                                     return this.blocks_obj[i].options[i2].value;
-                                };
-                            };
-                        };
-                    };
-                };
-            };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             return '';
         },
@@ -622,7 +636,7 @@ var structure = {
                         menu_parent_id  : parseInt($('#select_block_menu_parent_id').val()),
                         options         : this.getBlockOptions()
                     });
-                };
+                }
 
                 for(var i = 0, l = this.blocks_obj.length; i < l; i++){
                     if(this.blocks_obj[i].id == block_id){
@@ -635,8 +649,8 @@ var structure = {
 
                         block_data = this.blocks_obj[i];
                         break;
-                    };
-                };
+                    }
+                }
 
                 if($('#blocks .item[rel="'+block_id+'"]').hasClass('empty_block')){
                     block_data = {
@@ -650,13 +664,13 @@ var structure = {
                     };
 
                     this.blocks_obj.push(block_data);
-                };
+                }
 
                 var module      = this.getblockModule(block_data.module),
                     module_mode = this.getblockModuleMode(block_data.module, block_data.module_mode);
 
                 if(new_block){
-                    var new_block_html =    '<div class="btn item popup_effect" rel="' + block_id + '" data-mode_template="'+$('#select_block_mode_template').val()+'">' +
+                    var new_block_html =    '<div class="btn item popup_effect" rel="' + block_id + '" data-mode_template="' + $('#select_block_mode_template').val() + '">' +
                                                 '<span class="num">' + block_id + '</span>' +
                                                 '<span class="module_name">' + module.title + '</span>' +
                                                 '<span class="module_mode">' + module_mode.title + '</span>' +
@@ -668,12 +682,13 @@ var structure = {
 
                     $block_item.removeClass('empty_block').addClass('btn-info');
                     $block_item.find('span.module_name').html(module.title);
+                    $block_item.find('span.separate').html(' &mdash; ');
                     $block_item.find('span.module_mode').html(module_mode.title);
                     $block_item.data('mode_template', $('#select_block_mode_template').val());
-                };
+                }
 
                 $('#hidden_blocks').val(encodeURIComponent(JSON.stringify(this.blocks_obj)));
-            };
+            }
         },
 
         init: function(){
@@ -688,8 +703,8 @@ var structure = {
                                                 '<div id="blocks" class="input_holder blocks"></div>' +
                                             '</div>' +
                                         '</div>'+
-                                        '<input type="hidden" id="hidden_blocks" name="blocks" value="'+encodeURIComponent(blocks_value)+'" />' +
-                                        '<input type="hidden" id="hidden_main_block" name="main_block" value="'+encodeURIComponent(main_block_value)+'" />';
+                                        '<input type="hidden" id="hidden_blocks" name="blocks" value="' + encodeURIComponent(blocks_value) + '" />' +
+                                        '<input type="hidden" id="hidden_main_block" name="main_block" value="' + encodeURIComponent(main_block_value) + '" />';
 
             this.blocks_obj         = $.parseJSON(blocks_value);
             this.main_block_obj     = $.parseJSON(main_block_value);
@@ -722,10 +737,10 @@ var structure = {
                 }else{
                     $('#add_item').show(120);
                     $('#remove_item').hide(200);
-                };
+                }
             }else{
                 $('#add_item, #remove_item').hide(120);
-            };
+            }
         }else{
             var html = '<p class="no_items">Выберите узел структуры, чтобы его отредактировать, либо создайте новый</з>';
             $('#form').html(html);
@@ -744,7 +759,7 @@ var structure = {
                 beforeSend  : function(){
                     if(structure.add_item_request != null){
                         structure.add_item_request.abort();
-                    };
+                    }
 
                     core.loading.setHeaderLoading($('#secondary_content_header'));
                 },
@@ -766,7 +781,7 @@ var structure = {
                     }, 250);
                 }
             });
-        };
+        }
     },
 
     delItem: function(id){
@@ -780,7 +795,7 @@ var structure = {
                 beforeSend  : function(){
                     if(structure.del_item_request != null){
                         structure.del_item_request.abort();
-                    };
+                    }
 
                     core.loading.setHeaderLoading($('#secondary_content_header'));
                 },
@@ -800,7 +815,7 @@ var structure = {
                     }, 250);
                 }
             });
-        };
+        }
     },
 
     binds: function(){
@@ -828,7 +843,7 @@ var structure = {
             beforeSend  : function(){
                 if(structure.save_item_request != null){
                     structure.save_item_request.abort();
-                };
+                }
 
                 core.loading.setHeaderLoading($('#primary_content_header'));
             },
@@ -845,14 +860,14 @@ var structure = {
                 for(var i = 0, l = structure.blocksInput.modules.length; i < l; i++){
                     if(main_block_data.module == structure.blocksInput.modules[i].id){
                         module_icon_class = structure.blocksInput.modules[i].class;
-                    };
-                };
+                    }
+                }
 
                 if(result.publish == '1'){
                     status_class = 'published';
                 }else{
                     status_class = 'hidden';
-                };
+                }
 
                 var $tree = $('#tree'),
                     node = $tree.tree('getNodeById', data.id);
@@ -926,7 +941,7 @@ var structure = {
                     }
                 ]
             });
-        };
+        }
 
         core.form.drawSelectInput({
             label       : 'Меню',
@@ -977,12 +992,12 @@ var structure = {
             if(node){
                 $tree.tree('selectNode', node, true);
                 structure.setMarkerToActivePosition($(node.element), 0);
-            };
+            }
 
             if(structure.item_request != null){
                 structure.item_request.abort();
                 core.loading.unsetHeaderLoading($('#primary_content_header'));
-            };
+            }
 
             $('#content-primary').animate({
                 opacity: 0
@@ -1016,7 +1031,7 @@ var structure = {
                                 }else{
                                     $('#form').html('<p class="no_items">Узла с ID '+id+' не существует. Выберите другой или создайте новый узел.</p>');
                                     $('#item_name').html('Редактор узла');
-                                };
+                                }
 
                                 $('#content-primary').animate({
                                     opacity: 1
@@ -1033,7 +1048,7 @@ var structure = {
                     structure.current_node_id = id;
                 }
             });
-        };
+        }
     },
 
     setMarkerToActivePosition: function(o, speed){
@@ -1043,7 +1058,7 @@ var structure = {
             tree_active_item = o;
         }else if($('#tree .selected').length > 0){
             tree_active_item = $('#tree li.selected');
-        };
+        }
 
         if(tree_active_item != null){
             tree_active_item.addClass('active');
@@ -1056,7 +1071,7 @@ var structure = {
                 maker.addClass('last');
             }else{
                 maker.removeClass('last');
-            };
+            }
 
             maker.css({
                 top     : top,
@@ -1075,7 +1090,7 @@ var structure = {
                     opacity : 'easeInOutExpo'
                 }
             });
-        };
+        }
     },
 
     drawTree: function(){
@@ -1104,7 +1119,7 @@ var structure = {
                             $('#tree li').each(function(){
                                 if(typeof $(this).data('node') != 'undefined'){
                                     $(this).attr('rel', $(this).data('node').id);
-                                };
+                                }
                             });
 
                             var $elem = $('#tree li[rel="'+event.move_info.moved_node.id+'"]');
@@ -1120,7 +1135,7 @@ var structure = {
                                         id: $(this).attr('rel'),
                                         sort: i
                                     });
-                                };
+                                }
                             });
 
                             $.ajax({
@@ -1144,12 +1159,12 @@ var structure = {
 
                                     if($('#active_tree_item_marker').length == 0){
                                         $tree.append('<div id="active_tree_item_marker"></div>');
-                                    };
+                                    }
 
                                     structure.setMarkerToActivePosition($(event.move_info.moved_node.element), 0);
                                 }
                             });
-                        };
+                        }
                     });
 
                     $tree.bind('tree.click', function(event) {
@@ -1159,7 +1174,7 @@ var structure = {
 
                         if($('#active_tree_item_marker').length == 0){
                             $tree.append('<div id="active_tree_item_marker"></div>');
-                        };
+                        }
 
                         structure.setMarkerToActivePosition($(node.element), 0);
 
@@ -1171,7 +1186,7 @@ var structure = {
                             $('#active_tree_item_marker').remove();
                             $tree.tree('selectNode', null, true);
                             document.location.hash = '';
-                        };
+                        }
                     });
 
                     if(structure.getIdFromHash() > 0){
@@ -1180,12 +1195,12 @@ var structure = {
 
                         if($('#active_tree_item_marker').length == 0){
                             $tree.append('<div id="active_tree_item_marker"></div>');
-                        };
+                        }
 
                         structure.setMarkerToActivePosition($(node.element), 0);
                     }else{
                         $tree.tree('selectNode', null, true);
-                    };
+                    }
 
                     $tree.append('<div id="hover_marker"></div>');
 
@@ -1200,7 +1215,7 @@ var structure = {
                             maker.addClass('last');
                         }else{
                             maker.removeClass('last');
-                        };
+                        }
 
                         maker.css({
                             top     : top,

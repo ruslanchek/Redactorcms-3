@@ -55,7 +55,7 @@
 
 #blocks .item {
     margin: 0 2px 3px 0;
-    padding: 5px 0;
+    padding: 5px 0 0;
     display: block;
     cursor: pointer;
     color: #444;
@@ -75,7 +75,7 @@
 }
 
 #blocks .item .name_col {
-    width: 32%;
+
 }
 
 #blocks .item .mode_col {
@@ -87,9 +87,17 @@
 }
 
 #blocks .item .num {
-    display: inline;
+    background: rgba(0, 0, 0, 0.05);
+    display: inline-block;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.2em;
+    border: 1px solid #999;
+    color: #444;
+    padding: 1px 4px 0;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 1.25em;
+    width: 2.5ex;
 }
 
 #blocks .item .module_name {
@@ -99,7 +107,7 @@
 }
 
 #blocks .item .module_mode {
-    display: inline;
+
 }
 
 .block_setup table {

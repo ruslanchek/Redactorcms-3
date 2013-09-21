@@ -112,7 +112,7 @@
             <div class="overall_padding">
                 <div class="copy">
                     <div class="left">
-                        &copy; 2008&ndash;2012. Редактор CMS
+                        &copy; 2008&ndash;{date('Y')}. Редактор CMS
                     </div>
                     <div class="right">
                         Версия 3.0
