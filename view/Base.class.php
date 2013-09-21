@@ -13,8 +13,6 @@
         //Get structure branch
         private function getStructureBranch($menu_id, $parent_id, $get_children){
             if(intval($menu_id) > 0 || $menu_id === false){
-                $where = '';
-
                 if(intval($parent_id) > 0){
                     $where = "`s`.`pid` = " . intval($parent_id) . " && ";
                 }else{
@@ -60,7 +58,11 @@
 
                 return $result;
             }else{
-                return 'Ошибка 1283422: неправильный ID меню';
+                return $this->utils->displayError(
+                    '2000',
+                    'Ошибка вывода меню',
+                    'Неверный ID меню'
+                );
             };
         }
 
@@ -93,12 +95,12 @@
             return $this->getStructureBranch($menu_id, $parent_id, true);
         }
 
-        //Get menu - list
+        //Get menu - second level list
         public function getSubMenu($menu_id, $parent_id){
             return $this->getStructureBranch($menu_id, $this->getParentId($parent_id), false);
         }
 
-        //Return a breadcrumbs
+        //Get a breadcrumbs
         public function getBreadCrumbs($id){
             $query = "
                 SELECT
@@ -130,7 +132,7 @@
             return array_reverse($breadcrumbs);
         }
 
-        //Get HTML of the page
+        //Get HTML of the simple page
         public function getSimplePageContent($id){
             $query = "
                 SELECT
@@ -144,6 +146,11 @@
             $data = (object) $this->db->assocItem($query);
 
             return $data->content;
+        }
+
+        //Get news full list
+        public function getNewsList($limit){
+
         }
     };
 ?>

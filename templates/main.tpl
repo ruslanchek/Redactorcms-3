@@ -10,13 +10,25 @@
     <br>
     <div class="navbar navbar-default">
         <div class="navbar-header">
-            <span class="navbar-brand" href="/">Project name</span>
+            <span class="navbar-brand">Project name</span>
         </div>
 
         {$core->drawBlock(1)}
     </div>
 
-    {$core->drawBlock('main')}
+    <div class="row">
+        <div class="col-lg-3">
+            {$core->drawBlock(2)}
+        </div>
+
+        <div class="col-lg-6">
+            {$core->drawBlock('main')}
+        </div>
+
+        <div class="col-lg-3">
+            {$core->drawBlock(3)}
+        </div>
+    </div>
 
     {include file='includes/footer.tpl'}
 </div>

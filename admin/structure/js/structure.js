@@ -109,7 +109,7 @@ var structure = {
                 $('#select_block_menu_parent_id_placeholder').parent().show();
 
                 this.block_menu_parents_request = $.ajax({
-                    url         : '/admin/structure/?ajax&action=get_all_structure_items',
+                    url         : '/admin/structure/?ajax&action=get_tree',
                     type        : 'GET',
                     dataType    : 'json',
                     beforeSend  : function(){
@@ -125,16 +125,48 @@ var structure = {
 
                         if(result != null){
                             if(result.length > 0){
-                                var options = '', selected;
+                                var options = '',
+                                    selected,
+                                    tree = [];
 
-                                for(var i = 0, l = result.length; i < l; i++){
-                                    if(result[i].id == menu_parent_id || (!menu_parent_id && result[i].id == core.form.options.data.pid)){
+                                var rw = function(arr, level){
+                                    for(var i = 0, l = arr.length; i < l; i++){
+                                        if(arr[i].id && arr[i].id){
+                                            tree.push({
+                                                id: arr[i].id,
+                                                name: arr[i].name,
+                                                level: level
+                                            });
+                                        }
+
+                                        if(arr[i].children && arr[i].children.length > 0){
+                                            rw(arr[i].children, level + 1);
+                                        }
+                                    }
+                                }
+
+                                rw(result, 0);
+
+                                console.log(tree, tree.length)
+
+                                for(var i = 0, l = tree.length; i < l; i++){
+                                    console.log(tree[i])
+
+                                    if(tree[i].id == menu_parent_id || (!menu_parent_id && tree[i].id == core.form.options.data.pid)){
                                         selected = 'selected="selected"';
                                     }else{
                                         selected = '';
                                     }
 
-                                    options += '<option '+selected+' value="'+result[i].id+'">'+result[i].name+'</option>';
+                                    var level_padding = '',
+                                        lvl = parseInt(tree[i].level);
+
+                                    while(lvl > 0){
+                                        lvl -= 1;
+                                        level_padding += '&ndash; ';
+                                    }
+
+                                    options += '<option ' + selected + ' value="' + tree[i].id + '">' + level_padding + tree[i].name + '</option>';
                                 }
 
                                 var html = '<select id="select_block_menu_parent_id">' + options + '</select>';
