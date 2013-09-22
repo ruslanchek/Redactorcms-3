@@ -8,7 +8,8 @@ Class Config{
     public
         $modules,
         $sections,
-        $groups;
+        $groups,
+        $taggets;
 
     //DB params
     public $db_vars = array(
@@ -33,6 +34,13 @@ Class Config{
          * Sections
         */
         require_once('Sections.conf.php');
+
+        /*******************************************************************************
+         * Taggets
+         */
+        require_once('Taggets.conf.php');
+
+        $this->taggets = $taggets;
     }
 
     //Modules

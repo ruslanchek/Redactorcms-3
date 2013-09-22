@@ -9,7 +9,8 @@ Class Core
         $utilities,
         $ajax_action,
         $page,
-        $error_404;
+        $error_404,
+        $taggets;
 
     // Свойства - Классы API
     private $classes = array(
@@ -26,6 +27,7 @@ Class Core
         require_once($_SERVER['DOCUMENT_ROOT'] . '/Config.class.php');
         $this->config = new Config();
         $this->page = new stdClass();
+        $this->taggets = $this->config->taggets;
     }
 
     public function __get($name)
