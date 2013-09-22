@@ -596,6 +596,11 @@ a:active { color: #e53000; }
     background: url(../img/icons/gray_icons.png) -36px 0;
 }
 
+.action_button b.x {
+    background: url(../img/icons/gray_icons.png) -48px 0;
+    width: 13px;
+}
+
 .action_button,
 .action_button:link {
     -webkit-border-radius: 2px;
@@ -971,7 +976,7 @@ a.button:active {
 	.form .separator {
 		height: 1px;
 		font-size: 0;
-		background: #ccc;
+		background: #e9e9e9;
 		border-bottom: 1px solid #fff;
 		margin: 0 0 15px; }
 
@@ -1141,9 +1146,13 @@ a.button:active {
 .form .label { display: block; }
 
 .form .result_message {
-    display: none;
-	margin: -16px 0 10px;
-	padding: 4px 14px 4px;
+    overflow: hidden;
+    opacity: 0;
+	margin: 0 0 10px;
+	padding: 0 14px 0;
+    height: 0;
+    top: -16px;
+    line-height: 27px;
 	color: #fff;
     position: relative;
     border-bottom: 1px solid rgba(100, 100, 100, 0.2);
@@ -1833,7 +1842,7 @@ a.icon_dimensions_x:hover { background: url(../img/icons/dimensions.png) -34px -
 a.icon_dimensions_x:active { background: url(../img/icons/dimensions.png) -34px -17px; }
 
 /* Right blocks */
-.right_block {
+.content-block {
 	border: 1px solid #e9e9e9;
 	border-bottom-color: #ccc;
 	text-shadow: 0 1px 0 #ffffff;
@@ -1842,7 +1851,7 @@ a.icon_dimensions_x:active { background: url(../img/icons/dimensions.png) -34px 
 	margin: 0 0 20px;
     }
 
-	.right_block h2 {
+	.content-block h2 {
 		padding: 10px 14px 8px;
 		background: #dcdcdc url(../img/bg/light.png) repeat-x top;
 		font-size: 1em !important;
@@ -1857,29 +1866,33 @@ a.icon_dimensions_x:active { background: url(../img/icons/dimensions.png) -34px 
         line-height: 20px !important;
     }
 
-    .right_block h2.loading {
+    .content-block h2.loading {
         background: #dcdcdc url(../img/bg/messages_loading.gif) top;
     }
 
-	.right_block h3 {
+	.content-block h3 {
         font-size: 1em;
         margin: 0;
         padding: 0;
         font-weight: normal;
         color: #777 !important; }
 
-	.right_block .inner { padding: 10px 14px; }
+	.content-block .inner { padding: 10px 14px; }
 
-    .right_block ul.rb_menu {
+    .content-block ul.rb_menu {
         list-style: none; }
 
-    .right_block ul.rb_menu li {
+    .content-block ul.rb_menu li {
         margin: 0 0 0.6em; }
 
-    .right_block ul.rb_menu li:last-child {
+    .content-block ul.rb_menu li:last-child {
         margin: 0; }
 
 /* Sections */
+.edit-item {
+    display: none;
+}
+
 .sections_inner {
     padding: 0 !important;
     position: relative;

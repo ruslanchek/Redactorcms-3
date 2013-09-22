@@ -6,24 +6,18 @@
 
         <link rel="stylesheet" href="/admin/resources/css/core.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
-        <link rel="stylesheet" href="/admin/resources/plugins/redactor/js/redactor/css/redactor.css" media="all" />
+        <link rel="stylesheet" href="/admin/resources/plugins/redactor/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/chosen/chosen.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/jqtree/jqtree.css" media="all" />
         <link rel="stylesheet" href="/admin/{$core->module.name}/css/{$core->module.name}.css" media="all" />
         <script src="/admin/resources/js/jquery.js"></script>
 
         <script src="/admin/resources/js/jquery.cookie.js"></script>
-        <script src="/admin/resources/js/jquery-ui-1.8.16.custom.min.js"></script>
+        <script src="/admin/resources/js/jquery-ui-1.10.3.custom.min.js"></script>
         <script src="/admin/resources/plugins/jqtree/tree.jquery.js"></script>
-        <script src="/admin/resources/plugins/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-        <script src="/admin/resources/plugins/fancybox/source/jquery.fancybox.pack.js"></script>
-        <script src="/admin/resources/plugins/redactor/js/redactor/redactor.js"></script>
+        <script src="/admin/resources/plugins/redactor/redactor.js"></script>
         <script src="/admin/resources/plugins/chosen/chosen.jquery.js"></script>
-        <script src="/admin/resources/plugins/upload/js/vendor/jquery.ui.widget.js"></script>
-        <script src="/admin/resources/plugins/upload/js/jquery.iframe-transport.js"></script>
-        <script src="/admin/resources/plugins/upload/js/jquery.fileupload.js"></script>
         <script src="/admin/resources/js/core.js"></script>
-        <script src="/admin/resources/js/section.js"></script>
         <script src="/admin/{$core->module.name}/js/{$core->module.name}.js"></script>
     </head>
     <body>

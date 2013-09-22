@@ -120,7 +120,7 @@ var structure = {
                         $('#select_block_menu_parent_id_placeholder').html('').parent().show();
                         core.loading.setLoadingToElementByAppend('drawSelectSelectMenu', $('#select_block_menu_parent_id_placeholder'), true);
                     },
-                    success     : function(result){
+                    success: function(result){
                         core.loading.unsetLoading('drawSelectSelectMenu');
 
                         if(result != null){
@@ -146,8 +146,6 @@ var structure = {
                                 }
 
                                 rw(result, 0);
-
-                                console.log(tree, tree.length)
 
                                 for(var i = 0, l = tree.length; i < l; i++){
                                     console.log(tree[i])
@@ -229,7 +227,7 @@ var structure = {
                 selected = '';
             }
 
-            options += '<option autocomplete="off" '+selected+' value="'+default_template+'">★ '+default_template+'</option>';
+            options += '<option autocomplete="off" ' + selected + ' value="' + default_template + '">★ ' + default_template + '</option>';
 
             selected = '';
 
@@ -241,7 +239,7 @@ var structure = {
                         selected = '';
                     }
 
-                    options += '<option autocomplete="off" '+selected+' value="'+this.blocks_templates[i]+'">'+this.blocks_templates[i]+'</option>';
+                    options += '<option autocomplete="off" ' + selected + ' value="' + this.blocks_templates[i] + '">' + this.blocks_templates[i] + '</option>';
                 }
             }
 
@@ -308,7 +306,7 @@ var structure = {
                                                 selected = '';
                                             }
 
-                                            options += '<option '+selected+' value="'+result[i].id+'">'+result[i].name+'</option>';
+                                            options += '<option ' + selected + ' value="' + result[i].id + '">' + result[i].name + '</option>';
                                         }
 
                                         html = '<select id="select_block_content_id">' + options + '</select>';
@@ -758,7 +756,7 @@ var structure = {
             this.setBlocksCount(core.form.options.data.template_id);
             this.drawBlocks();
 
-            $('#blocks .item').live('click', function(){
+            $('#blocks .item').on('click', function(){
                 structure.blocksInput.editBlock($(this));
             });
         }
@@ -1185,7 +1183,6 @@ var structure = {
                             $.ajax({
                                 url         : '/admin/structure/?ajax&action=order',
                                 type        : 'GET',
-                                dataType    : 'json',
                                 data        : {
                                     order   : JSON.stringify(order),
                                     parent  : $elem.parent().parent().attr('rel'),
@@ -1206,6 +1203,9 @@ var structure = {
                                     }
 
                                     structure.setMarkerToActivePosition($(event.move_info.moved_node.element), 0);
+                                },
+                                error: function(){
+                                    core.loading.unsetHeaderLoading($('#secondary_content_header'));
                                 }
                             });
                         }

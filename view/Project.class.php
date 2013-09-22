@@ -1,23 +1,28 @@
-<?php
-    Class Project extends Base {
-        public function __construct(){
-            parent::__construct();
+<?
+Class Project extends Base
+{
+    public function __construct()
+    {
+        parent::__construct();
 
-            $this->init();
+        $this->init();
 
-            if($this->ajax_mode){
-                switch($this->ajax_action){
-                    case 'test' : $this->ajaxTest(); break;
-                };
+        if ($this->ajax_mode) {
+            switch ($this->ajax_action) {
+                case 'test' :
+                    $this->ajaxTest();
+                    break;
             };
-        }
+        };
+    }
 
-        public function __destruct(){
-            $this->deInit();
-        }
+    public function __destruct()
+    {
+        $this->deInit();
+    }
 
-        protected function ajaxTest(){
-            print 'test';
-        }
-    };
-?>
+    protected function ajaxTest()
+    {
+        print 'test';
+    }
+}

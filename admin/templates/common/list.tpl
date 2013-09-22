@@ -29,7 +29,7 @@
                         {/if}
                     {else}
                         {if $col.data.link}
-                            <a href="?item_id={$item.id}">{$item[$col.name]}</a>
+                            <a href="#{$item.id}">{$item[$col.name]}</a>
                         {else}
                             {$item[$col.name]}
                         {/if}

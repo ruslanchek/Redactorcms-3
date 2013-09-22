@@ -23,10 +23,9 @@ Class Section{
 
 
 /*****************************************************
- * Sections list
+ * Pages
  * ***************************************************/
 
-//Pages
 $s = new Section(1, 'pages', 'Страницы', 1);
 
 $f              = new stdClass();
@@ -38,14 +37,30 @@ $f->width       = '1%';
 $f->align       = 'center';
 $s->field($f);
 
-
 $f              = new stdClass();
 $f->name        = 'name';
 $f->label       = 'Название';
 $f->type        = 'text';
 $f->list        = true;
 $f->link        = true;
-$f->width       = '98%';
+$f->width       = '100%';
+$f->align       = 'left';
+$f->validate    = array(
+    array(
+        'method'    => 'required',
+        'message'   => 'Заполните название'
+    )
+);
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'content';
+$f->label       = 'Страница';
+$f->type        = 'textarea';
+$f->visywig     = true;
+$f->list        = false;
+$f->link        = false;
+$f->width       = '100%';
 $f->align       = 'left';
 $f->validate    = array(
     array(
@@ -56,20 +71,25 @@ $f->validate    = array(
 $s->field($f);
 
 /*
-        $f              = new stdClass();
-        $f->name        = 'publish';
-        $f->label       = 'Публиковать';
-        $f->type        = 'checkbox';
-        $f->list        = true;
-        $f->link        = true;
-        $f->width       = '1%';
-        $f->align       = 'center';
-        $s->field($f);
+$f              = new stdClass();
+$f->name        = 'publish';
+$f->label       = 'Публиковать';
+$f->type        = 'checkbox';
+$f->list        = true;
+$f->link        = true;
+$f->width       = '1%';
+$f->align       = 'center';
+$s->field($f);
 */
 
 $this->sections[] = $s->getData();
 
-//Menu
+
+
+/*****************************************************
+ * Menu
+ * ***************************************************/
+
 $s = new Section(2, 'menu', 'Меню', 1);
 
 $f              = new stdClass();
@@ -81,7 +101,6 @@ $f->width       = '1%';
 $f->align       = 'center';
 $s->field($f);
 
-
 $f              = new stdClass();
 $f->name        = 'name';
 $f->label       = 'Название';
@@ -97,6 +116,5 @@ $f->validate    = array(
     )
 );
 $s->field($f);
-
 
 $this->sections[] = $s->getData();

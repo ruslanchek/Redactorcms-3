@@ -2,7 +2,6 @@
     Class Base extends Core {
         public function __construct(){
             parent::__construct();
-
             $this->init();
         }
 
@@ -132,6 +131,61 @@
             return array_reverse($breadcrumbs);
         }
 
+
+        //Parse taggets
+        public function taggetsParse($str){
+            $values = array();
+
+            $tgt = new stdClass();
+            $tgt->name = 'DATE';
+            $tgt->title = 'Текущая дата';
+            $tgt->title = 'Текущая дата';
+
+            $values = array(
+                'DATE',
+                'TIME',
+                'NODE_TITLE',
+                'NODE_PATH',
+                'SEO_TITLE'
+            );
+
+            foreach($values as $key)
+            {
+                $value = '';
+
+                switch($key){
+                    case 'DATE' : {
+                        $value = date('d-m-Y');
+                    } break;
+
+                    case 'TIME' : {
+                        $value = date('H-i-s');
+                    } break;
+
+                    case 'NODE_TITLE' : {
+                        $value = $this->page->data->name;
+                    } break;
+
+                    case 'NODE_PATH' : {
+                        $value = $this->page->data->path;
+                    } break;
+
+                    case 'SEO_TITLE' : {
+                        $value = $this->page->seo->title;
+                    } break;
+
+                    default : {
+                        $value = '';
+                    } break;
+                }
+
+                $ttr = "{{$key}}";
+                $str = str_replace($ttr, $value, $str);
+            }
+
+            return $str;
+        }
+
         //Get HTML of the simple page
         public function getSimplePageContent($id){
             $query = "
@@ -144,6 +198,8 @@
             ";
 
             $data = (object) $this->db->assocItem($query);
+
+            $data->content = $this->taggetsParse($data->content);
 
             return $data->content;
         }

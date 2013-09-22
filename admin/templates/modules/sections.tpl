@@ -1,23 +1,30 @@
 <div class="left_col">
-    <div class="right_block">
-        <h2 id="primary_content_header">
+    <div class="content-block edit-item">
+        <h2 id="primary_content_header_edit">
+            Редактирование записи
+            <div class="clear"></div>
+        </h2>
+
+        <div class="sections_content" id="content_editor">
+
+        </div>
+    </div>
+
+    <div class="content-block section-list">
+        <h2 id="primary_content_header_list">
             {if $smarty.get.section}
-            <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить объект"></b></a>
-            <a href="javascript:void(0)" class="action_button multiaction_button left" rel="delete" style="margin-right: 16px"><b class="minus" title="Удалить выбранные объекты"></b></a>
-            <a href="javascript:void(0)" class="action_button multiaction_button left" rel="show"><b class="show" title="Опубликовать выбранные объекты"></b></a>
-            <a href="javascript:void(0)" class="action_button multiaction_button left" rel="hide"><b class="hide" title="Скрыть выбранные объекты"></b></a>
+                <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить объект"></b></a>
+                <a href="javascript:void(0)" class="action_button multiaction_button left" rel="delete" style="margin-right: 16px"><b class="minus" title="Удалить выбранные объекты"></b></a>
+                <a href="javascript:void(0)" class="action_button multiaction_button left" rel="show"><b class="show" title="Опубликовать выбранные объекты"></b></a>
+                <a href="javascript:void(0)" class="action_button multiaction_button left" rel="hide"><b class="hide" title="Скрыть выбранные объекты"></b></a>
             {/if}
 
             <div class="clear"></div>
         </h2>
+
         <div class="sections_content">
             {if $smarty.get.section}
                 {include file="common/list.tpl"}
-
-                <script>
-                    section.setSortable();
-                    core.tableZebra($('.list .table_wrap>table'));
-                </script>
             {else}
                 <p class="no_items">Выберите нужный раздел справа, чтобы увидеть его содержимое</p>
             {/if}
@@ -26,12 +33,13 @@
 </div>
 
 <div class="right_col">
-    <div class="right_block">
+    <div class="content-block">
         <h2 id="secondary_content_header">
             <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить новый раздел"></b></a>
             {if $smarty.get.section}<a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранный раздел"></b></a>{/if}
             <div class="clear"></div>
         </h2>
+
         <div class="inner sections_inner">
             <ul class="sections_menu">
                 {foreach $core->config->groups as $group}

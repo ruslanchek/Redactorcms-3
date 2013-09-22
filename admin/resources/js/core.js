@@ -13,11 +13,11 @@ var core = {
 
     preloadImages: function(images_array){
         this.preloaded_images = new Array();
-        
+
         for(var i = 0, l = images_array.length; i < l; i++){
             this.preloaded_images[i] = new Image();
             this.preloaded_images[i].src = images_array[i];
-        };
+        }
     },
 
     drawTopActions: function(html){
@@ -28,7 +28,7 @@ var core = {
         jQuery.easing.def = "easeOutQuad";
         this.keyboard.init();
 
-        $('#main_menu_caller').live('click', function(){
+        $('#main_menu_caller').on('click', function(){
             core.keyboard.processKeyboard(27);
         });
     }
@@ -40,13 +40,13 @@ core.utilities = {
             if ( a % 10 == 1 && a % 100 != 11 ) return 0
             else if ( a % 10 >= 2 && a % 10 <= 4 && ( a % 100 < 10 || a % 100 >= 20)) return 1
             else return 2;
-        };
+        }
 
         switch (plural(i)) {
             case 0: return str1;
             case 1: return str3;
             default: return str5;
-        };
+        }
     },
 
     explode: function(delimiter, string, limit) {
@@ -87,7 +87,7 @@ core.utilities = {
             return '';
         }else{
             return str;
-        };
+        }
     },
 
     getParameterByName: function(name){
@@ -101,7 +101,7 @@ core.utilities = {
             return "";
         }else{
             return decodeURIComponent(results[1].replace(/\+/g, " "));
-        };
+        }
     }
 };
 
@@ -132,12 +132,6 @@ core.keyboard = {
 
     unBindKeyboardAction: function(keycode){
         this.keys[keycode] = undefined;
-
-        if(keycode == '27'){
-            this.bindKeyboardAction('27', false, function(){
-                core.mainmenu.toggle();
-            });
-        };
     },
 
     bindKeyboardAction: function(keycode, unbind_after_exec, action){
@@ -153,17 +147,13 @@ core.keyboard = {
 
             if(this.keys[keyCode].unbind_after_exec === true){
                 this.unBindKeyboardAction(keyCode);
-            };
-        };
+            }
+        }
     },
 
     init: function(){
-        $('body').live('keyup', function(){
+        $('body').on('keyup.global', function(){
             core.keyboard.processKeyboard(event.keyCode);
-        });
-
-        this.bindKeyboardAction('27', false, function(){
-            core.mainmenu.toggle();
         });
     }
 };
@@ -177,7 +167,7 @@ core.loading = {
         if($('.buttons').length > 0){
             $('.buttons').addClass('loading');
             $('.buttons *').fadeOut(50);
-        };
+        }
     },
 
     unsetHeaderLoading: function(header_obj){
@@ -187,36 +177,36 @@ core.loading = {
         if($('.buttons').length > 0){
             $('.buttons').removeClass('loading');
             $('.buttons *').fadeIn(50);
-        };
+        }
     },
 
     unsetLoading: function(name, micro){
         if($('.notify .loading_area').html() != ''){
             var kill_notify = true;
-        };
+        }
 
-        var $loading = $('i.loading[name="'+name+'"]');
+        var $loading = $('i.loading[name="' + name + '"]');
 
         if(!micro){
             this.stopAnimation(name);
-        };
+        }
 
         $loading.remove();
 
         if(kill_notify){
             core.notify.hideNotify();
-        };
+        }
     },
 
     animationIteration: function(name){
-        var $loading = $('i.loading[name="'+name+'"]'),
+        var $loading = $('i.loading[name="' + name + '"]'),
             pos = $loading.data('pos');
 
-        if((pos + 42) < (42*12)){
+        if((pos + 42) < (42 * 12)){
             pos += 42;
         }else{
             pos = 0;
-        };
+        }
 
         $loading.data('pos', pos).css({
             backgroundPosition: '0 -' + pos + 'px'
@@ -224,19 +214,19 @@ core.loading = {
     },
 
     stopAnimation: function(name){
-        var $loading = $('i.loading[name="'+name+'"]');
+        var $loading = $('i.loading[name="' + name + '"]');
 
         $loading.data('pos', 0);
 
         if(typeof $loading.data('animation_interval') != 'undefined'){
             clearInterval($loading.data('animation_interval'));
-        };
+        }
     },
 
     //todo: побороть баг с многократным вызовом анимации
 
     startAnimation: function(name){
-        var $loading = $('i.loading[name="'+name+'"]');
+        var $loading = $('i.loading[name="' + name + '"]');
 
         this.stopAnimation(name);
 
@@ -247,19 +237,19 @@ core.loading = {
     },
 
     setLoadingToElementPos: function(name, obj, top, left, zIndex, micro){
-        var micro_class = new String();
+        var micro_class = '';
 
         if(micro){
             micro_class += ' micro'
-        };
+        }
 
         if(!zIndex){
             zIndex = 100;
-        };
+        }
 
         var obj_offset = obj.offset();
 
-        var $loading = $('<i name="'+name+'" class="loading'+micro_class+'"></i>')
+        var $loading = $('<i name="' + name + '" class="loading' + micro_class + '"></i>')
 
         $loading.css({
             top     : obj_offset.top + $loading.height()/2 + top,
@@ -271,13 +261,13 @@ core.loading = {
 
         if(!micro){
             this.startAnimation(name);
-        };
+        }
 
         return $loading;
     },
 
     setLoadingToElementCenter: function(name, obj, zIndex, micro){
-        var micro_class = new String();
+        var micro_class = '';
 
         if(micro){
             micro_class += ' micro'
@@ -287,9 +277,9 @@ core.loading = {
 
         if(!zIndex){
             zIndex = 100;
-        };
+        }
 
-        var $loading = $('<i name="'+name+'" class="loading'+micro_class+'"></i>').css({
+        var $loading = $('<i name="' + name + '" class="loading' + micro_class + '"></i>').css({
             top     : obj_offset.top + obj.height()/2 - 32,
             left    : obj_offset.left + obj.width()/2,
             zIndex  : zIndex
@@ -307,7 +297,7 @@ core.loading = {
 
         if(!micro){
             this.startAnimation(name);
-        };
+        }
 
         return $loading;
     },
@@ -317,9 +307,9 @@ core.loading = {
 
         if(micro){
             micro_class += ' micro'
-        };
+        }
 
-        var $loading = $('<i name="'+name+'" class="loading'+micro_class+'"></i>').css({
+        var $loading = $('<i name="' + name + '" class="loading' + micro_class + '"></i>').css({
             margin  : '0'
         });
 
@@ -327,13 +317,13 @@ core.loading = {
 
         if(!micro){
             this.startAnimation(name);
-        };
+        }
 
         return $loading;
     },
 
     setLoadingWithNotify: function(name, micro, text){
-        core.notify.showNotify('<h2>'+text+'</h2><div class="loading_area"></div>');
+        core.notify.showNotify('<h2>' + text + '</h2><div class="loading_area"></div>');
         this.setLoadingToElementByAppend(name, $('.notify .loading_area'), micro);
     }
 };
@@ -372,19 +362,19 @@ core.modal = {
             ok = '<input class="button ok" type="submit" value="Оk" />';
         }else{
             ok = '';
-        };
+        }
 
         var html = '<div class="window dialog" id="modal_window">' +
-                        '<a href="javascript:void(0)" class="close" id="modal_closer"></a>' +
-                        '<h1>' + this.options.header + '</h1>' +
-                        '<div class="message"></div>' +
-                        '<div class="window_content">' + this.options.content + '</div>' +
-                        '<div class="buttons">' +
-                            ok +
-                            '<input class="button cancel" type="button" value="Закрыть" />' +
-                            '<div class="clear"></div>' +
-                        '</div>' +
-                    '</div>';
+            '<a href="javascript:void(0)" class="close" id="modal_closer"></a>' +
+            '<h1>' + this.options.header + '</h1>' +
+            '<div class="message"></div>' +
+            '<div class="window_content">' + this.options.content + '</div>' +
+            '<div class="buttons">' +
+            ok +
+            '<input class="button cancel" type="button" value="Закрыть" />' +
+            '<div class="clear"></div>' +
+            '</div>' +
+            '</div>';
 
         $('body').prepend(html);
 
@@ -431,7 +421,7 @@ core.modal = {
      */
     showDialog: function(options){
         this.options = {
-            content: new String()
+            content: ''
         };
 
         this.__action = options.action;
@@ -461,39 +451,6 @@ core.notify = {
                 $notify.remove();
             });
         }, 200);
-    }
-};
-
-core.mainmenu = {
-    hide: function(){
-        if($('#cc-launchbar').is(':visible')){
-            $('#cc-launchbar').hide();
-            console.log('hide')
-        };
-    },
-
-    show: function(){
-        if(!$('#cc-launchbar').is(':visible')){
-            $('#cc-launchbar').show();
-            console.log('show')
-        };
-    },
-
-    toggle: function(){
-        if($('#cc-launchbar').is(':visible')){
-            this.hide();
-
-            $('html').off('click');
-            $('#cc-launchbar').off('click');
-        }else{
-            this.show();
-
-            $('html').off('click').on('click', function() {
-                if(event.srcElement.id != 'main_menu_caller'){
-                    core.mainmenu.toggle();
-                };
-            });
-        };
     }
 };
 
@@ -561,21 +518,21 @@ core.form = {
                                 var error = $('<span class="help-inline field_error">' + validate[i].message + '</span>');
                                 $(this).parent().parent().addClass('error');
                                 $(this).parent().append(error);
-                            };
-                        };
-                    };
-                };
+                            }
+                        }
+                    }
+                }
             });
 
             if(valid){
                 return true;
-            };
+            }
         },
 
         bind: function(obj, validate){
             if(validate){
                 obj.data('validate', validate);
-            };
+            }
         }
     },
 
@@ -586,30 +543,49 @@ core.form = {
     },
 
     hideMessage: function(){
-        var form = this.options.container_obj.find('form#'+this.options.form_id);
-        form.find('.result_message').fadeOut(250);
+        clearTimeout(this.hide_timeout);
+
+        var form = this.options.container_obj.find('form#' + this.options.form_id);
+
+        form.find('.result_message')
+        .animate({
+            height: 0,
+            opacity: 0
+        }, 150);
     },
 
     showMessage: function(result){
         this.hideMessage();
 
-        var form = this.options.container_obj.find('form#'+this.options.form_id),
+        var form = this.options.container_obj.find('form#' + this.options.form_id),
             result_class;
 
         if(result.status == true){
             result_class = 'ok';
+
+            this.hide_timeout = setTimeout(function(){
+                core.form.hideMessage();
+            }, 2000);
         }else{
             result_class = 'error';
-        };
+        }
 
-        form.find('.result_message').attr('class', 'result_message').addClass(result_class).html(result.message+'<a class="close_message" href="javascript:void(0)" title="Закрыть"></a>').fadeIn(250);
+        form.find('.result_message')
+            .attr('class', 'result_message')
+            .addClass(result_class)
+            .html(result.message + '<a class="close_message" href="javascript:void(0)" title="Закрыть"></a>')
+            .animate({
+                height: 27,
+                opacity: 1
+            }, 150);
+
         $('.close_message').off('click').on('click', function(){
             core.form.hideMessage();
         });
     },
 
     formReady: function(result){
-        var form = this.options.container_obj.find('form#'+this.options.form_id),
+        var form = this.options.container_obj.find('form#' + this.options.form_id),
             sbmt = form.find('.form_sumbit');
 
         this.showMessage(result);
@@ -621,20 +597,20 @@ core.form = {
     //Создание формы
     createFormContainer: function(){
         var html =  '<div class="form">' +
-                        '<form action="javascript:void(0)" class="form-horizontal" id="'+this.options.form_id+'">' +
-                            '<div class="result_message"></div>' +
+            '<form action="javascript:void(0)" class="form-horizontal" id="' + this.options.form_id+'">' +
+            '<div class="result_message"></div>' +
 
-                            '<fieldset class="form_items"></fieldset>' +
-                            '<div class="buttons">' +
-                                '<input class="button" type="submit" name="save" value="Сохранить" autocomplete="off" />' +
-                                '<div class="clear"></div>' +
-                            '</div>' +
-                        '</form>' +
-                    '</div>';
+            '<fieldset class="form_items"></fieldset>' +
+            '<div class="buttons">' +
+            '<input class="button" type="submit" name="save" value="Сохранить" autocomplete="off" />' +
+            '<div class="clear"></div>' +
+            '</div>' +
+            '</form>' +
+            '</div>';
 
         this.options.container_obj.html(html);
 
-        var form = this.options.container_obj.find('form#'+this.options.form_id);
+        var form = this.options.container_obj.find('form#' + this.options.form_id);
 
         form.on('submit', function(){
             var data = {};
@@ -656,7 +632,7 @@ core.form = {
                     name = $(this).attr('name');
                     value = $(this).val();
                     data[name] = value;
-                };
+                }
             });
 
             var valid = core.form.validator.validate(form);
@@ -664,7 +640,7 @@ core.form = {
 
             if(valid){
                 core.form.options.submit(data);
-            };
+            }
         });
     },
 
@@ -673,11 +649,11 @@ core.form = {
         var id      =   'checkbox_' + data.name,
             checked =   (this.options.data[data.name] == '1') ? 'checked="checked"' : '',
             html    =   '<div class="item_block">' +
-                            '<label class="label" for="'+id+'">' + data.label + '</label>' +
-                            '<div class="controls">' +
-                                '<label class="checkbox"><input type="checkbox" id="' + id + '" '+checked+' name="'+data.name+'"></label>' +
-                            '</div>' +
-                        '</div>';
+                '<label class="label" for="'+id+'">' + data.label + '</label>' +
+                '<div class="controls">' +
+                '<label class="checkbox"><input type="checkbox" id="' + id + '" ' + checked + ' name="' + data.name + '"></label>' +
+                '</div>' +
+                '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
     },
@@ -685,33 +661,28 @@ core.form = {
     //Рисование радиокнопок
     drawRadioButtonInput: function(data){
         var id          = 'checkbox_' + data.name,
-            radios_html = new String(),
-            width       = Math.floor(100/data.options.length),
-            items       = new String();
+            radios_html = '',
+            items       = '';
 
         for(var i = 0, l = data.options.length; i < l; i++){
             var checked = (data.options[i].value == this.options.data[data.name]) ? 'checked="checked"' : '',
                 active  = (data.options[i].value == this.options.data[data.name]) ? 'class="active"' : '';
 
-            radios_html +=  '<td width="' + width + '%">' +
-                                '<label ' + active + '>' +
-                                    '<input type="radio" id="' + id + '_' + data.options[i].value + '" name="' + data.name + '" ' + checked + ' value="' + data.options[i].value + '" />' +
-                                    data.options[i].label +
-                                '</label>' +
-                            '</td>';
+            radios_html +=  '<label ' + active + '>' +
+                '<input type="radio" id="' + id + '_' + data.options[i].value + '" name="' + data.name + '" ' + checked + ' value="' + data.options[i].value + '" />' +
+                data.options[i].label +
+                '</label>';
 
             items += '#' + id + '_' + data.options[i].value + ', ';
-        };
+        }
 
         items = items.substr(0, items.length - 2);
 
         var html =  '<div class="clear"></div>' +
-                    '<div class="radio_container input_holder">' +
-                        '<table>' +
-                            '<tr>' + radios_html + '</tr>' +
-                        '</table>' +
-                    '</div>' +
-                    '<div class="clear"></div>';
+            '<div class="radio_container input_holder">' +
+            radios_html +
+            '</div>' +
+            '<div class="clear"></div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
 
@@ -726,21 +697,25 @@ core.form = {
         var id          =   'textarea_' + data.name,
             collapsed   =   (data.collapsed) ? 'collapsed' : '',
             html        =   '<div class="item_block">' +
-                                '<label class="label" for="'+id+'">' + data.label + '</label>' +
-                                '<div class="controls">' +
-                                    '<textarea id="' + id + '" name="'+data.name+'" rows="' + data.rows + '">' +
-                                        core.utilities.jsonNullToEmptyString(this.options.data[data.name]) +
-                                    '</textarea>' +
-                                '</div>' +
-                            '</div>';
+                '<label class="label" for="' + id + '">' + data.label + '</label>' +
+                '<div class="controls">' +
+                '<textarea id="' + id + '" name="' + data.name + '" rows="' + data.rows + '">' +
+                core.utilities.jsonNullToEmptyString(this.options.data[data.name]) +
+                '</textarea>' +
+                '</div>' +
+                '</div>';
 
-        this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
+        this.options.container_obj.find('form#' + this.options.form_id).find('.form_items').append(html);
 
         if(data.visywig){
-            $('#'+id).redactor({
-
+            $('#' + id).redactor({
+                imageUpload: '/your_image_upload_script/',
+                clipboardUploadUrl: '/your_clipboard_upload_script/',
+                convertVideoLinks: true,
+                wym: true,
+                observeLinks: true
             });
-        };
+        }
     },
 
     //Рисование текстового поля
@@ -748,17 +723,17 @@ core.form = {
         var id          =   'text_' + data.name,
             collapsed   =   (data.collapsed) ? 'collapsed' : '',
             html        =   '<div class="item_block">' +
-                                '<label class="label" for="' + id + '">' + data.label + '</label>' +
-                                '<div class="controls '+collapsed+'">' +
-                                    '<input class="text" type="text" id="' + id + '" name="'+data.name+'" value="'+core.utilities.jsonNullToEmptyString(this.options.data[data.name])+'" />' +
-                                '</div>' +
-                            '</div>';
+                '<label class="label" for="' + id + '">' + data.label + '</label>' +
+                '<div class="controls ' + collapsed + '">' +
+                '<input class="text" type="text" id="' + id + '" name="' + data.name + '" value="' + core.utilities.jsonNullToEmptyString(this.options.data[data.name]) + '" />' +
+                '</div>' +
+                '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
 
         if(typeof data.validate != 'undefined' && data.validate.length > 0){
             this.validator.bind($('#'+id), data.validate);
-        };
+        }
     },
 
     //Рисование текстового поля
@@ -768,41 +743,48 @@ core.form = {
             multiple = '';
 
         for(var i = 0, l = data.options.length; i < l; i++){
-            var selected = new String();
+            var selected = '';
 
             if(this.options.data[data.name] == data.options[i].id){
                 selected = 'selected="selected"';
-            };
+            }
 
             options += '<option '+selected+' value="'+data.options[i].id+'">'+data.options[i].name+'</option>';
-        };
+        }
 
         if(data.multiple_mode){
             multiple = 'multiple';
-        };
+        }
 
         var html    =   '<div class="item_block">' +
-                            '<label class="label" for="' + id + '">' + data.label + '</label>' +
-                            '<div class="controls">' +
-                                '<select '+multiple+' id="' + id + '" name="'+data.name+'">' +
-                                    options +
-                                '</select>' +
-                            '</div>' +
-                        '</div>';
+            '<label class="label" for="' + id + '">' + data.label + '</label>' +
+            '<div class="controls">' +
+            '<select '+multiple+' id="' + id + '" name="'+data.name+'">' +
+            options +
+            '</select>' +
+            '</div>' +
+            '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
 
         if(typeof data.validate != 'undefined' && data.validate.length > 0){
             this.validator.bind($('#'+id), data.validate);
-        };
+        }
 
-        $('#'+id).chosen();
+        $('#' + id).chosen();
     },
 
     //Рисование скрытого элемента
     drawHiddenInput: function(data){
         var id      = 'hidden_' + data.name,
             html    =  '<input type="hidden" id="' + id + '" name="'+data.name+'" value="'+core.utilities.jsonNullToEmptyString(this.options.data[data.name])+'" />';
+
+        this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
+    },
+
+    //Рисование разделителя
+    drawSeparator: function(){
+        var html    =  '<div class="separator"></div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
     }
