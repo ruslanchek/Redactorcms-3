@@ -713,7 +713,11 @@ core.form = {
                 clipboardUploadUrl: '/your_clipboard_upload_script/',
                 convertVideoLinks: true,
                 wym: true,
-                observeLinks: true
+                observeLinks: true,
+                initCallback: function()
+                {
+
+                }
             });
         }
     },
@@ -788,6 +792,10 @@ core.form = {
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
     }
+};
+
+core.taggets = {
+
 };
 
 $(function(){
