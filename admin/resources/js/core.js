@@ -83,7 +83,7 @@ core.utilities = {
     },
 
     jsonNullToEmptyString: function(str){
-        if(str === null){
+        if(str === null || str === undefined){
             return '';
         }else{
             return str;
@@ -504,6 +504,7 @@ core.form = {
 
         validate: function(form){
             var valid = true;
+
             $('.field_error').remove();
             $('form .error').removeClass('error');
 
@@ -526,6 +527,8 @@ core.form = {
 
             if(valid){
                 return true;
+            }else{
+                core.form.showMessage({status: false, message: 'Проверьте правильность заполнения полей'});
             }
         },
 
@@ -542,7 +545,7 @@ core.form = {
         this.createFormContainer();
     },
 
-    hideMessage: function(){
+    hideMessage: function(callback){
         clearTimeout(this.hide_timeout);
 
         var form = this.options.container_obj.find('form#' + this.options.form_id);
@@ -551,36 +554,42 @@ core.form = {
         .animate({
             height: 0,
             opacity: 0
-        }, 150);
+        }, 150, function(){
+            if(callback){
+                callback();
+            }
+        });
     },
 
     showMessage: function(result){
-        this.hideMessage();
+        var that = this;
 
-        var form = this.options.container_obj.find('form#' + this.options.form_id),
-            result_class;
+        this.hideMessage(function(){
+            var form = that.options.container_obj.find('form#' + that.options.form_id),
+                result_class;
 
-        if(result.status == true){
-            result_class = 'ok';
+            if(result.status == true){
+                result_class = 'ok';
 
-            this.hide_timeout = setTimeout(function(){
+                that.hide_timeout = setTimeout(function(){
+                    core.form.hideMessage();
+                }, 2000);
+            }else{
+                result_class = 'error';
+            }
+
+            form.find('.result_message')
+                .attr('class', 'result_message')
+                .addClass(result_class)
+                .html(result.message + '<a class="close_message" href="javascript:void(0)" title="Закрыть"></a>')
+                .animate({
+                    height: 27,
+                    opacity: 1
+                }, 150);
+
+            $('.close_message').off('click').on('click', function(){
                 core.form.hideMessage();
-            }, 2000);
-        }else{
-            result_class = 'error';
-        }
-
-        form.find('.result_message')
-            .attr('class', 'result_message')
-            .addClass(result_class)
-            .html(result.message + '<a class="close_message" href="javascript:void(0)" title="Закрыть"></a>')
-            .animate({
-                height: 27,
-                opacity: 1
-            }, 150);
-
-        $('.close_message').off('click').on('click', function(){
-            core.form.hideMessage();
+            });
         });
     },
 
@@ -729,16 +738,16 @@ core.form = {
         var id          =   'text_' + data.name,
             collapsed   =   (data.collapsed) ? 'collapsed' : '',
             html        =   '<div class="item_block">' +
-                '<label class="label" for="' + id + '">' + data.label + '</label>' +
-                '<div class="controls ' + collapsed + '">' +
-                '<input class="text" type="text" id="' + id + '" name="' + data.name + '" value="' + core.utilities.jsonNullToEmptyString(this.options.data[data.name]) + '" />' +
-                '</div>' +
-                '</div>';
+                                '<label class="label" for="' + id + '">' + data.label + '</label>' +
+                                '<div class="controls ' + collapsed + '">' +
+                                    '<input class="text" type="text" id="' + id + '" name="' + data.name + '" value="' + core.utilities.jsonNullToEmptyString(this.options.data[data.name]) + '" />' +
+                                '</div>' +
+                            '</div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
 
         if(typeof data.validate != 'undefined' && data.validate.length > 0){
-            this.validator.bind($('#'+id), data.validate);
+            this.validator.bind($('#' + id), data.validate);
         }
     },
 
@@ -755,7 +764,7 @@ core.form = {
                 selected = 'selected="selected"';
             }
 
-            options += '<option '+selected+' value="'+data.options[i].id+'">'+data.options[i].name+'</option>';
+            options += '<option '+selected+' value="' + data.options[i].id + '">' + data.options[i].name + '</option>';
         }
 
         if(data.multiple_mode){
@@ -783,7 +792,7 @@ core.form = {
     //Рисование скрытого элемента
     drawHiddenInput: function(data){
         var id      = 'hidden_' + data.name,
-            html    =  '<input type="hidden" id="' + id + '" name="'+data.name+'" value="'+core.utilities.jsonNullToEmptyString(this.options.data[data.name])+'" />';
+            html    =  '<input type="hidden" id="' + id + '" name="' + data.name + '" value="' + core.utilities.jsonNullToEmptyString(this.options.data[data.name]) + '" />';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
     },

@@ -4,19 +4,21 @@
 
 .taggets-modal li {
     list-style-type: none;
-    margin: 0 0 1em;
+    margin: 0 5% 1em 0;
+    float: left;
+    width: 45%;
 }
 
 .taggets-modal li a {
     border-radius: 3px;
     background: #eee;
     border: 1px solid #ddd;
-    padding: 1px 8px;
+    padding: 1px 6px;
     display: inline-block;
     color: #333;
     font-weight: bold;
     text-decoration: none;
-    min-width: 15ex;
+    min-width: 13ex;
     text-align: center;
 }
 

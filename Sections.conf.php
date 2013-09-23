@@ -62,25 +62,7 @@ $f->list        = false;
 $f->link        = false;
 $f->width       = '100%';
 $f->align       = 'left';
-$f->validate    = array(
-    array(
-        'method'    => 'required',
-        'message'   => 'Заполните название'
-    )
-);
 $s->field($f);
-
-/*
-$f              = new stdClass();
-$f->name        = 'publish';
-$f->label       = 'Публиковать';
-$f->type        = 'checkbox';
-$f->list        = true;
-$f->link        = true;
-$f->width       = '1%';
-$f->align       = 'center';
-$s->field($f);
-*/
 
 $this->sections[] = $s->getData();
 
@@ -115,6 +97,73 @@ $f->validate    = array(
         'message'   => 'Заполните название'
     )
 );
+$s->field($f);
+
+$this->sections[] = $s->getData();
+
+
+
+/*****************************************************
+ * News
+ * ***************************************************/
+
+$s = new Section(3, 'news', 'Новости', 2);
+
+$f              = new stdClass();
+$f->name        = 'id';
+$f->label       = 'Код';
+$f->type        = 'hidden';
+$f->list        = true;
+$f->width       = '1%';
+$f->align       = 'center';
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'name';
+$f->label       = 'Заголовок';
+$f->type        = 'text';
+$f->list        = true;
+$f->link        = true;
+$f->width       = '98%';
+$f->align       = 'left';
+$f->validate    = array(
+    array(
+        'method'    => 'required',
+        'message'   => 'Заполните заголовок'
+    )
+);
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'announce';
+$f->label       = 'Анонс';
+$f->type        = 'textarea';
+$f->visywig     = true;
+$f->list        = false;
+$f->link        = false;
+$f->width       = '100%';
+$f->align       = 'left';
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'content';
+$f->label       = 'Текст';
+$f->type        = 'textarea';
+$f->visywig     = true;
+$f->list        = false;
+$f->link        = false;
+$f->width       = '100%';
+$f->align       = 'left';
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'publish';
+$f->label       = 'Публиковать';
+$f->type        = 'checkbox';
+$f->list        = true;
+$f->link        = true;
+$f->width       = '1%';
+$f->align       = 'center';
 $s->field($f);
 
 $this->sections[] = $s->getData();

@@ -43,7 +43,7 @@ RedactorPlugins.taggets = {
 
 		this.buttonAdd('clips', 'Taggets', function(e)
 		{
-			this.modalInit('Taggets', '#clipsmodal', 500, callback);
+			this.modalInit('Taggets', '#clipsmodal', 600, callback);
 		});
 	},
 	insertClip: function(html)

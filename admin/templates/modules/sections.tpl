@@ -13,7 +13,7 @@
     <div class="content-block section-list">
         <h2 id="primary_content_header_list">
             {if $smarty.get.section}
-                <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить объект"></b></a>
+                <a href="#" class="action_button list_action_create left"><b class="plus" title="Создать объект"></b></a>
                 <a href="javascript:void(0)" class="action_button multiaction_button left" rel="delete" style="margin-right: 16px"><b class="minus" title="Удалить выбранные объекты"></b></a>
                 <a href="javascript:void(0)" class="action_button multiaction_button left" rel="show"><b class="show" title="Опубликовать выбранные объекты"></b></a>
                 <a href="javascript:void(0)" class="action_button multiaction_button left" rel="hide"><b class="hide" title="Скрыть выбранные объекты"></b></a>

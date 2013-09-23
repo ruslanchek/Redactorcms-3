@@ -12,16 +12,6 @@ Class Base extends Core
         $this->deInit();
     }
 
-    public function taggetsCollection(){
-        $this->taggets->DATE->value = date('d-m-Y');
-        $this->taggets->TIME->value = date('H-i-s');
-        $this->taggets->SEO_TITLE->value = $this->page->seo->title;
-        $this->taggets->NODE_TITLE->value = $this->page->data->name;
-        $this->taggets->NODE_PATH->value = $this->page->data->path;
-
-        return (array) $this->taggets;
-    }
-
     //Get structure branch
     private function getStructureBranch($menu_id, $parent_id, $get_children)
     {
@@ -149,14 +139,41 @@ Class Base extends Core
         return array_reverse($breadcrumbs);
     }
 
+    //Get tagget value
+    private function getTaggetValue($key){
+        switch($key){
+            case 'DATE' : {
+                return date('d-m-Y');
+            } break;
+
+            case 'TIME' : {
+                return date('H-i-s');
+            } break;
+
+            case 'SEO_TITLE' : {
+                return $this->page->seo->title;
+            } break;
+
+            case 'NODE_TITLE' : {
+                return $this->page->data->name;
+            } break;
+
+            case 'NODE_PATH' : {
+                return $this->page->data->path;
+            } break;
+
+            default : {
+                return '';
+            } break;
+        }
+    }
+
     //Parse taggets
     public function taggetsParse($str)
     {
-        $this->taggetsCollection();
-
         foreach ($this->taggets as $key => $val) {
             $ttr = "{{$key}}";
-            $str = str_replace($ttr, $val->value, $str);
+            $str = str_replace($ttr, $this->getTaggetValue($key), $str);
         }
 
         return $str;

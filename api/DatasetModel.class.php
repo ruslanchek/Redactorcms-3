@@ -54,17 +54,20 @@ class DatasetModel extends Core
 
     public function updateCol($col_name, $col_value){
         for ($i = 0, $l = count($this->dataset->cols); $i < $l; $i++) {
-            if ($this->dataset->cols[$i]['name'] == $col_name) {
+            if ($this->dataset->cols[$i]['name'] == $col_name && $col_name != 'id') {
                 $this->dataset->cols[$i]['value'] = $col_value;
             };
         };
     }
 
+    // TODO: Попробовать сюда добавить потом сравнение с эталоном Cols (чтобы не записывать при обновлении лишь одного столбца все подряд)
     public function dbUpdateItemCols($item_id){
         $cols = '';
 
         foreach ($this->dataset->cols as $item) {
-            $cols .= "`" . $this->db->quote($item['name']) . "` = '" . $this->db->quote($item['value']) . "', ";
+            if($item['name'] != 'id'){
+                $cols .= "`" . $this->db->quote($item['name']) . "` = '" . $this->db->quote($item['value']) . "', ";
+            }
         };
 
         $cols = substr($cols, 0, strlen($cols) - 2);
@@ -80,6 +83,14 @@ class DatasetModel extends Core
         $this->db->query($query);
     }
 
+    public function dbCreateItemRow(){
+        $query = "INSERT INTO `" . $this->db->quote($this->dataset->table) . "` () VALUES ()";
+
+        $this->db->query($query);
+
+        return $this->db->getMysqlInsertId();
+    }
+
     public function dbDeleteItemRow($item_id){
         $query = "
             DELETE FROM
@@ -88,5 +99,7 @@ class DatasetModel extends Core
                 `id` = " . intval($item_id);
 
         $this->db->query($query);
+
+        return $item_id;
     }
 }

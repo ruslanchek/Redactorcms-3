@@ -70,6 +70,28 @@ var sections = {
         });
     },
 
+    publishToggleItemRow: function($o){
+        var val = '';
+
+        if($o.data('publish') == '1'){
+            val = '0';
+        }else{
+            val = '1';
+        }
+
+        sections.updateCell($o.data('id'), 'publish', val, function(data){
+            $o.data('publish', val);
+
+            if(val == '1'){
+                $('.list table tr[row_id="' + data.id + '"]').removeClass('hidden');
+                $o.find('b').addClass('show').removeClass('hide');
+            }else{
+                $('.list table tr[row_id="' + data.id + '"]').addClass('hidden');
+                $o.find('b').addClass('hide').removeClass('show');
+            }
+        });
+    },
+
     deleteItemRow: function(id){
         if(!confirm('Удалить запись?')){
             return;
@@ -89,8 +111,15 @@ var sections = {
             success: function(){
                 setTimeout(function(){
                     core.loading.unsetHeaderLoading($('#primary_content_header_list'));
-                    $('.list table tr[row_id="' + id + '"]').remove();
-                    core.tableZebra($('.list .table_wrap>table'));
+
+                    if($('.list table tr:not(:first):not(:last)').length <= 0){
+                        $('.sections_content').html('<p class="no_items">Раздел пуст, чтобы начать заполнение &mdash; <a href="#" class="list_action_create">cоздайте объект</a></p>');
+                        sections.binds();
+                    }else{
+                        $('.list table tr[row_id="' + id + '"]').remove();
+                        core.tableZebra($('.list .table_wrap>table'));
+                    }
+
                 }, 250);
             },
             error: function(){
@@ -99,12 +128,38 @@ var sections = {
         })
     },
 
+    updateCell: function(id, key, val, callback){
+        $.ajax({
+            url: '/admin/sections/?ajax&section=' + this.section + '&action=updateCell&item_id=' + id,
+            type: 'post',
+            data: {
+                key: key,
+                val: val
+            },
+            beforeSend: function(){
+                core.loading.setHeaderLoading($('#primary_content_header_list'));
+            },
+            success: function(data){
+                setTimeout(function(){
+                    core.loading.unsetHeaderLoading($('#primary_content_header_list'));
+                }, 250);
+
+                if(callback){
+                    callback(data);
+                }
+            },
+            error: function(){
+                core.loading.unsetHeaderLoading($('#primary_content_header_list'));
+            }
+        })
+    },
+
     binds: function(){
-        $('.list .checkbox').on('click', function(){
+        $('.list .checkbox').off('click').on('click', function(){
             sections.listHaveChecked();
         });
 
-        $('#list_checkbox_master').on('click', function(){
+        $('#list_checkbox_master').off('click').on('click', function(){
             if($(this).is(':checked')){
                 $('.list .checkbox').attr('checked', true);
             }else{
@@ -114,8 +169,21 @@ var sections = {
             sections.listHaveChecked();
         });
 
-        $('.list_action_delete').on('click', function(e){
+        $('.list_action_publish').off('click').on('click', function(e){
+            sections.publishToggleItemRow($(this));
+            e.preventDefault();
+        });
+
+        $('.list_action_delete').off('click').on('click', function(e){
             sections.deleteItemRow($(this).data('id'));
+            e.preventDefault();
+        });
+
+        $('.list_action_create').off('click').on('click', function(e){
+            section.getDataset(function(data){
+                section.create_mode = true;
+                section.createEditor(data);
+            });
             e.preventDefault();
         });
     },
@@ -132,6 +200,7 @@ var sections = {
 
 var section = {
     item_id: null,
+    create_mode: false,
     section: core.utilities.getParameterByName('section'),
 
     init: function(){
@@ -150,30 +219,50 @@ var section = {
 
         if(id > 0){
             this.item_id = id;
+            this.create_mode = false;
 
-            $('.edit-item').show();
-            $('.section-list').hide();
+            this.getItemData(id, function(data){
+                section.createEditor(data);
 
-            this.editItem(id, this.section);
+                if(section.just_created === true){
+                    core.form.formReady({status: true, message: 'Объект успешно создан, id: ' + id});
+                    section.just_created = false;
+                }
+            });
         }else{
-            $('.edit-item').hide();
-            $('.section-list').show();
+            section.destroyEditor();
         }
     },
 
     saveData: function(data){
+        var action = '',
+            item_id = '';
+
+        if(this.create_mode === true){
+            action = 'create';
+        }else{
+            action = 'saveData';
+            item_id = '&item_id=' + this.item_id;
+        }
+
         $.ajax({
-            url: '/admin/sections/?ajax&action=saveData&section=' + this.section + '&item_id=' + this.item_id,
+            url: '/admin/sections/?ajax&action=' + action + '&section=' + this.section + item_id,
             type: 'post',
             data: data,
+            dataType: 'json',
             beforeSend: function(){
                 core.loading.setHeaderLoading($('#primary_content_header_edit'));
             },
-            success: function(){
-                setTimeout(function(){
-                    core.loading.unsetHeaderLoading($('#primary_content_header_edit'));
-                    core.form.formReady({status: true, message: 'Данные сохранены!'});
-                }, 250);
+            success: function(data){
+                if(section.create_mode === true && data.id > 0){
+                    section.just_created = true;
+                    document.location.hash = '#' + data.id;
+                }else{
+                    setTimeout(function(){
+                        core.loading.unsetHeaderLoading($('#primary_content_header_edit'));
+                        core.form.formReady({status: true, message: 'Данные сохранены!'});
+                    }, 250);
+                }
             },
             error: function(){
                 core.loading.unsetHeaderLoading($('#primary_content_header_edit'));
@@ -181,7 +270,15 @@ var section = {
         })
     },
 
+    destroyEditor: function(){
+        $('.edit-item').hide();
+        $('.section-list').show();
+    },
+
     createEditor: function(data){
+        $('.edit-item').show();
+        $('.section-list').hide();
+
         var item_data = {};
 
         for(var i = 0, l = data.cols.length; i < l; i++){
@@ -245,14 +342,13 @@ var section = {
         }
     },
 
-    editItem: function(item_id, module_name){
+    getDataset: function(callback){
         this.item_request = $.ajax({
             url: '/admin/sections/?ajax',
             type: 'get',
             data: {
-                action: 'getItemFieldsAndData',
-                item_id: item_id,
-                section: module_name
+                action: 'getDataset',
+                section: this.section
             },
             dataType: 'json',
             beforeSend: function(){
@@ -263,7 +359,34 @@ var section = {
                     core.loading.unsetHeaderLoading($('#primary_content_header_edit'));
                 }, 250);
 
-                section.createEditor(data);
+                if(callback){
+                    callback(data);
+                }
+            }
+        });
+    },
+
+    getItemData: function(item_id, callback){
+        this.item_request = $.ajax({
+            url: '/admin/sections/?ajax',
+            type: 'get',
+            data: {
+                action: 'getDataset',
+                item_id: item_id,
+                section: this.section
+            },
+            dataType: 'json',
+            beforeSend: function(){
+                core.loading.setHeaderLoading($('#primary_content_header_edit'));
+            },
+            success: function(data){
+                setTimeout(function(){
+                    core.loading.unsetHeaderLoading($('#primary_content_header_edit'));
+                }, 250);
+
+                if(callback){
+                    callback(data);
+                }
             }
         });
     }

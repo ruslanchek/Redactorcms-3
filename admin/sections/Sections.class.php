@@ -17,22 +17,70 @@ Class Sections extends Core
 
             if ($this->ajax_mode) {
                 switch ($_GET['action']) {
-                    case 'getItemFieldsAndData' :
+                    case 'getDataset' :
                     {
                         header('Content-type: application/json');
                         print json_encode($this->dataset);
                     }
                         break;
 
+                    case 'updateCell' : {
+                        header('Content-type: application/json');
+                        $id = $this->updateCell($_GET['item_id'], $_POST['key'], $_POST['val']);
+
+                        $result = new stdClass();
+
+                        $result->status = true;
+                        $result->operation = 'updateCell';
+                        $result->id = $id;
+
+                        print json_encode($result);
+                    }
+                        break;
+
+                    case 'create' :
+                    {
+                        header('Content-type: application/json');
+                        $id = $this->create();
+
+                        $result = new stdClass();
+
+                        $result->status = true;
+                        $result->operation = 'create';
+                        $result->id = $id;
+
+                        print json_encode($result);
+                    }
+                        break;
+
                     case 'saveData' :
                     {
-                        $this->saveData();
+                        header('Content-type: application/json');
+
+                        $id = $this->saveData($_GET['item_id']);
+
+                        $result = new stdClass();
+
+                        $result->status = true;
+                        $result->operation = 'saveData';
+                        $result->id = $id;
+
+                        print json_encode($result);
                     }
                         break;
 
                     case 'deleteItemRow' :
                     {
-                        $this->dsmdl->dbDeleteItemRow($_GET['item_id']);
+                        header('Content-type: application/json');
+                        $id = $this->dsmdl->dbDeleteItemRow($_GET['item_id']);
+
+                        $result = new stdClass();
+
+                        $result->status = true;
+                        $result->operation = 'deleteItemRow';
+                        $result->id = $id;
+
+                        print json_encode($result);
                     }
                         break;
                 }
@@ -40,12 +88,28 @@ Class Sections extends Core
         }
     }
 
-    private function saveData(){
+    private function updateCell($id, $key, $val){
+        $this->dsmdl->updateCol($key, $val);
+        $this->dsmdl->dbUpdateItemCols($id);
+
+        return $id;
+    }
+
+    private function saveData($id){
         foreach($_POST as $key => $val){
             $this->dsmdl->updateCol($key, $val);
         }
 
-        $this->dsmdl->dbUpdateItemCols($_GET['item_id']);
+        $this->dsmdl->dbUpdateItemCols($id);
+
+        return $id;
+    }
+
+    private function create(){
+        $id = $this->dsmdl->dbCreateItemRow();
+        $this->saveData($id);
+
+        return $id;
     }
 
     private function getSection($section)
@@ -69,8 +133,11 @@ Class Sections extends Core
 
         if (!isset($_GET['item_id'])) {
             $this->tmdl->setData($this->dataset);
-            $this->smarty->assign('list', $this->tmdl->getList());
-            $this->smarty->assign('cols', $this->tmdl->getCols());
+
+            if(isset($this->smarty)){
+                $this->smarty->assign('list', $this->tmdl->getList());
+                $this->smarty->assign('cols', $this->tmdl->getCols());
+            }
         } else {
             $this->dsmdl->fillItemData($_GET['item_id']);
         }
