@@ -693,7 +693,7 @@ core.form = {
             '</div>' +
             '<div class="clear"></div>';
 
-        this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
+        this.options.container_obj.find('form#' + this.options.form_id).find('.form_items').append(html);
 
         $(items).on('change', function(){
             $(items).parent().removeClass('active');

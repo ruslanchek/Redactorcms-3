@@ -728,7 +728,7 @@ a:active {
     padding: 0 6px;
     line-height: 20px;
     text-decoration: none !important;
-    color: #000;
+    color: #717173;
 }
 
 .action_button.left {
@@ -1268,21 +1268,20 @@ tr.norounded td {
 
 .form .item_block .controls {
     min-height: 30px;
+    position: relative;
 }
 
 .form .item_block .controls .field_error {
-    background: #8F0000 url(../img/bg/light.png) repeat-x top;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-    color: #fff;
-    padding: 2px 6px;
+    position: absolute;
+    color: #b41f1f;
+    padding: 2px 0;
     z-index: 5;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.5);
-    box-shadow: rgba(0, 0, 0, 0.5);
-    right: 0;
-    bottom: 0;
-    max-width: 150px;
+    right: -185px;
+    width: 165px;
+    padding-left: 5px;
+    top: 0;
     font-size: 0.9em;
 }
 
@@ -1450,12 +1449,12 @@ tr.norounded td {
 
 .form .result_message.ok {
     background: #1B9750 url(../img/bg/light.png) repeat-x top;
-    text-shadow: 0 1px 0 #00542B;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .form .result_message.error {
-    background: #8F0000 url(../img/bg/light.png) repeat-x top;
-    text-shadow: 0 1px 0 #660000;
+    background: #b41f1f url(../img/bg/light.png) repeat-x top;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .form .result_message.loading {

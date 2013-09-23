@@ -2,6 +2,8 @@
     <div class="content-block edit-item">
         <h2 id="primary_content_header_edit">
             Редактирование записи
+
+            <a href="#" class="action_button rubber right close_editor">Закрыть</a>
             <div class="clear"></div>
         </h2>
 
@@ -36,7 +38,9 @@
     <div class="content-block">
         <h2 id="secondary_content_header">
             <a href="javascript:void(0)" class="action_button left"><b class="plus" title="Добавить новый раздел"></b></a>
-            {if $smarty.get.section}<a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранный раздел"></b></a>{/if}
+            {if $smarty.get.section}
+                <a href="javascript:void(0)" class="action_button left"><b class="minus" title="Удалить выбранный раздел"></b></a>
+            {/if}
             <div class="clear"></div>
         </h2>
 

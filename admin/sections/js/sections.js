@@ -159,6 +159,10 @@ var sections = {
             sections.listHaveChecked();
         });
 
+        $('.close_editor').off('click').on('click', function(){
+            document.location.hash = '/admin/sections/?section=' + this.section;
+        });
+
         $('#list_checkbox_master').off('click').on('click', function(){
             if($(this).is(':checked')){
                 $('.list .checkbox').attr('checked', true);
