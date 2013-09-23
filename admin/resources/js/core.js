@@ -713,6 +713,8 @@ core.form = {
                 clipboardUploadUrl: '/your_clipboard_upload_script/',
                 convertVideoLinks: true,
                 wym: true,
+                lang: 'ru',
+                plugins: ['fullscreen', 'taggets'],
                 observeLinks: true,
                 initCallback: function()
                 {

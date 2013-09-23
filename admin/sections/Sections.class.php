@@ -29,6 +29,12 @@ Class Sections extends Core
                         $this->saveData();
                     }
                         break;
+
+                    case 'deleteItemRow' :
+                    {
+                        $this->dsmdl->dbDeleteItemRow($_GET['item_id']);
+                    }
+                        break;
                 }
             }
         }
@@ -39,7 +45,7 @@ Class Sections extends Core
             $this->dsmdl->updateCol($key, $val);
         }
 
-        $this->dsmdl->dbUpdateItemCols();
+        $this->dsmdl->dbUpdateItemCols($_GET['item_id']);
     }
 
     private function getSection($section)

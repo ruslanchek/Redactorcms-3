@@ -26,7 +26,7 @@ Class Section{
  * Pages
  * ***************************************************/
 
-$s = new Section(1, 'pages', 'Страницы', 1);
+$s = new Section(1, 'pages', 'Документы', 1);
 
 $f              = new stdClass();
 $f->name        = 'id';
@@ -55,7 +55,7 @@ $s->field($f);
 
 $f              = new stdClass();
 $f->name        = 'content';
-$f->label       = 'Страница';
+$f->label       = 'Документ';
 $f->type        = 'textarea';
 $f->visywig     = true;
 $f->list        = false;

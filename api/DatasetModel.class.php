@@ -60,7 +60,7 @@ class DatasetModel extends Core
         };
     }
 
-    public function dbUpdateItemCols(){
+    public function dbUpdateItemCols($item_id){
         $cols = '';
 
         foreach ($this->dataset->cols as $item) {
@@ -74,7 +74,18 @@ class DatasetModel extends Core
                 `" . $this->db->quote($this->dataset->table) . "`
             SET
                 " . $cols . "
-        ";
+            WHERE
+                `id` = " . intval($item_id);
+
+        $this->db->query($query);
+    }
+
+    public function dbDeleteItemRow($item_id){
+        $query = "
+            DELETE FROM
+                `" . $this->db->quote($this->dataset->table) . "`
+            WHERE
+                `id` = " . intval($item_id);
 
         $this->db->query($query);
     }

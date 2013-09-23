@@ -1,0 +1,26 @@
+.taggets-modal {
+    margin: 16px;
+}
+
+.taggets-modal li {
+    list-style-type: none;
+    margin: 0 0 1em;
+}
+
+.taggets-modal li a {
+    border-radius: 3px;
+    background: #eee;
+    border: 1px solid #ddd;
+    padding: 1px 8px;
+    display: inline-block;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    min-width: 15ex;
+    text-align: center;
+}
+
+.taggets-modal li a:hover {
+    background: #ddd;
+    border-color: #ccc;
+}

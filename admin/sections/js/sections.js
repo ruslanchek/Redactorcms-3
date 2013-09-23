@@ -1,6 +1,8 @@
 'use strict';
 
 var sections = {
+    section: core.utilities.getParameterByName('section'),
+
     listHaveChecked: function(no_animation){
         var checkeds    = false,
             hiddens     = false,
@@ -68,7 +70,36 @@ var sections = {
         });
     },
 
-    init: function(){
+    deleteItemRow: function(id){
+        if(!confirm('Удалить запись?')){
+            return;
+        }
+
+        $.ajax({
+            url: '/admin/sections/?ajax',
+            type: 'get',
+            data: {
+                action: 'deleteItemRow',
+                section: this.section,
+                item_id: id
+            },
+            beforeSend: function(){
+                core.loading.setHeaderLoading($('#primary_content_header_list'));
+            },
+            success: function(){
+                setTimeout(function(){
+                    core.loading.unsetHeaderLoading($('#primary_content_header_list'));
+                    $('.list table tr[row_id="' + id + '"]').remove();
+                    core.tableZebra($('.list .table_wrap>table'));
+                }, 250);
+            },
+            error: function(){
+                core.loading.unsetHeaderLoading($('#primary_content_header_list'));
+            }
+        })
+    },
+
+    binds: function(){
         $('.list .checkbox').on('click', function(){
             sections.listHaveChecked();
         });
@@ -83,11 +114,18 @@ var sections = {
             sections.listHaveChecked();
         });
 
+        $('.list_action_delete').on('click', function(e){
+            sections.deleteItemRow($(this).data('id'));
+            e.preventDefault();
+        });
+    },
+
+    init: function(){
+        this.binds();
         this.listHaveChecked(true);
-
         this.setSortable();
-        core.tableZebra($('.list .table_wrap>table'));
 
+        core.tableZebra($('.list .table_wrap>table'));
         section.init();
     }
 };
@@ -112,7 +150,14 @@ var section = {
 
         if(id > 0){
             this.item_id = id;
+
+            $('.edit-item').show();
+            $('.section-list').hide();
+
             this.editItem(id, this.section);
+        }else{
+            $('.edit-item').hide();
+            $('.section-list').show();
         }
     },
 
@@ -211,9 +256,6 @@ var section = {
             },
             dataType: 'json',
             beforeSend: function(){
-                $('.edit-item').show();
-                $('.section-list').hide();
-
                 core.loading.setHeaderLoading($('#primary_content_header_edit'));
             },
             success: function(data){

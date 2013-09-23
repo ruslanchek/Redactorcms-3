@@ -6,17 +6,27 @@
 
         <link rel="stylesheet" href="/admin/resources/css/core.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/fancybox/source/jquery.fancybox.css" media="all" />
-        <link rel="stylesheet" href="/admin/resources/plugins/redactor/redactor.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/chosen/chosen.css" media="all" />
         <link rel="stylesheet" href="/admin/resources/plugins/jqtree/jqtree.css" media="all" />
         <link rel="stylesheet" href="/admin/{$core->module.name}/css/{$core->module.name}.css" media="all" />
-        <script src="/admin/resources/js/jquery.js"></script>
 
-        <script src="/admin/resources/js/jquery.cookie.js"></script>
+        <link rel="stylesheet" href="/admin/resources/plugins/redactor/redactor.css" media="all" />
+        <link rel="stylesheet" href="/admin/resources/plugins/redactor/plugins/taggets/taggets.css" media="all" />
+
+        <script src="/admin/resources/js/jquery.js"></script>
         <script src="/admin/resources/js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="/admin/resources/js/jquery.cookie.js"></script>
+
         <script src="/admin/resources/plugins/jqtree/tree.jquery.js"></script>
+
+
         <script src="/admin/resources/plugins/redactor/redactor.js"></script>
+        <script src="/admin/resources/plugins/redactor/plugins/fullscreen/fullscreen.js"></script>
+        <script src="/admin/resources/plugins/redactor/plugins/taggets/taggets.js"></script>
+        <script src="/admin/resources/plugins/redactor/langs/ru.js"></script>
+
         <script src="/admin/resources/plugins/chosen/chosen.jquery.js"></script>
+
         <script src="/admin/resources/js/core.js"></script>
         <script src="/admin/{$core->module.name}/js/{$core->module.name}.js"></script>
     </head>

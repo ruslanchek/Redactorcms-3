@@ -27,7 +27,7 @@ Class Module{
  * Pages
  * ***************************************************/
 
-$mo = new Module(1, 'pages', 'Страницы');
+$mo = new Module(1, 'pages', 'Документы');
 
 $md             = new stdClass();
 $md->id         = 1;

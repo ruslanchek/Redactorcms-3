@@ -68,6 +68,10 @@ Class Core{
         if(isset($_GET['ajax'])){
             $this->ajax_mode = true;
             $this->ajax_action = $_GET['action'];
+
+            if(isset($_GET['get_taggets'])){
+                $this->getTaggets();
+            }
         }else{
             require_once($_SERVER['DOCUMENT_ROOT'].'/smarty/Smarty.class.php');
 
@@ -99,5 +103,11 @@ Class Core{
             $this->smarty->assign('core', $this);
             $this->smarty->display($this->template);
         };
+    }
+
+    //Отдача таггетов
+    private function getTaggets(){
+        header('Content-type: application/json');
+        print json_encode($this->config->taggets);
     }
 }

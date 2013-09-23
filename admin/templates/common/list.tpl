@@ -17,7 +17,7 @@
             </tr>
 
             {foreach $list as $item}
-            <tr class="{if $item['publish'] == '1'}publish{else}hidden{/if}">
+            <tr row_id="{$item.id}" class="{if $item.publish == '1'}publish{else}hidden{/if}">
                 <td class="ta_center"><input class="checkbox" type="checkbox" /></td>
                 {foreach from=$cols item=col key=col_iteration}
                 <td class="ta_{$col.data.align}">
@@ -36,7 +36,7 @@
                     {/if}
                 </td>
                 {/foreach}
-                <td><a href="javascript:void(0)" class="action_button mini"><b class="minus" title="Удалить"></b></a></td>
+                <td><a href="#" class="action_button mini list_action_delete" data-id="{$item.id}"><b class="minus" title="Удалить"></b></a></td>
                 <td><i class="sortable_handler"></i></td>
             </tr>
             {/foreach}
