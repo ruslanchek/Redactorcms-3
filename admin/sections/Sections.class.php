@@ -116,7 +116,7 @@ Class Sections extends Core
     {
         foreach ($this->config->sections as $s) {
             if ($section == $s['name']) {
-                return $s;
+                return (object) $s;
             }
         }
     }
@@ -125,9 +125,9 @@ Class Sections extends Core
     {
         $section_data = $this->getSection($section);
 
-        $this->dataset = $this->dsmdl->create($section_data['name']);
+        $this->dataset = $this->dsmdl->create($section_data->name);
 
-        foreach ($section_data['fields'] as $field) {
+        foreach ($section_data->fields as $field) {
             $this->dsmdl->add($field);
         }
 

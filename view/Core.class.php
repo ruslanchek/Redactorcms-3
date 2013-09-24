@@ -14,6 +14,8 @@ Class Core
 
     // Свойства - Классы API
     private $classes = array(
+        'sectionctrl' => 'SectionController',
+        'dsmdl' => 'DatasetModel',
         'utils' => 'Utilities',
         'db' => 'Database',
         'upload' => 'Upload'
@@ -190,6 +192,22 @@ Class Core
         };
     }
 
+    private function getModule($id){
+        foreach($this->config->modules as $module){
+            if($id == $module['id']){
+                return $module;
+            }
+        }
+    }
+
+    private function getModuleMode($module, $id){
+        foreach($module['modes'] as $mode){
+            if($id == $mode['id']){
+                return $mode;
+            }
+        }
+    }
+
     public function drawBlock($block_id)
     {
         if (
@@ -206,7 +224,14 @@ Class Core
                 };
             }
 
+            $module = $this->getModule($block_obj->module);
+            $mode = $this->getModuleMode($module, $block_obj->module_mode);
+
             $block_obj->block_id = $block_id;
+            $block_obj->module = (object) $module;
+            $block_obj->module_mode = (object) $mode;
+
+            unset($block_obj->module->modes);
 
             $o = array();
 

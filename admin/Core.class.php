@@ -21,6 +21,7 @@ Class Core{
 
     // Свойства - Классы API
     private $classes = array(
+        'sectionctrl'   => 'SectionController',
         'utils'         => 'Utilities',
         'db'            => 'Database',
         'upload'        => 'Upload',

@@ -102,4 +102,12 @@ class DatasetModel extends Core
 
         return $item_id;
     }
+
+    public function dbGetRowsCount($where){
+        $query = "SELECT count(*) AS `count` FROM `" . $this->db->quote($this->dataset->table) . "` " . $this->db->quote($where);
+
+        $data = (object) $this->db->assocItem($query);
+
+        return intval($data->count);
+    }
 }
