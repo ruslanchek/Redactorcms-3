@@ -255,11 +255,12 @@ var structure = {
                 html = '',
                 selected;
 
-            if(module_mode.action !== false){
+            if(module_mode.sl_action !== false){
                 this.block_content_items_request = $.ajax({
-                    url         : '/admin/structure/?ajax&action=get_content_items',
+                    url         : '/admin/structure/?ajax&action=get_items_from_table',
                     data        : {
-                        module_action: module_mode.action
+                        table: module_mode.table,
+                        sl_action: module_mode.sl_action
                     },
                     type        : 'GET',
                     dataType    : 'json',
@@ -275,7 +276,7 @@ var structure = {
                     success     : function(result){
                         core.loading.unsetLoading('drawSelectContentId');
 
-                        switch(module_mode.action){
+                        switch(module_mode.sl_action){
                             /* case 'get_albums' : {
                                 for(var i = 0, l = result.length; i < l; i++){
                                     if(result[i].id == content_id){

@@ -208,6 +208,10 @@ Class Core
         }
     }
 
+    private function getBlockModuleData($block_obj){
+        return $this->sectionctrl->getList($block_obj->module->name);
+    }
+
     public function drawBlock($block_id)
     {
         if (
@@ -231,6 +235,8 @@ Class Core
             $block_obj->module = (object) $module;
             $block_obj->module_mode = (object) $mode;
 
+            $block_obj->module->data = $this->getBlockModuleData($block_obj);
+
             unset($block_obj->module->modes);
 
             $o = array();
@@ -243,6 +249,7 @@ Class Core
 
             if(file_exists($this->smarty->template_dir[0] . 'blocks/' . $block_obj->mode_template)){
                 $this->smarty->assign('block', $block_obj);
+
                 return $this->smarty->fetch('blocks/' . $block_obj->mode_template);
             }else{
                 return $this->utils->displayError(

@@ -20,10 +20,10 @@ Class Structure extends Core
         if ($this->ajax_mode) {
             switch ($_GET['action']) {
 
-                case 'get_content_items' :
+                case 'get_items_from_table' :
                 {
                     header('Content-type: application/json');
-                    print json_encode($this->getContentItems($_GET['module_action']));
+                    print json_encode($this->getItemsFromTable($_GET['table']));
                 }
                     break;
 
@@ -137,7 +137,7 @@ Class Structure extends Core
     }
 
     //Get albums
-    private function getContentItems($action)
+    private function getItemsFromTable($action)
     {
         $query = "
                 SELECT
