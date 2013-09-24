@@ -8,17 +8,12 @@ class SectionController extends Core
         parent::__construct();
     }
 
-    private function getDataset()
+    public function getList($table, $fields, $where, $order, $limit)
     {
-        $this->dataset = $this->dsmdl->create($this->section_name);
-    }
+        $this->table = $table;
+        $this->dataset = $this->dsmdl->create($this->table);
 
-    public function getList($section_name)
-    {
-        $this->section_name = $section_name;
-        $this->getDataset();
-
-        return $this->getSectionContent('news', '*', false, array('id', 'DESC'), 3);
+        return $this->getSectionContent($table, $fields, $where, $order, $limit);
     }
 
     public function getSectionContent($table, $fields = false, $where = false, $order = array('id', 'DESC'), $limit = false, $current_page = false)

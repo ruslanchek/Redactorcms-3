@@ -13,18 +13,18 @@ Class Base extends Core
     }
 
     //Get structure branch
-    private function getStructureBranch($menu_id, $parent_id, $get_children)
+    private function getStructureBranch($menu_id = false, $parent_id = 0, $get_children = true)
     {
         if (intval($menu_id) > 0 || $menu_id === false) {
             if (intval($parent_id) > 0) {
                 $where = "`s`.`pid` = " . intval($parent_id) . " && ";
             } else {
                 $where = "`s`.`pid` = 1 && ";
-            };
+            }
 
             if ($menu_id !== false) {
                 $where .= "`sd`.`menu_id` = " . intval($menu_id) . " && ";
-            };
+            }
 
             $query = "
                 SELECT
@@ -50,12 +50,12 @@ Class Base extends Core
             $result = array();
 
             while ($row = $sql->fetch_assoc()) {
-                if ($get_children) {
+                if ($get_children === true) {
                     $row['children'] = $this->getMenuTree($menu_id, $row['id']);
-                };
+                }
 
                 $result[] = (object)$row;
-            };
+            }
 
             $sql->free();
 
@@ -66,7 +66,7 @@ Class Base extends Core
                 'Ошибка вывода меню',
                 'Неверный ID меню'
             );
-        };
+        }
     }
 
     private function getParentId($id)
@@ -95,7 +95,7 @@ Class Base extends Core
     }
 
     //Get menu - tree
-    public function getMenuTree($menu_id, $parent_id)
+    public function getMenuTree($menu_id = false, $parent_id = 0)
     {
         return $this->getStructureBranch($menu_id, $parent_id, true);
     }
@@ -196,11 +196,5 @@ Class Base extends Core
         $data->content = $this->taggetsParse($data->content);
 
         return $data->content;
-    }
-
-    //Get news full list
-    public function getNewsList($limit)
-    {
-
     }
 }

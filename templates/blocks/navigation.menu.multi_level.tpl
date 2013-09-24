@@ -22,4 +22,4 @@
 </ul>
 {/function}
 
-{call name=menu data=$core->getMenuTree($block->content_id, $block->menu_parent_id)}
+{call name=menu data=$block->module->data}

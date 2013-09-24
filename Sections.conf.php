@@ -5,7 +5,7 @@ Class Section{
     public function __construct($id, $name, $title, $group_id){
         $this->data = array(
             'id'            => $id,
-            'name'          => $name,
+            'name'          => $name, // Must be equal to SQL table name
             'title'         => $title,
             'group_id'      => $group_id,
             'fields'        => array()
@@ -154,6 +154,50 @@ $f->list        = false;
 $f->link        = false;
 $f->width       = '100%';
 $f->align       = 'left';
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'publish';
+$f->label       = 'Публиковать';
+$f->type        = 'checkbox';
+$f->list        = true;
+$f->link        = true;
+$f->width       = '1%';
+$f->align       = 'center';
+$s->field($f);
+
+$this->sections[] = $s->getData();
+
+
+/*****************************************************
+ * News lines
+ * ***************************************************/
+
+$s = new Section(4, 'news_lines', 'Линейки новостей', 2);
+
+$f              = new stdClass();
+$f->name        = 'id';
+$f->label       = 'Код';
+$f->type        = 'hidden';
+$f->list        = true;
+$f->width       = '1%';
+$f->align       = 'center';
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'name';
+$f->label       = 'Название';
+$f->type        = 'text';
+$f->list        = true;
+$f->link        = true;
+$f->width       = '98%';
+$f->align       = 'left';
+$f->validate    = array(
+    array(
+        'method'    => 'required',
+        'message'   => 'Заполните название'
+    )
+);
 $s->field($f);
 
 $f              = new stdClass();

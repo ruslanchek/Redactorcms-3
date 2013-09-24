@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-    {foreach $core->getBreadCrumbs($core->page->data->id) as $item}
+    {foreach $block->module->data as $item}
     <li{if $item.current} class="active"{/if}>
         {if $item.current}
             {$item.name}

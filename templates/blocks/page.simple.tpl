@@ -1,1 +1,1 @@
-{$core->getSimplePageContent($block->content_id)}
+{$block->module->data}

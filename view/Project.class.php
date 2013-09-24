@@ -1,5 +1,5 @@
 <?
-Class Project extends Base
+Class Project extends BlocksModulesLogic
 {
     public function __construct()
     {

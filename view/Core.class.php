@@ -208,10 +208,6 @@ Class Core
         }
     }
 
-    private function getBlockModuleData($block_obj){
-        return $this->sectionctrl->getList($block_obj->module->name);
-    }
-
     public function drawBlock($block_id)
     {
         if (
@@ -235,8 +231,6 @@ Class Core
             $block_obj->module = (object) $module;
             $block_obj->module_mode = (object) $mode;
 
-            $block_obj->module->data = $this->getBlockModuleData($block_obj);
-
             unset($block_obj->module->modes);
 
             $o = array();
@@ -244,6 +238,8 @@ Class Core
             foreach ($block_obj->options as $option) {
                 $o[$option->name] = $option->value;
             }
+
+            $block_obj->module->data = $this->getBlockModuleData($block_obj);
 
             $block_obj->options = (object) $o;
 

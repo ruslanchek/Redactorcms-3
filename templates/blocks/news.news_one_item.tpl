@@ -1,1 +1,0 @@
-<pre>{$block|print_r}</pre>
