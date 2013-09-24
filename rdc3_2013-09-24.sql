@@ -7,7 +7,7 @@
 #
 # Адрес: 127.0.0.1 (MySQL 5.5.29)
 # Схема: rdc3
-# Время создания: 2013-09-24 11:31:40 +0000
+# Время создания: 2013-09-24 19:28:44 +0000
 # ************************************************************
 
 
@@ -138,6 +138,29 @@ VALUES
 	(4,1,'asdasd','<p>\n	asdasd\n</p>','<p>\n	asdasdasd\n</p>',NULL);
 
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Дамп таблицы news_lines
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `news_lines`;
+
+CREATE TABLE `news_lines` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `name` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `news_lines` WRITE;
+/*!40000 ALTER TABLE `news_lines` DISABLE KEYS */;
+
+INSERT INTO `news_lines` (`id`, `publish`, `name`)
+VALUES
+	(1,1,'test');
+
+/*!40000 ALTER TABLE `news_lines` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
