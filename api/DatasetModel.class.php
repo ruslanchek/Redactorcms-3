@@ -69,7 +69,7 @@ class DatasetModel extends Core
         $cols = '';
 
         foreach ($this->dataset->cols as $item) {
-            if($item['name'] != 'id'){
+            if($item['name'] && $item['name'] != 'id'){
                 $cols .= "`" . $this->db->quote($item['name']) . "` = '" . $this->db->quote($item['value']) . "', ";
             }
         };

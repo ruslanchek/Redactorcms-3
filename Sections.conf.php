@@ -151,6 +151,11 @@ $f->link        = false;
 $f->align       = 'left';
 $f->width       = '28%';
 $f->options     = array(
+    'type'  => 'table',
+    'table' => 'news_lines'
+);
+
+/*$f->options     = array(
     'type'  => 'array',
     'data'  => array(
         array(
@@ -160,10 +165,11 @@ $f->options     = array(
 
         array(
             'id' => 2,
-            'name' => '112ddwre111'
+            'name' => '112ddwre'
         )
     )
-);
+);*/
+
 $f->multiple    = false;
 $f->data        = 'news_lines';
 $s->field($f);

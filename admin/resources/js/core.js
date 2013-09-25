@@ -753,6 +753,8 @@ core.form = {
 
     //Рисование текстового поля
     drawSelectInput: function(data){
+        console.log(data)
+
         var id      =   'select_' + data.name,
             options =   '',
             multiple = '';

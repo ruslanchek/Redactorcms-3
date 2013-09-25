@@ -20,7 +20,7 @@ Class Sections extends Core
                     case 'getDataset' :
                     {
                         header('Content-type: application/json');
-                        print json_encode($this->dataset);
+                        print json_encode($this->getDataset());
                     }
                         break;
 
@@ -88,6 +88,20 @@ Class Sections extends Core
         }
     }
 
+    private function getDataset(){
+        for($i = 0, $l = count($this->dataset->cols); $i < $l; $i++){
+            if($this->dataset->cols[$i]['type'] == 'select' && $this->dataset->cols[$i]['options']['type'] == 'table'){
+                $query = "
+                    SELECT `id`, `name` FROM `" . $this->dataset->cols[$i]['options']['table'] . "`
+                ";
+
+                $this->dataset->cols[$i]['options']['data'] = $this->db->assocMulti($query);
+            }
+        }
+
+        return $this->dataset;
+    }
+
     private function updateCell($id, $key, $val){
         $this->dsmdl->updateCol($key, $val);
         $this->dsmdl->dbUpdateItemCols($id);
@@ -97,7 +111,9 @@ Class Sections extends Core
 
     private function saveData($id){
         foreach($_POST as $key => $val){
-            $this->dsmdl->updateCol($key, $val);
+            if($key != 'undefined'){
+                $this->dsmdl->updateCol($key, $val);
+            }
         }
 
         $this->dsmdl->dbUpdateItemCols($id);

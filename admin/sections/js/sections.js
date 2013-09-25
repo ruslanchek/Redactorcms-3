@@ -249,6 +249,12 @@ var section = {
             item_id = '&item_id=' + this.item_id;
         }
 
+        for(var i = 0, l = data.length; i < l; i++){
+            if(data[i].type == 'separator'){
+                delete data[i];
+            }
+        }
+
         $.ajax({
             url: '/admin/sections/?ajax&action=' + action + '&section=' + this.section + item_id,
             type: 'post',
@@ -342,7 +348,7 @@ var section = {
                 } break;
 
                 case 'select' : {
-                    console.log(other_cols);
+                    other_cols[i].options = other_cols[i].options.data;
                     core.form.drawSelectInput(other_cols[i]);
                 } break;
 
