@@ -151,8 +151,18 @@ $f->link        = false;
 $f->align       = 'left';
 $f->width       = '28%';
 $f->options     = array(
-    'type'  => 'table',
-    'table' => 'news_lines'
+    'type'  => 'array',
+    'data'  => array(
+        array(
+            'id' => 1,
+            'name' => 'xxxx'
+        ),
+
+        array(
+            'id' => 2,
+            'name' => '112ddwre111'
+        )
+    )
 );
 $f->multiple    = false;
 $f->data        = 'news_lines';
