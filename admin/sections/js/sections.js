@@ -321,9 +321,11 @@ var section = {
             return n.name != 'name' && n.name != 'publish' && n.name != 'id';
         });
 
+        /* // Это раньше добавляло сепаратор автоматом после названия
         if((name_col[0] || publish_col[0]) && other_cols.length > 0){
             core.form.drawSeparator();
         }
+        */
 
         for(var i = 0, l = other_cols.length; i < l; i++){
             switch(other_cols[i].type){
@@ -339,8 +341,17 @@ var section = {
                     core.form.drawTextarea(other_cols[i]);
                 } break;
 
+                case 'select' : {
+                    console.log(other_cols);
+                    core.form.drawSelectInput(other_cols[i]);
+                } break;
+
                 case 'hidden' : {
                     core.form.drawHiddenInput(other_cols[i]);
+                } break;
+
+                case 'separator' : {
+                    core.form.drawSeparator();
                 } break;
             }
         }

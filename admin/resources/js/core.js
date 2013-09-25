@@ -764,10 +764,10 @@ core.form = {
                 selected = 'selected="selected"';
             }
 
-            options += '<option '+selected+' value="' + data.options[i].id + '">' + data.options[i].name + '</option>';
+            options += '<option ' + selected + ' value="' + data.options[i].id + '">' + data.options[i].name + '</option>';
         }
 
-        if(data.multiple_mode){
+        if(data.multiple === true){
             multiple = 'multiple';
         }
 

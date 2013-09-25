@@ -18,7 +18,8 @@ class TableModel extends Core
         $result = array();
 
         foreach ($this->dataset->cols as $item) {
-            if ($item['list']) {
+            if ($item['list'] && $item['type'] != 'separator') {
+
                 $result[] = array('name' => $item['name'], 'data' => $item);
             };
         };
@@ -28,7 +29,8 @@ class TableModel extends Core
 
     public function getList()
     {
-        $cols = '';
+        $cols = "";
+        $select_joins = "";
 
         foreach ($this->dataset->cols as $item) {
             if ($item['list']) {
@@ -38,13 +40,18 @@ class TableModel extends Core
 
         $cols = substr($cols, 0, strlen($cols) - 2);
 
+
+
+
+
         $query = "
                 SELECT
                     " . $cols . "
                 FROM
-                    `" . $this->db->quote($this->dataset->table) . "`
-            ";
+                    `" . $this->db->quote($this->dataset->table) . "` `main_table`" . $select_joins;
 
-        return $this->db->assocMulti($query);
+        $result = $this->db->assocMulti($query);
+
+        print_r($result);
     }
 }

@@ -35,7 +35,9 @@ class DatasetModel extends Core
         $query = "SELECT ";
 
         foreach ($this->dataset->cols as $item) {
-            $query .= "`" . $this->db->quote($item['name']) . "`, ";
+            if($item['type'] != 'separator'){
+                $query .= "`" . $this->db->quote($item['name']) . "`, ";
+            }
         };
 
         $query = substr($query, 0, strlen($query) - 2);
@@ -45,11 +47,13 @@ class DatasetModel extends Core
 
         for ($i = 0, $l = count($this->dataset->cols); $i < $l; $i++) {
             foreach ($data as $key => $value) {
-                if ($this->dataset->cols[$i]['name'] == $key) {
-                    $this->dataset->cols[$i]['value'] = $value;
-                };
+                if($this->dataset->cols[$i]['type'] != 'separator'){
+                    if ($this->dataset->cols[$i]['name'] == $key) {
+                        $this->dataset->cols[$i]['value'] = $value;
+                    }
+                }
             }
-        };
+        }
     }
 
     public function updateCol($col_name, $col_value){

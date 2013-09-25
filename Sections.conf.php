@@ -54,6 +54,10 @@ $f->validate    = array(
 $s->field($f);
 
 $f              = new stdClass();
+$f->type        = 'separator';
+$s->field($f);
+
+$f              = new stdClass();
 $f->name        = 'content';
 $f->label       = 'Документ';
 $f->type        = 'textarea';
@@ -124,7 +128,7 @@ $f->label       = 'Заголовок';
 $f->type        = 'text';
 $f->list        = true;
 $f->link        = true;
-$f->width       = '98%';
+$f->width       = '70%';
 $f->align       = 'left';
 $f->validate    = array(
     array(
@@ -132,6 +136,30 @@ $f->validate    = array(
         'message'   => 'Заполните заголовок'
     )
 );
+$s->field($f);
+
+$f              = new stdClass();
+$f->type        = 'separator';
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'news_lines';
+$f->label       = 'Линейка новостей';
+$f->type        = 'select';
+$f->list        = true;
+$f->link        = false;
+$f->align       = 'left';
+$f->width       = '28%';
+$f->options     = array(
+    'type'  => 'table',
+    'table' => 'news_lines'
+);
+$f->multiple    = false;
+$f->data        = 'news_lines';
+$s->field($f);
+
+$f              = new stdClass();
+$f->type        = 'separator';
 $s->field($f);
 
 $f              = new stdClass();
