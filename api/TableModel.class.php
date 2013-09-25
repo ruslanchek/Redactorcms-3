@@ -42,8 +42,6 @@ class TableModel extends Core
 
 
 
-
-
         $query = "
                 SELECT
                     " . $cols . "
