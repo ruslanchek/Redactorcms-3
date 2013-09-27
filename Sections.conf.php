@@ -245,6 +245,26 @@ $f->validate    = array(
 $s->field($f);
 
 $f              = new stdClass();
+$f->name        = 'path';
+$f->label       = 'Путь';
+$f->type        = 'text';
+$f->list        = true;
+$f->link        = false;
+$f->width       = '98%';
+$f->align       = 'left';
+$f->validate    = array(
+    array(
+        'method'    => 'required',
+        'message'   => 'Заполните путь'
+    ),
+    array(
+        'method'    => 'required',
+        'message'   => 'Заполните путь'
+    )
+);
+$s->field($f);
+
+$f              = new stdClass();
 $f->name        = 'publish';
 $f->label       = 'Публиковать';
 $f->type        = 'checkbox';

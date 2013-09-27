@@ -114,4 +114,30 @@ class DatasetModel extends Core
 
         return intval($data->count);
     }
+
+    private function dbCheckUniqueRow($colname, $value, $id = false){
+        //todo сделать-таки проверку пути по колонке в sections
+
+        $in = '';
+
+        if($id !== false){
+            $in = " && `id` NOT IN (" . intval($id) . ")";
+        }
+
+        $query = "
+                SELECT
+                    count(*) AS `count`
+                FROM
+                    `" . $this->db->quote($this->dataset->table) . "`
+                WHERE
+                    `" . $this->db->quote($colname) .  "` == '" . $this->db->quote($value) . "'" . $in;
+
+        $result = $this->db->assocItem($query);
+
+        if ($result['count'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

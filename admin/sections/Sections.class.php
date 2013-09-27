@@ -83,6 +83,11 @@ Class Sections extends Core
                         print json_encode($result);
                     }
                         break;
+
+                    case 'checkUniqueRow' : {
+                        $this->checkUniqueRow($_GET['colname'], $_GET['value'], $_GET['id']);
+                    }
+                        break;
                 }
             }
         }

@@ -484,6 +484,10 @@ core.form = {
                 return(val == params.other_val);
             },
 
+            unique: function(val, params){
+
+            },
+
             ajax: function(val, params){
                 var result;
 

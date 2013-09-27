@@ -52,7 +52,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <script src="/admin/resources/plugins/upload/js/jquery.iframe-transport.js"></script>
         <script src="/admin/resources/plugins/upload/js/jquery.fileupload.js"></script>
         <script src="/admin/resources/js/core.js"></script>
-        <script src="/admin/resources/js/section.js"></script>
         <script src="/admin/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 /js/<?php echo $_smarty_tpl->tpl_vars['core']->value->module['name'];?>
 .js"></script>
