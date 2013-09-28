@@ -485,7 +485,7 @@ core.form = {
             },
 
             unique: function(val, params){
-
+                return this.ajax(val, params);
             },
 
             ajax: function(val, params){
@@ -532,7 +532,10 @@ core.form = {
             if(valid){
                 return true;
             }else{
-                core.form.showMessage({status: false, message: 'Проверьте правильность заполнения полей'});
+                core.form.showMessage({
+                    status: false,
+                    message: 'Проверьте правильность заполнения полей'
+                });
             }
         },
 
@@ -757,8 +760,6 @@ core.form = {
 
     //Рисование текстового поля
     drawSelectInput: function(data){
-        console.log(data)
-
         var id      =   'select_' + data.name,
             options =   '',
             multiple = '';

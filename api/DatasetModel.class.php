@@ -115,9 +115,7 @@ class DatasetModel extends Core
         return intval($data->count);
     }
 
-    private function dbCheckUniqueRow($colname, $value, $id = false){
-        //todo сделать-таки проверку пути по колонке в sections
-
+    public function dbCheckUniqueRow($colname, $value, $id = false){
         $in = '';
 
         if($id !== false){
@@ -130,7 +128,7 @@ class DatasetModel extends Core
                 FROM
                     `" . $this->db->quote($this->dataset->table) . "`
                 WHERE
-                    `" . $this->db->quote($colname) .  "` == '" . $this->db->quote($value) . "'" . $in;
+                    `" . $this->db->quote($colname) .  "` = '" . $this->db->quote($value) . "'" . $in;
 
         $result = $this->db->assocItem($query);
 

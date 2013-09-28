@@ -84,13 +84,21 @@ Class Sections extends Core
                     }
                         break;
 
-                    case 'checkUniqueRow' : {
-                        $this->checkUniqueRow($_GET['colname'], $_GET['value'], $_GET['id']);
+                    case 'checkUniqueRow' :
+                    {
+                        header('Content-type: application/json');
+
+                        print json_encode($this->dsmdl->dbCheckUniqueRow($_POST['colname'], $_POST['value'], $_GET['item_id']));
                     }
                         break;
                 }
             }
         }
+    }
+
+    public function __destruct()
+    {
+        $this->deInit();
     }
 
     private function getDataset(){
@@ -163,11 +171,4 @@ Class Sections extends Core
             $this->dsmdl->fillItemData($_GET['item_id']);
         }
     }
-
-    public function __destruct()
-    {
-        $this->deInit();
-    }
 }
-
-;

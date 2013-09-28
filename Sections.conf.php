@@ -128,12 +128,32 @@ $f->label       = 'Заголовок';
 $f->type        = 'text';
 $f->list        = true;
 $f->link        = true;
-$f->width       = '70%';
+$f->width       = '40%';
 $f->align       = 'left';
 $f->validate    = array(
     array(
         'method'    => 'required',
         'message'   => 'Заполните заголовок'
+    )
+);
+$s->field($f);
+
+$f              = new stdClass();
+$f->name        = 'path';
+$f->label       = 'Путь';
+$f->type        = 'text';
+$f->list        = true;
+$f->link        = false;
+$f->width       = '23%';
+$f->align       = 'left';
+$f->validate    = array(
+    array(
+        'method'    => 'required',
+        'message'   => 'Заполните путь'
+    ),
+    array(
+        'method'    => 'unique',
+        'message'   => 'Такой путь уже существует у другой новости'
     )
 );
 $s->field($f);
@@ -149,7 +169,7 @@ $f->type        = 'select';
 $f->list        = true;
 $f->link        = false;
 $f->align       = 'left';
-$f->width       = '28%';
+$f->width       = '35%';
 $f->options     = array(
     'type'  => 'table',
     'table' => 'news_lines'
@@ -234,7 +254,7 @@ $f->label       = 'Название';
 $f->type        = 'text';
 $f->list        = true;
 $f->link        = true;
-$f->width       = '98%';
+$f->width       = '68%';
 $f->align       = 'left';
 $f->validate    = array(
     array(
@@ -250,7 +270,7 @@ $f->label       = 'Путь';
 $f->type        = 'text';
 $f->list        = true;
 $f->link        = false;
-$f->width       = '98%';
+$f->width       = '30%';
 $f->align       = 'left';
 $f->validate    = array(
     array(
@@ -258,8 +278,8 @@ $f->validate    = array(
         'message'   => 'Заполните путь'
     ),
     array(
-        'method'    => 'required',
-        'message'   => 'Заполните путь'
+        'method'    => 'unique',
+        'message'   => 'Такой путь уже существует у другой линейки'
     )
 );
 $s->field($f);

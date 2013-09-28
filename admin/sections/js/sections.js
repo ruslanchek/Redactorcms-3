@@ -289,7 +289,7 @@ var section = {
         $('.edit-item').show();
         $('.section-list').hide();
 
-        var item_data = {};
+        var item_data = {}, unique_item_id = '';
 
         for(var i = 0, l = data.cols.length; i < l; i++){
             item_data[data.cols[i].name] = data.cols[i].value;
@@ -304,6 +304,26 @@ var section = {
             },
             submit              : function(data){
                 section.saveData(data);
+            }
+        });
+
+        if(this.create_mode === false){
+            unique_item_id = '&item_id=' + this.item_id;
+        }
+
+        //Implement validate unique ajax params
+        $.each(data.cols, function(key, val){
+            if(val.validate && val.validate.length > 0){
+                $.each(val.validate, function(key1, val1){
+                    if(val1.method == 'unique'){
+                        val1.params = {
+                            url : '/admin/sections/?ajax&section=' + section.section + '&action=checkUniqueRow' + unique_item_id,
+                            data: {
+                                colname: val.name
+                            }
+                        };
+                    }
+                });
             }
         });
 
@@ -327,7 +347,8 @@ var section = {
             return n.name != 'name' && n.name != 'publish' && n.name != 'id';
         });
 
-        /* // Это раньше добавляло сепаратор автоматом после названия
+        /*
+        // Это раньше добавляло сепаратор автоматом после названия
         if((name_col[0] || publish_col[0]) && other_cols.length > 0){
             core.form.drawSeparator();
         }
