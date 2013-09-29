@@ -64,9 +64,17 @@ Class BlocksModulesLogic extends Base
     }
 
     private function __getBlockModule__NewsAll(){
+        $fields = '';
+
+        if($this->block->carrier->path){
+            $fields .= "`id`, `name`, `announce`, CONCAT('" . $this->block->carrier->path .  "', `path`) AS `path`";
+        }else{
+            $fields .= "`id`, `name`, `announce`, `path`";
+        }
+
         return $this->sectionctrl->getList(
             $this->block->module_mode->table,
-            'id',
+            $fields,
             false,
             array('id', 'ASC'),
             intval($this->getModuleOptionValue('limit'))
@@ -74,9 +82,17 @@ Class BlocksModulesLogic extends Base
     }
 
     private function __getBlockModule__NewsLinesAll(){
+        $fields = '';
+
+        if($this->block->carrier->path){
+            $fields .= "`id`, `name`, CONCAT('" . $this->block->carrier->path .  "', `path`) AS `path`";
+        }else{
+            $fields .= "`id`, `name`, `path`";
+        }
+
         return $this->sectionctrl->getList(
             $this->block->module_mode->table,
-            'id',
+            $fields,
             false,
             array('id', 'ASC'),
             false

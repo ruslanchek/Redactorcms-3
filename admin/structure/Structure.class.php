@@ -106,7 +106,7 @@ Class Structure extends Core
 
                 case 'get_tree' :
                 {
-                    print json_encode($this->getBranchArray());
+                    print json_encode($this->getBranchArray(0, array('main_block'))); // TODO Сделать так чтобы main block указывался снаружи, в аяксе
                 }
                     break;
 
@@ -592,7 +592,7 @@ Class Structure extends Core
     }
 
     //Returns array of specified branch
-    public function getBranchArray($id = 0)
+    public function getBranchArray($id = 0, $additional_fields)
     {
         if ($id > 0) {
             $where = "`structure`.`pid` = " . intval($id) . " && ";
@@ -600,12 +600,20 @@ Class Structure extends Core
             $where = "`structure`.`id` = 1 && ";
         }
 
+        $additional_fields_parsed = '';
+
+        if(is_array($additional_fields) && !empty($additional_fields)){
+            foreach($additional_fields as $field){
+                $additional_fields_parsed .= ", `structure_data`.`" . $this->db->quote($field) . "`";
+            }
+        }
+
         $query = "
                 SELECT
                     `structure`.`id`,
                     `structure_data`.`sort`,
                     `structure_data`.`name`,
-                    `structure_data`.`publish`
+                    `structure_data`.`publish`" . $additional_fields_parsed . "
                 FROM
                     `structure`,
                     `structure_data`
@@ -620,7 +628,7 @@ Class Structure extends Core
         $result = array();
 
         while ($row = $sql->fetch_assoc()) {
-            $row['children'] = $this->getBranchArray($row['id']);
+            $row['children'] = $this->getBranchArray($row['id'], $additional_fields);
             $result[] = $row;
         }
 

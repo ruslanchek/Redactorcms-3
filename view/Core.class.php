@@ -208,6 +208,18 @@ Class Core
         }
     }
 
+    private function getBlockCarrier($carrier_id){
+        $query = "
+            SELECT
+                `path`
+            FROM
+                `structure_data`
+            WHERE
+                `id` = " . intval($carrier_id);
+
+        return (object) $this->db->assocItem($query);
+    }
+
     public function drawBlock($block_id)
     {
         if (
@@ -227,11 +239,30 @@ Class Core
             $module = $this->getModule($block_obj->module);
             $mode = $this->getModuleMode($module, $block_obj->module_mode);
 
-            $block_obj->block_id = $block_id;
-            $block_obj->module = (object) $module;
+            $block_obj->block_id    = $block_id;
+            $block_obj->module      = (object) $module;
             $block_obj->module_mode = (object) $mode;
 
-            unset($block_obj->module->modes);
+            if($block_obj->block_id == 'main'){
+                if($block_obj->module_mode->carrier == true){
+                    $block_obj->carrier_id  = $this->page->data->id;
+                    $block_obj->carrier     = $this->getBlockCarrier($block_obj->carrier_id);
+                    $block_obj->carrier->id = $block_obj->carrier_id;
+                }
+            }else{
+                if($block_obj->module_mode->carrier == true && $block_obj->carrier_id > 0){
+                    $block_obj->carrier     = $this->getBlockCarrier($block_obj->carrier_id);
+                    $block_obj->carrier->id = $block_obj->carrier_id;
+                }else if($block_obj->module_mode->carrier == true && !$block_obj->carrier_id){
+                    return $this->utils->displayError(
+                        '1001',
+                        'Ошибка блока',
+                        'Не выбран узел-носитель модуля'
+                    );
+                }
+            }
+
+            unset($block_obj->module->modes, $block_obj->carrier_id);
 
             $o = array();
 
@@ -249,7 +280,7 @@ Class Core
                 return $this->smarty->fetch('blocks/' . $block_obj->mode_template);
             }else{
                 return $this->utils->displayError(
-                    '1001',
+                    '1002',
                     'Ошибка блока',
                     'Отсутствует файл шаблона блока <strong>' . $block_obj->mode_template . '</strong>
                 ');

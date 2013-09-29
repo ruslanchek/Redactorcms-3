@@ -49,13 +49,15 @@ class SectionController extends Core
         if (is_array($data->fields) && !empty($data->fields) && $data->fields != '*') {
             foreach ($data->fields as $item) {
                 if (is_array($item)) {
-                    $data->fields_query .= $item[0] . ' AS `' . $this->db->quote($item[1]) . '`, ';
+                    $data->fields_query .= '`' . $item[0] . '` AS `' . $this->db->quote($item[1]) . '`, ';
                 } else {
                     $data->fields_query .= '`' . $this->db->quote($item) . '`, ';
                 }
             }
 
             $data->fields_query = substr($data->fields_query, 0, strlen($data->fields_query) - 2);
+        } elseif ($data->fields != '*') {
+            $data->fields_query .= $data->fields;
         } else {
             $data->fields_query .= '*';
         }

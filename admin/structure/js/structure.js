@@ -60,7 +60,7 @@ var structure = {
                     selected = '';
                 }
 
-                options += '<option autocomplete="off" '+selected+' value="'+this.modules[i].id+'">'+this.modules[i].title+'</option>';
+                options += '<option autocomplete="off" ' + selected + ' value="' + this.modules[i].id + '">' + this.modules[i].title + '</option>';
             }
 
             var html = '<select id="select_block_module">' + options + '</select>';
@@ -73,6 +73,7 @@ var structure = {
                 structure.blocksInput.drawSelectContentId(      $(this).val(), 1, '');
                 structure.blocksInput.drawSelectModuleTemplate( $(this).val(), 1);
                 structure.blocksInput.drawSelectMenuParentId(   $(this).val(), 1);
+                structure.blocksInput.drawSelectModuleCarrierId($(this).val(), 1);
                 structure.blocksInput.drawOptions(              $(this).val(), 1);
             });
         },
@@ -104,85 +105,135 @@ var structure = {
             }
         },
 
-        drawSelectMenuParentId: function(module, module_mode, menu_parent_id){
-            if(module == 2 && (module_mode == 1 || module_mode == 2)){
-                $('#select_block_menu_parent_id_placeholder').parent().show();
+        getStructureTreeItems: function(select_id, callback){
+            $.ajax({
+                url         : '/admin/structure/?ajax&action=get_tree',
+                type        : 'GET',
+                dataType    : 'json',
+                beforeSend  : function(){
+                    core.loading.setLoadingToElementByAppend('getStructureTreeItems' + select_id, $('#' + select_id + '_placeholder'), true);
+                },
+                success: function(data){
+                    core.loading.unsetLoading('getStructureTreeItems' + select_id);
 
-                this.block_menu_parents_request = $.ajax({
-                    url         : '/admin/structure/?ajax&action=get_tree',
-                    type        : 'GET',
-                    dataType    : 'json',
-                    beforeSend  : function(){
-                        if(this.block_menu_parents_request){
-                            this.block_menu_parents_request.abort();
-                        }
-
-                        $('#select_block_menu_parent_id_placeholder').html('').parent().show();
-                        core.loading.setLoadingToElementByAppend('drawSelectSelectMenu', $('#select_block_menu_parent_id_placeholder'), true);
-                    },
-                    success: function(result){
-                        core.loading.unsetLoading('drawSelectSelectMenu');
-
-                        if(result != null){
-                            if(result.length > 0){
-                                var options = '',
-                                    selected,
-                                    tree = [];
-
-                                var rw = function(arr, level){
-                                    for(var i = 0, l = arr.length; i < l; i++){
-                                        if(arr[i].id && arr[i].id){
-                                            tree.push({
-                                                id: arr[i].id,
-                                                name: arr[i].name,
-                                                level: level
-                                            });
-                                        }
-
-                                        if(arr[i].children && arr[i].children.length > 0){
-                                            rw(arr[i].children, level + 1);
-                                        }
-                                    }
-                                }
-
-                                rw(result, 0);
-
-                                for(var i = 0, l = tree.length; i < l; i++){
-                                    console.log(tree[i])
-
-                                    if(tree[i].id == menu_parent_id || (!menu_parent_id && tree[i].id == core.form.options.data.pid)){
-                                        selected = 'selected="selected"';
-                                    }else{
-                                        selected = '';
-                                    }
-
-                                    var level_padding = '',
-                                        lvl = parseInt(tree[i].level);
-
-                                    while(lvl > 0){
-                                        lvl -= 1;
-                                        level_padding += '&ndash; ';
-                                    }
-
-                                    options += '<option ' + selected + ' value="' + tree[i].id + '">' + level_padding + tree[i].name + '</option>';
-                                }
-
-                                var html = '<select id="select_block_menu_parent_id">' + options + '</select>';
-
-                                $('#select_block_menu_parent_id_placeholder').html(html);
-                                $('select#select_block_menu_parent_id').chosen();
-                                $('#select_block_menu_parent_id_placeholder').parent().show();
-                            }else{
-                                $('#select_block_menu_parent_id_placeholder').html('<em class="gray">Нет объектов</em>');
-                                $('#select_block_menu_parent_id_placeholder').parent().show();
-                            }
-                        }else{
-                            $('#select_block_menu_parent_id_placeholder').parent().hide();
-                        }
+                    if(callback){
+                        callback(data)
                     }
-                });
+                },
+                error: function(){
+                    core.loading.unsetLoading('drawSelectSelectMenu' + select_id);
+                }
+            });
+        },
+
+        getStructureTreeItemsHtml: function(select_id, process, selected_item_id){
+            $('#' + select_id + '_placeholder').html('').parent().show();
+
+            this.getStructureTreeItems(select_id, process, function(data){
+                var $ph = $('#' + select_id + '_placeholder');
+
+                if(data != null){
+                    if(data.length > 0){
+                        var options = '',
+                            selected,
+                            tree = [];
+
+                        var rw = function(arr, level){
+                            for(var i = 0, l = arr.length; i < l; i++){
+                                if(arr[i].id && arr[i].id > 0){
+                                    tree.push({
+                                        id: arr[i].id,
+                                        name: arr[i].name,
+                                        level: level,
+                                        main_block: (arr[i].main_block) ? JSON.parse(arr[i].main_block) : null
+                                    });
+                                }
+
+                                if(arr[i].children && arr[i].children.length > 0){
+                                    rw(arr[i].children, level + 1);
+                                }
+                            }
+                        }
+
+                        rw(data, 0);
+
+                        for(var i = 0, l = tree.length; i < l; i++){
+                            if(tree[i].id == selected_item_id || (!selected_item_id && tree[i].id == core.form.options.data.pid)){
+                                selected = 'selected';
+                            }else{
+                                selected = '';
+                            }
+
+                            var level_padding = '',
+                                lvl = parseInt(tree[i].level),
+                                disabled = '';
+
+                            while(lvl > 0){
+                                lvl -= 1;
+                                level_padding += '&bull; ';
+                            }
+
+                            if(process !== false && process(tree[i]) === false){
+                                disabled += 'disabled';
+                            }
+
+                            options += '<option ' + disabled + ' ' + selected + ' value="' + tree[i].id + '">' + level_padding + tree[i].name + '</option>';
+                        }
+
+                        var html = '<select id="' + select_id + '">' + options + '</select>';
+
+                        $ph.html(html);
+                        $('#' + select_id).chosen();
+                        $ph.parent().show();
+                    }else{
+                        $ph.html('<em class="gray">Нет объектов</em>');
+                        $ph.parent().show();
+                    }
+                }else{
+                    $('#' + select_id + '_placeholder').parent().hide();
+                }
+            });
+        },
+
+        drawSelectMenuParentId: function(module, module_mode, menu_parent_id){
+            var select_id = 'select_block_menu_parent_id';
+
+            if(module == 2 && (module_mode == 1 || module_mode == 2)){
+                this.getStructureTreeItemsHtml(
+                    select_id,
+                    false,
+                    menu_parent_id
+                );
             }else{
-                $('#select_block_menu_parent_id_placeholder').parent().hide();
+                $('#' + select_id + '_placeholder').parent().hide();
+            }
+        },
+
+        drawSelectModuleCarrierId: function(module, module_mode, carrier_id){
+            module = this.getblockModule(module);
+
+            var mode,
+                select_id = 'select_block_carrier_id';
+
+            for(var i = 0, l = module.modes.length; i < l; i++){
+                if(module.modes[i].id == module_mode){
+                    mode = module.modes[i];
+                }
+            }
+
+            // Main block is always are carrier!
+            if(mode.carrier === true && this.current_block_id != 'main'){
+                this.getStructureTreeItemsHtml(
+                    select_id,
+                    function(item){
+                        if(item.main_block.module == module){
+
+                        }
+                    },
+                    carrier_id
+                );
+            }else{
+                $('#' + select_id + '_placeholder').parent().hide();
             }
         },
 
@@ -211,6 +262,7 @@ var structure = {
                 structure.blocksInput.drawSelectModuleTemplate( $('#select_block_module').val(), $(this).val());
                 structure.blocksInput.drawSelectMenuParentId(   $('#select_block_module').val(), $(this).val());
                 structure.blocksInput.drawOptions(              $('#select_block_module').val(), $(this).val());
+                structure.blocksInput.drawSelectModuleCarrierId($('#select_block_module').val(), $(this).val());
             });
         },
 
@@ -267,7 +319,7 @@ var structure = {
                     beforeSend  : function(){
                         if(this.block_content_items_request){
                             this.block_content_items_request.abort();
-                        };
+                        }
 
                         $('#select_block_content_id_placeholder').html('').parent().show();
                         core.loading.setLoadingToElementByAppend('drawSelectContentId', $('#select_block_content_id_placeholder'), true);
@@ -490,6 +542,7 @@ var structure = {
                 module_mode,
                 content_id,
                 menu_parent_id,
+                carrier_id,
                 options;
 
             if($item_obj.hasClass('empty_block')){
@@ -511,7 +564,8 @@ var structure = {
                     module          = 1;
                     module_mode     = 1;
                     content_id      = 0;
-                    menu_parent_id  = 1;
+                    menu_parent_id  = false;
+                    carrier_id      = false;
                     options         = [];
                 } break;
 
@@ -520,18 +574,20 @@ var structure = {
                     module          = 1;
                     module_mode     = 1;
                     content_id      = 0;
-                    menu_parent_id  = 1;
+                    menu_parent_id  = false;
+                    carrier_id      = false;
                     block_id        = $item_obj.data('id');
                     options         = [];
                 } break;
 
                 default : {
                     var block_data  = this.getBlockData(block_id);
-                    header          = 'Настройка блока №'+block_id;
+                    header          = 'Настройка блока №' + block_id;
                     module          = block_data.module;
                     module_mode     = block_data.module_mode;
                     content_id      = block_data.content_id;
                     menu_parent_id  = block_data.menu_parent_id;
+                    carrier_id      = block_data.carrier_id;
                     options         = block_data.options;
 
                     var aftershow = function(){
@@ -574,6 +630,12 @@ var structure = {
                                             '<input type="hidden" id="select_block_options">' +
                                         '</div>' +
 
+                                        '<div style="display: none" class="item_block">' +
+                                            '<label class="label" class="control-label" for="select_block_menu_parent_id">Узел-носитель модуля</label>' +
+                                            '<div class="controls" id="select_block_carrier_id_placeholder"></div>' +
+                                            '<input type="hidden" id="select_block_carrier_id">' +
+                                        '</div>' +
+
                                         '<div id="block_options" style="display: none"></div>' +
                                     '</fieldset>' +
                                 '</form>' +
@@ -599,6 +661,7 @@ var structure = {
             this.drawSelectModuleTemplate(module, module_mode, mode_template);
             this.drawSelectContentId(module, module_mode, content_id);
             this.drawSelectMenuParentId(module, module_mode, menu_parent_id);
+            this.drawSelectModuleCarrierId(module, module_mode, carrier_id);
             this.drawOptions(module, module_mode);
         },
 
@@ -677,6 +740,7 @@ var structure = {
                         mode_template   : $('#select_block_mode_template').val(),
                         content_id      : parseInt($('#select_block_content_id').val()),
                         menu_parent_id  : parseInt($('#select_block_menu_parent_id').val()),
+                        carrier_id      : parseInt($('#select_block_carrier_id').val()),
                         options         : this.getBlockOptions()
                     });
                 }
@@ -688,6 +752,7 @@ var structure = {
                         this.blocks_obj[i].mode_template    = $('#select_block_mode_template').val();
                         this.blocks_obj[i].content_id       = parseInt($('#select_block_content_id').val());
                         this.blocks_obj[i].menu_parent_id   = parseInt($('#select_block_menu_parent_id').val());
+                        this.blocks_obj[i].carrier_id       = parseInt($('#select_block_carrier_id').val());
                         this.blocks_obj[i].options          = this.getBlockOptions();
 
                         block_data = this.blocks_obj[i];
@@ -695,7 +760,7 @@ var structure = {
                     }
                 }
 
-                if($('#blocks .item[rel="'+block_id+'"]').hasClass('empty_block')){
+                if($('#blocks .item[rel="' + block_id + '"]').hasClass('empty_block')){
                     block_data = {
                         id              : block_id,
                         module          : parseInt($('#select_block_module').val()),
@@ -703,6 +768,7 @@ var structure = {
                         mode_template   : $('#select_block_mode_template').val(),
                         content_id      : parseInt($('#select_block_content_id').val()),
                         menu_parent_id  : parseInt($('#select_block_menu_parent_id').val()),
+                        carrier_id      : parseInt($('#select_block_carrier_id').val()),
                         options         : this.getBlockOptions()
                     };
 
@@ -986,6 +1052,8 @@ var structure = {
             });
         }
 
+        core.form.drawSeparator();
+
         core.form.drawSelectInput({
             label       : 'Меню',
             name        : 'menu_id',
@@ -1009,6 +1077,12 @@ var structure = {
             structure.blocksInput.drawBlocks();
         });
 
+        core.form.drawSeparator();
+
+        this.blocksInput.init();
+
+        core.form.drawSeparator();
+
         core.form.drawTextInput({
             label       : 'Титул',
             name        : 'seo_title'
@@ -1023,8 +1097,6 @@ var structure = {
             label       : 'Описание',
             name        : 'seo_description'
         });
-
-        this.blocksInput.init();
     },
 
     openStructureItem: function(id){

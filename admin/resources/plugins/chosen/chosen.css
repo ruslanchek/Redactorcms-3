@@ -305,6 +305,8 @@
 .chzn-container-multi .chzn-drop .result-selected {
   display: none;
 }
+
+
 .chzn-container .chzn-results-scroll {
   background: white;
   margin: 0 4px;
@@ -428,3 +430,8 @@
   direction: rtl;
 }
 /* @end */
+
+
+.chzn-container .chzn-results .result-disabled {
+    color: #999;
+}
