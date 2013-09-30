@@ -1,4 +1,4 @@
-{function name=menu level=0}
+{function name=menu_multi_level level=0}
 <ul data-level="{$level}">
     {foreach from=$data item="item" key="i"}
         {if is_object($item)}
@@ -10,7 +10,7 @@
                 {/if}
 
                 {if !empty($item->children)}
-                    {call name=menu data=$item->children level=$level+1}
+                    {call name=menu_multi_level data=$item->children level=$level+1}
                 {/if}
             </li>
         {else}
@@ -22,4 +22,4 @@
 </ul>
 {/function}
 
-{call name=menu data=$block->module->data}
+{call name=menu_multi_level data=$block->module->data}

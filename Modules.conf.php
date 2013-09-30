@@ -118,16 +118,6 @@ $md->options    = array(array('name' => 'limit', 'title' => 'Лимит', 'defau
 $mo->mode($md);
 
 $md             = new stdClass();
-$md->id         = 2;
-$md->name       = 'news.lines.all';
-$md->title      = 'Список всех линеек новостей';
-$md->table      = 'news_lines';
-$md->sl_action  = false;
-$md->carrier    = true;
-$md->template   = 'news.news_lines.tpl';
-$mo->mode($md);
-
-$md             = new stdClass();
 $md->id         = 3;
 $md->name       = 'news.line';
 $md->title      = 'Линейка новостей';

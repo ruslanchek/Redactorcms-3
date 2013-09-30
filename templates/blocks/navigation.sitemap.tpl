@@ -1,4 +1,4 @@
-{function name=menu level=0}
+{function name=sitemap level=0}
 <ul data-level="{$level}">
     {foreach from=$data item="item" key="i"}
         {if is_object($item)}
@@ -6,7 +6,7 @@
                 <a href="{$item->path}">{$item->name}</a>
 
                 {if !empty($item->children)}
-                    {call name=menu data=$item->children level=$level+1}
+                    {call name=sitemap data=$item->children level=$level+1}
                 {/if}
             </li>
         {else}
@@ -18,4 +18,4 @@
 </ul>
 {/function}
 
-{call name=menu data=$core->getMenuTree(false, 0)}
+{call name=sitemap data=$block->module->data}

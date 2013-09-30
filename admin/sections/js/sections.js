@@ -299,6 +299,8 @@ var section = {
             form_id             : 'edit_item_form',
             container_obj       : $('#content_editor'),
             data                : item_data,
+            cols                : data.cols,
+            process_autofills   : true,
             beforeSubmit        : function(){
 
             },

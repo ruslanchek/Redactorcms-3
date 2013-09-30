@@ -154,7 +154,16 @@ $f->validate    = array(
     array(
         'method'    => 'unique',
         'message'   => 'Такой путь уже существует у другой новости'
+    ),
+    array(
+        'method'    => 'url',
+        'message'   => 'Недопустимые символы'
     )
+);
+$f->autofill    = array(
+    'type'          => 'depends',
+    'from_field'    => 'name',
+    'method'        => 'url'
 );
 $s->field($f);
 
@@ -260,26 +269,6 @@ $f->validate    = array(
     array(
         'method'    => 'required',
         'message'   => 'Заполните название'
-    )
-);
-$s->field($f);
-
-$f              = new stdClass();
-$f->name        = 'path';
-$f->label       = 'Путь';
-$f->type        = 'text';
-$f->list        = true;
-$f->link        = false;
-$f->width       = '30%';
-$f->align       = 'left';
-$f->validate    = array(
-    array(
-        'method'    => 'required',
-        'message'   => 'Заполните путь'
-    ),
-    array(
-        'method'    => 'unique',
-        'message'   => 'Такой путь уже существует у другой линейки'
     )
 );
 $s->field($f);

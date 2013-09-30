@@ -126,10 +126,10 @@ var structure = {
             });
         },
 
-        getStructureTreeItemsHtml: function(select_id, process, selected_item_id){
+        getStructureTreeItemsHtml: function(select_id, process_filter, selected_item_id){
             $('#' + select_id + '_placeholder').html('').parent().show();
 
-            this.getStructureTreeItems(select_id, process, function(data){
+            this.getStructureTreeItems(select_id, function(data){
                 var $ph = $('#' + select_id + '_placeholder');
 
                 if(data != null){
@@ -173,7 +173,7 @@ var structure = {
                                 level_padding += '&bull; ';
                             }
 
-                            if(process !== false && process(tree[i]) === false){
+                            if(process_filter !== false && process_filter(tree[i]) === false){
                                 disabled += 'disabled';
                             }
 
@@ -226,8 +226,19 @@ var structure = {
                 this.getStructureTreeItemsHtml(
                     select_id,
                     function(item){
-                        if(item.main_block.module == module){
+                        module = structure.blocksInput.getblockModule(item.main_block.module),
+                        mode = null;
 
+                        for(var i = 0, l = module.modes.length; i < l; i++){
+                            if(module.modes[i].id == item.main_block.module_mode){
+                                mode = module.modes[i];
+                            }
+                        }
+
+                        if(item.main_block.module == module.id && mode && mode.carrier === true){
+                            return true;
+                        }else{
+                            return false;
                         }
                     },
                     carrier_id
@@ -1035,6 +1046,10 @@ var structure = {
                     {
                         method  : 'required',
                         message : 'Заполните путь'
+                    },
+                    {
+                        method : 'url_part',
+                        message: 'Недопустимые символы'
                     },
                     {
                         method  : 'ajax',

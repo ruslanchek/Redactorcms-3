@@ -49,6 +49,133 @@ core.utilities = {
         }
     },
 
+    translit: function(str){
+        var tr = [
+            ['А', 'a'],
+            ['Б', 'b'],
+            ['В', 'v'],
+            ['Г', 'g'],
+            ['Д', 'd'],
+            ['Е', 'e'],
+            ['Ё', 'e'],
+            ['Ж', 'j'],
+            ['З', 'z'],
+            ['И', 'i'],
+            ['Й', 'y'],
+            ['К', 'k'],
+            ['Л', 'l'],
+            ['М', 'm'],
+            ['Н', 'n'],
+            ['О', 'o'],
+            ['П', 'p'],
+            ['Р', 'r'],
+            ['С', 's'],
+            ['Т', 't'],
+            ['У', 'u'],
+            ['Ф', 'f'],
+            ['Х', 'h'],
+            ['Ц', 'ts'],
+            ['Ч', 'ch'],
+            ['Ш', 'sh'],
+            ['Щ', 'sch'],
+            ['Ъ', ''],
+            ['Ы', 'yi'],
+            ['Ь', ''],
+            ['Э', 'e'],
+            ['Ю', 'yu'],
+            ['Я', 'ya'],
+            ['а', 'a'],
+            ['б', 'b'],
+            ['в', 'v'],
+            ['г', 'g'],
+            ['д', 'd'],
+            ['е', 'e'],
+            ['ё', 'e'],
+            ['ж', 'j'],
+            ['з', 'z'],
+            ['и', 'i'],
+            ['й', 'y'],
+            ['к', 'k'],
+            ['л', 'l'],
+            ['м', 'm'],
+            ['н', 'n'],
+            ['о', 'o'],
+            ['п', 'p'],
+            ['р', 'r'],
+            ['с', 's'],
+            ['т', 't'],
+            ['у', 'u'],
+            ['ф', 'f'],
+            ['х', 'h'],
+            ['ц', 'ts'],
+            ['ч', 'ch'],
+            ['ш', 'sh'],
+            ['щ', 'sch'],
+            ['ъ', 'y'],
+            ['ы', 'yi'],
+            ['ь', ''],
+            ['э', 'e'],
+            ['ю', 'yu'],
+            ['я', 'ya']
+        ];
+
+        for(var i = 0, l = tr.length; i < l; i++){
+            var reg = new RegExp(tr[i][0], "g");
+
+            str = str.replace(reg, tr[i][1]);
+        };
+
+        return str;
+    },
+
+    escapeUrl: function (str){
+        var reg = new RegExp('/[^a-zA-Z0-9-\?]/', "g");
+        str = str.replace(reg, "_", str);
+
+        var reg = new RegExp(' ', "g");
+        str = str.replace(reg, "_", str);
+
+        var reg = new RegExp('__', "g");
+        str = str.replace(reg, "_", str);
+
+        var reg = new RegExp('\\?', "g");
+        str = str.replace(reg, "", str);
+
+        str = str.toLowerCase();
+
+        return this.translit(str);
+    },
+
+    convertToQWERTY: function (str, reverse) {
+        var out = '',
+            i,
+            k,
+            ok = true,
+            rus = new Array('й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', 'ё', 'Ё'),
+            eng = new Array('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '`', '~');
+
+        for (i = 0; i < str.length; i++) {
+            ok = true;
+
+            for (k = 0; k < rus.length; k++) {
+                if (str.charAt(i) == rus[k]) {
+                    ok = false;
+                    out = out + eng[k];
+                    break;
+                }
+                else if (str.charAt(i) == eng[k] && reverse === true) {
+                    ok = false;
+                    out = out + rus[k];
+                    break;
+                }
+            }
+
+            if (ok == true) out = out + str.charAt(i);
+        }
+
+        return out;
+    },
+
     explode: function(delimiter, string, limit) {
         var emptyArray = {
             0: ''
@@ -488,6 +615,14 @@ core.form = {
                 return this.ajax(val, params);
             },
 
+            url: function(val){
+                return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(val);
+            },
+
+            url_part: function(val){
+                return /^[a-zA-Zа-яА-Я0-9_-]+$/.test(val);
+            },
+
             ajax: function(val, params){
                 var result;
 
@@ -550,6 +685,10 @@ core.form = {
     createForm: function(options){
         this.options = $.extend(this.options, options);
         this.createFormContainer();
+
+        if(this.options.process_autofills === true){
+            this.bindAutoFills();
+        }
     },
 
     hideMessage: function(callback){
@@ -809,6 +948,54 @@ core.form = {
         var html    =  '<div class="separator"></div>';
 
         this.options.container_obj.find('form#'+this.options.form_id).find('.form_items').append(html);
+    },
+
+    processAutofillValue: function(value, method){
+        switch(method){
+            case 'url' : {
+                return core.utilities.escapeUrl(value);
+            } break;
+
+            default : {
+                return value;
+            } break;
+        }
+    },
+
+    bindAutoFillField: function(col){
+        switch (col.autofill.type) {
+            case 'depends' : {
+                $(this.options.container_obj)
+                .off(
+                    'keyup.autofill' + col.autofill.from_field + ' ' +
+                    'change.autofill' + col.autofill.from_field + ' ' +
+                    'focus.autofill' + col.autofill.from_field + ' ' +
+                    'blur.autofill' + col.autofill.from_field
+                )
+                .on(
+                    'keyup.autofill' + col.autofill.from_field + ' ' +
+                    'change.autofill' + col.autofill.from_field + ' ' +
+                    'focus.autofill' + col.autofill.from_field + ' ' +
+                    'blur.autofill' + col.autofill.from_field,
+                    'input[name="' + col.autofill.from_field + '"]',
+                    function(){
+                        var value = core.form.processAutofillValue($(this).val(), col.autofill.method);
+
+                        $('input[name="' + col.name + '"]').val(value);
+                    }
+                )
+            } break;
+        }
+    },
+
+    bindAutoFills: function(){
+        if(this.options.cols){
+            for(var i = 0, l = this.options.cols.length; i < l; i++){
+                if(this.options.cols[i].autofill){
+                    this.bindAutoFillField(this.options.cols[i]);
+                }
+            }
+        }
     }
 };
 

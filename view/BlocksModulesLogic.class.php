@@ -51,6 +51,10 @@ Class BlocksModulesLogic extends Base
         return $this->getMenu($this->block->content_id, $this->block->menu_parent_id);
     }
 
+    private function __getBlockModule__NavigationLevelSub(){
+        return $this->getMenu($this->block->content_id, $this->page->data->id);
+    }
+
     private function __getBlockModule__NavigationTree(){
         return $this->getMenuTree($this->block->content_id, $this->block->menu_parent_id);
     }
@@ -81,21 +85,27 @@ Class BlocksModulesLogic extends Base
         );
     }
 
-    private function __getBlockModule__NewsLinesAll(){
+    private function __getBlockModule__NewsLine(){
         $fields = '';
 
         if($this->block->carrier->path){
-            $fields .= "`id`, `name`, CONCAT('" . $this->block->carrier->path .  "', `path`) AS `path`";
+            $fields .= "`id`, `name`, `announce`, CONCAT('" . $this->block->carrier->path .  "', `path`) AS `path`";
         }else{
-            $fields .= "`id`, `name`, `path`";
+            $fields .= "`id`, `name`, `announce`, `path`";
+        }
+
+        $where = '';
+
+        if($this->block->content_id > 0){
+            $where = "`news_lines` = " . intval($this->block->content_id);
         }
 
         return $this->sectionctrl->getList(
-            $this->block->module_mode->table,
+            'news',
             $fields,
-            false,
+            $where,
             array('id', 'ASC'),
-            false
+            intval($this->getModuleOptionValue('limit'))
         );
     }
 }

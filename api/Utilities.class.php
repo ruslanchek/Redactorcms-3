@@ -99,8 +99,8 @@ class Utilities extends Core
     //Translit an URL
     static function convertUrl($str)
     {
-        $str = strtolower(Utilities::translit($str));
-        $str = preg_replace("/[^a-zA-Z0-9-\.\?]/", "_", $str);
+        $str = strtolower(Utilities::translit($str));//TODO сделать возм русского языка в URL-ах
+        $str = preg_replace("/[^a-zA-Zа-яА-Я0-9-\.\?]/", "_", $str);
         return strtr($str, array(" " => "_", "__" => "_", "?" => ""));
     }
 
