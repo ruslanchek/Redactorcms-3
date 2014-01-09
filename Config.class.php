@@ -14,7 +14,7 @@ Class Config{
     //DB params
     public $db_vars = array(
         'host'  => 'localhost',
-        'db'    => 'rdc3',
+        'db'    => 'redactorcms3',
         'user'  => 'root',
         'pass'  => '123'
     );
