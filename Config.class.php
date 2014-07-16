@@ -1,5 +1,5 @@
 <?php
-//error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL ^ E_NOTICE);
 
 session_start();
 date_default_timezone_set('Europe/Moscow');
@@ -14,7 +14,7 @@ Class Config{
     //DB params
     public $db_vars = array(
         'host'  => 'localhost',
-        'db'    => 'redactorcms3',
+        'db'    => 'rdc',
         'user'  => 'root',
         'pass'  => '123'
     );
